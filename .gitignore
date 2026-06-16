@@ -1,0 +1,29 @@
+# MicroPico 上傳時 / git 都應跳過的內容
+
+# 開發環境
+.DS_Store
+.vscode/
+.git/
+
+# Host 端工具，僅在開發機需要
+mDns/
+fonts/
+tools/
+API/
+
+# 文件 (留在 git 內，但不必上 Pico)
+*.md
+plant.md
+Pico-ePaper-3.7.md
+ProjectDetail.md
+CLAUDE.md
+lib/README.md
+
+# build 腳本不要上 Pico
+weather_icon/build_icons.sh
+wifi_icon/*.sh
+**/build_*.sh
+
+# Pico 端產出 (不該進 git)
+config.json
+weather.log
