@@ -1,0 +1,3177 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "display/screens/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "log_display",
+          "startLine": 1,
+          "endLine": 7,
+          "params": [
+            "label",
+            "*parts"
+          ]
+        },
+        {
+          "name": "make_writer",
+          "startLine": 10,
+          "endLine": 33,
+          "params": [
+            "canvas",
+            "font"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "log_display",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "make_writer",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "log_display",
+          "callee": "\" | \".join",
+          "lineNumber": 4
+        },
+        {
+          "caller": "log_display",
+          "callee": "str",
+          "lineNumber": 4
+        },
+        {
+          "caller": "log_display",
+          "callee": "print",
+          "lineNumber": 5
+        },
+        {
+          "caller": "log_display",
+          "callee": "\"[EPD] {}: {}\".format",
+          "lineNumber": 5
+        },
+        {
+          "caller": "make_writer",
+          "callee": "Writer",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_ps",
+          "callee": "_orig",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/mdns_client/service_discovery/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 4,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Pico_ePaper_3_7.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 621,
+      "nonEmptyLines": 496,
+      "classes": [
+        {
+          "name": "EPD_3in7",
+          "startLine": 99,
+          "endLine": 572,
+          "methods": [
+            "__init__",
+            "digital_write",
+            "digital_read",
+            "delay_ms",
+            "spi_writebyte",
+            "module_exit",
+            "reset",
+            "send_command",
+            "send_data",
+            "ReadBusy",
+            "Load_LUT",
+            "EPD_3IN7_4Gray_init",
+            "EPD_3IN7_1Gray_init",
+            "EPD_3IN7_4Gray_Clear",
+            "EPD_3IN7_1Gray_Clear",
+            "EPD_3IN7_4Gray_Display",
+            "EPD_3IN7_1Gray_Display",
+            "EPD_3IN7_1Gray_Display_Part",
+            "Sleep"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EPD_3in7",
+          "line": 99,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "Pin",
+          "lineNumber": 101
+        },
+        {
+          "caller": "__init__",
+          "callee": "Pin",
+          "lineNumber": 103
+        },
+        {
+          "caller": "__init__",
+          "callee": "Pin",
+          "lineNumber": 104
+        },
+        {
+          "caller": "__init__",
+          "callee": "SPI",
+          "lineNumber": 119
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.spi.init",
+          "lineNumber": 120
+        },
+        {
+          "caller": "__init__",
+          "callee": "Pin",
+          "lineNumber": 121
+        },
+        {
+          "caller": "__init__",
+          "callee": "bytearray",
+          "lineNumber": 124
+        },
+        {
+          "caller": "__init__",
+          "callee": "bytearray",
+          "lineNumber": 125
+        },
+        {
+          "caller": "__init__",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 126
+        },
+        {
+          "caller": "__init__",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 127
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.EPD_3IN7_4Gray_init",
+          "lineNumber": 129
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.EPD_3IN7_4Gray_Clear",
+          "lineNumber": 130
+        },
+        {
+          "caller": "__init__",
+          "callee": "utime.sleep_ms",
+          "lineNumber": 131
+        },
+        {
+          "caller": "digital_write",
+          "callee": "pin.value",
+          "lineNumber": 134
+        },
+        {
+          "caller": "digital_read",
+          "callee": "pin.value",
+          "lineNumber": 137
+        },
+        {
+          "caller": "delay_ms",
+          "callee": "utime.sleep",
+          "lineNumber": 140
+        },
+        {
+          "caller": "spi_writebyte",
+          "callee": "self.spi.write",
+          "lineNumber": 143
+        },
+        {
+          "caller": "spi_writebyte",
+          "callee": "bytearray",
+          "lineNumber": 143
+        },
+        {
+          "caller": "module_exit",
+          "callee": "self.digital_write",
+          "lineNumber": 146
+        },
+        {
+          "caller": "reset",
+          "callee": "self.digital_write",
+          "lineNumber": 150
+        },
+        {
+          "caller": "reset",
+          "callee": "self.delay_ms",
+          "lineNumber": 151
+        },
+        {
+          "caller": "reset",
+          "callee": "self.digital_write",
+          "lineNumber": 152
+        },
+        {
+          "caller": "reset",
+          "callee": "self.delay_ms",
+          "lineNumber": 153
+        },
+        {
+          "caller": "reset",
+          "callee": "self.digital_write",
+          "lineNumber": 154
+        },
+        {
+          "caller": "reset",
+          "callee": "self.delay_ms",
+          "lineNumber": 155
+        },
+        {
+          "caller": "send_command",
+          "callee": "self.digital_write",
+          "lineNumber": 158
+        },
+        {
+          "caller": "send_command",
+          "callee": "self.digital_write",
+          "lineNumber": 159
+        },
+        {
+          "caller": "send_command",
+          "callee": "self.spi_writebyte",
+          "lineNumber": 160
+        },
+        {
+          "caller": "send_command",
+          "callee": "self.digital_write",
+          "lineNumber": 161
+        },
+        {
+          "caller": "send_data",
+          "callee": "self.digital_write",
+          "lineNumber": 164
+        },
+        {
+          "caller": "send_data",
+          "callee": "self.digital_write",
+          "lineNumber": 165
+        },
+        {
+          "caller": "send_data",
+          "callee": "self.spi_writebyte",
+          "lineNumber": 166
+        },
+        {
+          "caller": "send_data",
+          "callee": "self.digital_write",
+          "lineNumber": 167
+        },
+        {
+          "caller": "ReadBusy",
+          "callee": "print",
+          "lineNumber": 170
+        },
+        {
+          "caller": "ReadBusy",
+          "callee": "self.digital_read",
+          "lineNumber": 171
+        },
+        {
+          "caller": "ReadBusy",
+          "callee": "self.delay_ms",
+          "lineNumber": 172
+        },
+        {
+          "caller": "ReadBusy",
+          "callee": "self.delay_ms",
+          "lineNumber": 173
+        },
+        {
+          "caller": "ReadBusy",
+          "callee": "print",
+          "lineNumber": 174
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "self.send_command",
+          "lineNumber": 177
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "range",
+          "lineNumber": 178
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "self.send_data",
+          "lineNumber": 180
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "self.send_data",
+          "lineNumber": 182
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "self.send_data",
+          "lineNumber": 184
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "self.send_data",
+          "lineNumber": 186
+        },
+        {
+          "caller": "Load_LUT",
+          "callee": "print",
+          "lineNumber": 188
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.reset",
+          "lineNumber": 192
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 194
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.delay_ms",
+          "lineNumber": 195
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 197
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 198
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.ReadBusy",
+          "lineNumber": 199
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 200
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 201
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.ReadBusy",
+          "lineNumber": 202
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 204
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 205
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 206
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 207
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 209
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 210
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 212
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 213
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 214
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 215
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 217
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 218
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 220
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 221
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 223
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 224
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 225
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 226
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 227
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 228
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 230
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 231
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 233
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 234
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 236
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 237
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 238
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 239
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 240
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 241
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 242
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 243
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 244
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 245
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 246
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 248
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 249
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 250
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 251
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 252
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 254
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 255
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 256
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 257
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 258
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 260
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 261
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.reset",
+          "lineNumber": 264
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 266
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.delay_ms",
+          "lineNumber": 267
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 269
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 270
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.ReadBusy",
+          "lineNumber": 271
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 272
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 273
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.ReadBusy",
+          "lineNumber": 274
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 276
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 277
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 278
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 279
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 281
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 282
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 284
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 285
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 286
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 287
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 289
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 290
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 292
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 293
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 295
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 296
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 297
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 298
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 299
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 300
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 302
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 303
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 305
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 306
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 308
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 309
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 310
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 311
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 312
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 313
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 314
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 315
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 316
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 317
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 318
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 320
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 321
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 322
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 323
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 324
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 326
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 327
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 328
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 329
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 330
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_command",
+          "lineNumber": 332
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_init",
+          "callee": "self.send_data",
+          "lineNumber": 333
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 342
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 343
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 344
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 345
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 346
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 347
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 348
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 349
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 351
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "range",
+          "lineNumber": 352
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "range",
+          "lineNumber": 353
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 354
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 356
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 357
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 358
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 360
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 361
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 362
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 364
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "range",
+          "lineNumber": 365
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "range",
+          "lineNumber": 366
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 367
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.Load_LUT",
+          "lineNumber": 369
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 370
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 371
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 373
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Clear",
+          "callee": "self.ReadBusy",
+          "lineNumber": 374
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 384
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 385
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 386
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 387
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 388
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 389
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 391
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "range",
+          "lineNumber": 392
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "range",
+          "lineNumber": 393
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_data",
+          "lineNumber": 394
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.Load_LUT",
+          "lineNumber": 397
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.send_command",
+          "lineNumber": 399
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Clear",
+          "callee": "self.ReadBusy",
+          "lineNumber": 400
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 404
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 405
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 408
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 409
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 410
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 413
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 414
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 415
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 417
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 418
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 420
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 422
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 450
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 452
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 453
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 454
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 457
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 458
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 459
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 461
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 462
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 464
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "range",
+          "lineNumber": 466
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 494
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.Load_LUT",
+          "lineNumber": 496
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 498
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 499
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 501
+        },
+        {
+          "caller": "EPD_3IN7_4Gray_Display",
+          "callee": "self.ReadBusy",
+          "lineNumber": 503
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 513
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 514
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 516
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 517
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 518
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 519
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 520
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 521
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 523
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "range",
+          "lineNumber": 524
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "range",
+          "lineNumber": 525
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_data",
+          "lineNumber": 526
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.Load_LUT",
+          "lineNumber": 529
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.send_command",
+          "lineNumber": 531
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display",
+          "callee": "self.ReadBusy",
+          "lineNumber": 532
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 542
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 543
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 544
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 545
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 546
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 547
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 548
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 549
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 550
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 551
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 553
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 554
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 555
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 557
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 558
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 559
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 561
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "range",
+          "lineNumber": 562
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "range",
+          "lineNumber": 563
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_data",
+          "lineNumber": 564
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.Load_LUT",
+          "lineNumber": 566
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.send_command",
+          "lineNumber": 567
+        },
+        {
+          "caller": "EPD_3IN7_1Gray_Display_Part",
+          "callee": "self.ReadBusy",
+          "lineNumber": 568
+        },
+        {
+          "caller": "Sleep",
+          "callee": "self.send_command",
+          "lineNumber": 571
+        },
+        {
+          "caller": "Sleep",
+          "callee": "self.send_data",
+          "lineNumber": 572
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "writer/clock_big.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 521,
+      "nonEmptyLines": 507,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 6,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "baseline",
+          "startLine": 9,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 12,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 15,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 18,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 21,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 24,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 27,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "get_ch",
+          "startLine": 513,
+          "endLine": 520,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "baseline",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 513,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 514
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ifb",
+          "lineNumber": 516
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ifb",
+          "lineNumber": 517
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/courier20.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 308,
+      "nonEmptyLines": 295,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 5,
+          "endLine": 6,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 8,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 11,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 14,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 17,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 20,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 23,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "_chr_addr",
+          "startLine": 297,
+          "endLine": 299,
+          "params": [
+            "ordch"
+          ]
+        },
+        {
+          "name": "get_ch",
+          "startLine": 301,
+          "endLine": 307,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "_chr_addr",
+          "line": 297,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 301,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_chr_addr",
+          "callee": "int.from_bytes",
+          "lineNumber": 299
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 302
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 304
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 305
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 306
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/font10.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 229,
+      "nonEmptyLines": 218,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 5,
+          "endLine": 6,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 8,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 11,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 14,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 17,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "_chr_addr",
+          "startLine": 218,
+          "endLine": 220,
+          "params": [
+            "ordch"
+          ]
+        },
+        {
+          "name": "get_ch",
+          "startLine": 222,
+          "endLine": 228,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "_chr_addr",
+          "line": 218,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 222,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_chr_addr",
+          "callee": "int.from_bytes",
+          "lineNumber": 220
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 223
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 224
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 225
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 226
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 227
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/font6.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 163,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 5,
+          "endLine": 6,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 8,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 11,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 14,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 17,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 20,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 23,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "_chr_addr",
+          "startLine": 165,
+          "endLine": 167,
+          "params": [
+            "ordch"
+          ]
+        },
+        {
+          "name": "get_ch",
+          "startLine": 169,
+          "endLine": 175,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "_chr_addr",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 169,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_chr_addr",
+          "callee": "int.from_bytes",
+          "lineNumber": 167
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 170
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 172
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 173
+        },
+        {
+          "caller": "get_ch",
+          "callee": "_chr_addr",
+          "lineNumber": 174
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/freesans20.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 288,
+      "nonEmptyLines": 276,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 5,
+          "endLine": 6,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 8,
+          "endLine": 9,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 11,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 14,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 17,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 20,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 23,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "get_ch",
+          "startLine": 280,
+          "endLine": 287,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 280,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 281
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 284
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 285
+        },
+        {
+          "caller": "get_ch",
+          "callee": "int.from_bytes",
+          "lineNumber": 286
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/noto12.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 457,
+      "nonEmptyLines": 442,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 6,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "baseline",
+          "startLine": 9,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 12,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 15,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 18,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 21,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 24,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 27,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "bs",
+          "startLine": 441,
+          "endLine": 449,
+          "params": [
+            "lst",
+            "val"
+          ]
+        },
+        {
+          "name": "get_ch",
+          "startLine": 451,
+          "endLine": 456,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "baseline",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "bs",
+          "line": 441,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 451,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "bs",
+          "callee": "len",
+          "lineNumber": 443
+        },
+        {
+          "caller": "bs",
+          "callee": "ifb",
+          "lineNumber": 444
+        },
+        {
+          "caller": "bs",
+          "callee": "ifb",
+          "lineNumber": 446
+        },
+        {
+          "caller": "get_ch",
+          "callee": "bs",
+          "lineNumber": 452
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 452
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ifb",
+          "lineNumber": 453
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/noto20.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 843,
+      "nonEmptyLines": 828,
+      "functions": [
+        {
+          "name": "height",
+          "startLine": 6,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "baseline",
+          "startLine": 9,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "max_width",
+          "startLine": 12,
+          "endLine": 13,
+          "params": []
+        },
+        {
+          "name": "hmap",
+          "startLine": 15,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "reverse",
+          "startLine": 18,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "monospaced",
+          "startLine": 21,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "min_ch",
+          "startLine": 24,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "max_ch",
+          "startLine": 27,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "bs",
+          "startLine": 827,
+          "endLine": 835,
+          "params": [
+            "lst",
+            "val"
+          ]
+        },
+        {
+          "name": "get_ch",
+          "startLine": 837,
+          "endLine": 842,
+          "params": [
+            "ch"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "height",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "baseline",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "max_width",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "hmap",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "reverse",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "monospaced",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "min_ch",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "max_ch",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "bs",
+          "line": 827,
+          "isDefault": false
+        },
+        {
+          "name": "get_ch",
+          "line": 837,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "bs",
+          "callee": "len",
+          "lineNumber": 829
+        },
+        {
+          "caller": "bs",
+          "callee": "ifb",
+          "lineNumber": 830
+        },
+        {
+          "caller": "bs",
+          "callee": "ifb",
+          "lineNumber": 832
+        },
+        {
+          "caller": "get_ch",
+          "callee": "bs",
+          "lineNumber": 838
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ord",
+          "lineNumber": 838
+        },
+        {
+          "caller": "get_ch",
+          "callee": "ifb",
+          "lineNumber": 839
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/old_versions/writer_fw_compatible.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 342,
+      "nonEmptyLines": 303,
+      "functions": [
+        {
+          "name": "buildcheck",
+          "startLine": 29,
+          "endLine": 44,
+          "params": [
+            "device"
+          ]
+        },
+        {
+          "name": "_get_id",
+          "startLine": 54,
+          "endLine": 57,
+          "params": [
+            "device"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DisplayState",
+          "startLine": 49,
+          "endLine": 52,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Writer",
+          "startLine": 60,
+          "endLine": 268,
+          "methods": [
+            "set_textpos",
+            "__init__",
+            "_getstate",
+            "_newline",
+            "set_clip",
+            "height",
+            "printstring",
+            "_printline",
+            "stringlen",
+            "_truelen",
+            "_get_char",
+            "_printchar",
+            "tabsize",
+            "setcolor"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CWriter",
+          "startLine": 271,
+          "endLine": 342,
+          "methods": [
+            "__init__",
+            "_pchfast",
+            "_pchslow",
+            "setcolor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildcheck",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "DisplayState",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "_get_id",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "Writer",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "CWriter",
+          "line": 271,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildcheck",
+          "callee": "hasattr",
+          "lineNumber": 30
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "os.uname",
+          "lineNumber": 38
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "datestring.split",
+          "lineNumber": 39
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "date.lstrip",
+          "lineNumber": 40
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "tuple",
+          "lineNumber": 41
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "int",
+          "lineNumber": 41
+        },
+        {
+          "caller": "buildcheck",
+          "callee": "date.split",
+          "lineNumber": 41
+        },
+        {
+          "caller": "_get_id",
+          "callee": "isinstance",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_get_id",
+          "callee": "ValueError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_get_id",
+          "callee": "id",
+          "lineNumber": 57
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "_get_id",
+          "lineNumber": 66
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "DisplayState",
+          "lineNumber": 68
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "ValueError",
+          "lineNumber": 72
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "ValueError",
+          "lineNumber": 76
+        },
+        {
+          "caller": "__init__",
+          "callee": "_get_id",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "DisplayState",
+          "lineNumber": 84
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.height",
+          "lineNumber": 86
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.max_width",
+          "lineNumber": 86
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 87
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.hmap",
+          "lineNumber": 89
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 92
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 95
+        },
+        {
+          "caller": "__init__",
+          "callee": "fstr.format",
+          "lineNumber": 95
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 95
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "'Start row = {} col = {}'.format",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._getstate",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._getstate",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_newline",
+          "callee": "self._getstate",
+          "lineNumber": 116
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.font.height",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.device.scroll",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.device.fill_rect",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_newline",
+          "callee": "abs",
+          "lineNumber": 125
+        },
+        {
+          "caller": "height",
+          "callee": "self.font.height",
+          "lineNumber": 139
+        },
+        {
+          "caller": "printstring",
+          "callee": "string.split",
+          "lineNumber": 143
+        },
+        {
+          "caller": "printstring",
+          "callee": "len",
+          "lineNumber": 144
+        },
+        {
+          "caller": "printstring",
+          "callee": "enumerate",
+          "lineNumber": 145
+        },
+        {
+          "caller": "printstring",
+          "callee": "self._printline",
+          "lineNumber": 147
+        },
+        {
+          "caller": "printstring",
+          "callee": "self._printchar",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_printline",
+          "callee": "self.stringlen",
+          "lineNumber": 153
+        },
+        {
+          "caller": "_printline",
+          "callee": "self.stringlen",
+          "lineNumber": 156
+        },
+        {
+          "caller": "_printline",
+          "callee": "lstr.rfind",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_printline",
+          "callee": "lstr[:pos].rstrip",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printchar",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printchar",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printline",
+          "lineNumber": 167
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self._getstate",
+          "lineNumber": 170
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 174
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 179
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self._truelen",
+          "lineNumber": 181
+        },
+        {
+          "caller": "_truelen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 188
+        },
+        {
+          "caller": "_truelen",
+          "callee": "divmod",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_truelen",
+          "callee": "range",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_truelen",
+          "callee": "range",
+          "lineNumber": 194
+        },
+        {
+          "caller": "_truelen",
+          "callee": "divmod",
+          "lineNumber": 195
+        },
+        {
+          "caller": "_truelen",
+          "callee": "print",
+          "lineNumber": 205
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._printchar",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 224
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self.font.get_ch",
+          "lineNumber": 226
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._getstate",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 240
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._getstate",
+          "lineNumber": 249
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._get_char",
+          "lineNumber": 250
+        },
+        {
+          "caller": "_printchar",
+          "callee": "bytearray",
+          "lineNumber": 253
+        },
+        {
+          "caller": "_printchar",
+          "callee": "enumerate",
+          "lineNumber": 255
+        },
+        {
+          "caller": "_printchar",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 257
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self.device.blit",
+          "lineNumber": 258
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 275
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 275
+        },
+        {
+          "caller": "__init__",
+          "callee": "buildcheck",
+          "lineNumber": 277
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 285
+        },
+        {
+          "caller": "__init__",
+          "callee": "'Render {} using fast mode'.format",
+          "lineNumber": 285
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "self._getstate",
+          "lineNumber": 288
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "self._get_char",
+          "lineNumber": 289
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "bytearray_at",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "addressof",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "len",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 293
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "palette.bg",
+          "lineNumber": 295
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "palette.fg",
+          "lineNumber": 296
+        },
+        {
+          "caller": "_pchfast",
+          "callee": "self.device.blit",
+          "lineNumber": 298
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "self._getstate",
+          "lineNumber": 303
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "self._get_char",
+          "lineNumber": 304
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "divmod",
+          "lineNumber": 311
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "range",
+          "lineNumber": 318
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "range",
+          "lineNumber": 319
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "divmod",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_pchslow",
+          "callee": "device.pixel",
+          "lineNumber": 326
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 2,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "writer/old_versions/writer_minimal.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 98,
+      "nonEmptyLines": 88,
+      "classes": [
+        {
+          "name": "Writer",
+          "startLine": 33,
+          "endLine": 98,
+          "methods": [
+            "set_textpos",
+            "set_clip",
+            "__init__",
+            "_newline",
+            "printstring",
+            "_printchar"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Writer",
+          "line": 33,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "font.hmap",
+          "lineNumber": 53
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 54
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 58
+        },
+        {
+          "caller": "__init__",
+          "callee": "'Orientation: {} Reversal: {}'.format",
+          "lineNumber": 58
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.hmap",
+          "lineNumber": 58
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 58
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.font.height",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.device.scroll",
+          "lineNumber": 69
+        },
+        {
+          "caller": "printstring",
+          "callee": "self._printchar",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._newline",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self.font.get_ch",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._newline",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._newline",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_printchar",
+          "callee": "bytearray",
+          "lineNumber": 92
+        },
+        {
+          "caller": "_printchar",
+          "callee": "enumerate",
+          "lineNumber": 94
+        },
+        {
+          "caller": "_printchar",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self.device.blit",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

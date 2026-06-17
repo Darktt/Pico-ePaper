@@ -1,0 +1,33 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": "app.py", "language": "python", "sizeLines": 305, "fileCategory": "code"},
+    {"path": "display/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "display/canvas.py", "language": "python", "sizeLines": 230, "fileCategory": "code"},
+    {"path": "display/fonts.py", "language": "python", "sizeLines": 38, "fileCategory": "code"},
+    {"path": "display/icons.py", "language": "python", "sizeLines": 86, "fileCategory": "code"},
+    {"path": "display/screens/calendar.py", "language": "python", "sizeLines": 104, "fileCategory": "code"},
+    {"path": "display/screens/guide.py", "language": "python", "sizeLines": 46, "fileCategory": "code"},
+    {"path": "display/screens/main_screen.py", "language": "python", "sizeLines": 241, "fileCategory": "code"},
+    {"path": "display/screens/message.py", "language": "python", "sizeLines": 35, "fileCategory": "code"},
+    {"path": "main.py", "language": "python", "sizeLines": 14, "fileCategory": "code"},
+    {"path": "ntp.py", "language": "python", "sizeLines": 32, "fileCategory": "code"},
+    {"path": "scheduler.py", "language": "python", "sizeLines": 77, "fileCategory": "code"},
+    {"path": "weather.py", "language": "python", "sizeLines": 126, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "app.py": ["config.py", "display/__init__.py", "display/canvas.py", "display/screens/main_screen.py", "display/screens/calendar.py", "display/screens/guide.py", "display/screens/message.py", "ntp.py", "scheduler.py", "weather.py", "wifi_manager.py"],
+    "display/__init__.py": [],
+    "display/canvas.py": ["display/fonts.py"],
+    "display/fonts.py": [],
+    "display/icons.py": [],
+    "display/screens/calendar.py": ["display/canvas.py"],
+    "display/screens/guide.py": ["display/canvas.py"],
+    "display/screens/main_screen.py": ["display/canvas.py", "display/icons.py", "weather.py"],
+    "display/screens/message.py": ["display/canvas.py"],
+    "main.py": ["app.py"],
+    "ntp.py": [],
+    "scheduler.py": [],
+    "weather.py": ["config.py"]
+  }
+}

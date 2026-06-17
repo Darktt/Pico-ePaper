@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "config:.gitignore",
+      "type": "config",
+      "name": ".gitignore",
+      "filePath": ".gitignore",
+      "summary": "Git ignore rules that exclude development-environment artifacts (.DS_Store, .vscode), host-only tools (mDns, fonts, tools, API directories), build scripts, documentation files, and Pico-generated runtime outputs (config.json, weather.log) from both git tracking and MicroPico uploads.",
+      "tags": ["configuration", "version-control", "development"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.micropico",
+      "type": "config",
+      "name": ".micropico",
+      "filePath": ".micropico",
+      "summary": "MicroPico VS Code extension marker file that identifies this directory as a MicroPico project folder, enabling the extension to recognize and manage the Raspberry Pi Pico W connection from within VS Code.",
+      "tags": ["configuration", "development", "micropico"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:E-Paper.code-workspace",
+      "type": "config",
+      "name": "E-Paper.code-workspace",
+      "filePath": "E-Paper.code-workspace",
+      "summary": "VS Code multi-root workspace configuration that adds both the local project folder and the remote Pico device filesystem (pico: URI) as workspace roots, with Pylance set as the Python language server for MicroPython development.",
+      "tags": ["configuration", "development", "build-system"],
+      "complexity": "simple",
+      "languageNotes": "Uses the pico: URI scheme provided by the MicroPico extension to surface the Pico device filesystem as a second workspace root alongside the local project."
+    },
+    {
+      "id": "config:taiwan_cities.json",
+      "type": "config",
+      "name": "taiwan_cities.json",
+      "filePath": "taiwan_cities.json",
+      "summary": "Static data file listing all 22 Taiwan administrative regions (municipalities, cities, and counties) with their display names in Traditional Chinese and WGS-84 latitude/longitude coordinates, consumed by the web configuration server to populate the city selection dropdown for weather location.",
+      "tags": ["configuration", "data", "weather"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:taiwan_cities.json",
+      "target": "file:web_server.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

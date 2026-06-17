@@ -1,0 +1,45 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".gitignore",
+      "language": "gitignore",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 24,
+      "metrics": {}
+    },
+    {
+      "path": ".micropico",
+      "language": "unknown",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": "E-Paper.code-workspace",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 14,
+      "nonEmptyLines": 14,
+      "metrics": {}
+    },
+    {
+      "path": "taiwan_cities.json",
+      "language": "json",
+      "fileCategory": "data",
+      "totalLines": 112,
+      "nonEmptyLines": 112,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    }
+  ]
+}

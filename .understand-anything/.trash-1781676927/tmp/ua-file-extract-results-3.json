@@ -1,0 +1,1996 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "writer/ssd1306_setup.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "setup",
+          "startLine": 38,
+          "endLine": 69,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "setup",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 48
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 49
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 50
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.SPI",
+          "lineNumber": 52
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 52
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 52
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 52
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.SPI",
+          "lineNumber": 54
+        },
+        {
+          "caller": "setup",
+          "callee": "SSD1306_SPI",
+          "lineNumber": 55
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 63
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.Pin",
+          "lineNumber": 64
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.I2C",
+          "lineNumber": 65
+        },
+        {
+          "caller": "setup",
+          "callee": "machine.I2C",
+          "lineNumber": 67
+        },
+        {
+          "caller": "setup",
+          "callee": "SSD1306_I2C",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/writer.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 331,
+      "nonEmptyLines": 291,
+      "functions": [
+        {
+          "name": "_get_id",
+          "startLine": 37,
+          "endLine": 40,
+          "params": [
+            "device"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DisplayState",
+          "startLine": 31,
+          "endLine": 34,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Writer",
+          "startLine": 44,
+          "endLine": 278,
+          "methods": [
+            "set_textpos",
+            "__init__",
+            "_getstate",
+            "_newline",
+            "set_clip",
+            "height",
+            "printstring",
+            "_printline",
+            "stringlen",
+            "_truelen",
+            "_get_char",
+            "_printchar",
+            "tabsize",
+            "setcolor"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CWriter",
+          "startLine": 282,
+          "endLine": 331,
+          "methods": [
+            "create_color",
+            "__init__",
+            "_printchar",
+            "setcolor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DisplayState",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "_get_id",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "Writer",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "CWriter",
+          "line": 282,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_get_id",
+          "callee": "isinstance",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_get_id",
+          "callee": "ValueError",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_get_id",
+          "callee": "id",
+          "lineNumber": 40
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "_get_id",
+          "lineNumber": 50
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "DisplayState",
+          "lineNumber": 52
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "ValueError",
+          "lineNumber": 56
+        },
+        {
+          "caller": "set_textpos",
+          "callee": "ValueError",
+          "lineNumber": 60
+        },
+        {
+          "caller": "__init__",
+          "callee": "_get_id",
+          "lineNumber": 65
+        },
+        {
+          "caller": "__init__",
+          "callee": "DisplayState",
+          "lineNumber": 68
+        },
+        {
+          "caller": "__init__",
+          "callee": "getattr",
+          "lineNumber": 75
+        },
+        {
+          "caller": "__init__",
+          "callee": "getattr",
+          "lineNumber": 76
+        },
+        {
+          "caller": "__init__",
+          "callee": "hasattr",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "hasattr",
+          "lineNumber": 81
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.height",
+          "lineNumber": 93
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.max_width",
+          "lineNumber": 93
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 94
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.hmap",
+          "lineNumber": 96
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 97
+        },
+        {
+          "caller": "__init__",
+          "callee": "ValueError",
+          "lineNumber": 99
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "fstr.format",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "font.reverse",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 103
+        },
+        {
+          "caller": "__init__",
+          "callee": "\"Start row = {} col = {}\".format",
+          "lineNumber": 104
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._getstate",
+          "lineNumber": 105
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._getstate",
+          "lineNumber": 105
+        },
+        {
+          "caller": "_newline",
+          "callee": "self._getstate",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.font.height",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.device.scroll",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_newline",
+          "callee": "self.device.fill_rect",
+          "lineNumber": 135
+        },
+        {
+          "caller": "_newline",
+          "callee": "abs",
+          "lineNumber": 136
+        },
+        {
+          "caller": "height",
+          "callee": "self.font.height",
+          "lineNumber": 150
+        },
+        {
+          "caller": "printstring",
+          "callee": "string.split",
+          "lineNumber": 154
+        },
+        {
+          "caller": "printstring",
+          "callee": "len",
+          "lineNumber": 155
+        },
+        {
+          "caller": "printstring",
+          "callee": "enumerate",
+          "lineNumber": 156
+        },
+        {
+          "caller": "printstring",
+          "callee": "self._printline",
+          "lineNumber": 158
+        },
+        {
+          "caller": "printstring",
+          "callee": "self._printchar",
+          "lineNumber": 160
+        },
+        {
+          "caller": "_printline",
+          "callee": "self.stringlen",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_printline",
+          "callee": "self.stringlen",
+          "lineNumber": 168
+        },
+        {
+          "caller": "_printline",
+          "callee": "lstr.rfind",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_printline",
+          "callee": "lstr[:pos].rstrip",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printchar",
+          "lineNumber": 176
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printchar",
+          "lineNumber": 178
+        },
+        {
+          "caller": "_printline",
+          "callee": "self._printline",
+          "lineNumber": 179
+        },
+        {
+          "caller": "stringlen",
+          "callee": "len",
+          "lineNumber": 182
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self._getstate",
+          "lineNumber": 184
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 188
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 193
+        },
+        {
+          "caller": "stringlen",
+          "callee": "self._truelen",
+          "lineNumber": 195
+        },
+        {
+          "caller": "_truelen",
+          "callee": "self.font.get_ch",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_truelen",
+          "callee": "divmod",
+          "lineNumber": 203
+        },
+        {
+          "caller": "_truelen",
+          "callee": "range",
+          "lineNumber": 207
+        },
+        {
+          "caller": "_truelen",
+          "callee": "range",
+          "lineNumber": 208
+        },
+        {
+          "caller": "_truelen",
+          "callee": "divmod",
+          "lineNumber": 209
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._printchar",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 238
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self.font.get_ch",
+          "lineNumber": 240
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._getstate",
+          "lineNumber": 241
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 245
+        },
+        {
+          "caller": "_get_char",
+          "callee": "self._newline",
+          "lineNumber": 250
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._getstate",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._get_char",
+          "lineNumber": 259
+        },
+        {
+          "caller": "_printchar",
+          "callee": "bytearray",
+          "lineNumber": 262
+        },
+        {
+          "caller": "_printchar",
+          "callee": "enumerate",
+          "lineNumber": 264
+        },
+        {
+          "caller": "_printchar",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 266
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self.device.blit",
+          "lineNumber": 268
+        },
+        {
+          "caller": "create_color",
+          "callee": "ssd.rgb",
+          "lineNumber": 285
+        },
+        {
+          "caller": "create_color",
+          "callee": "hasattr",
+          "lineNumber": 286
+        },
+        {
+          "caller": "create_color",
+          "callee": "ValueError",
+          "lineNumber": 289
+        },
+        {
+          "caller": "__init__",
+          "callee": "hasattr",
+          "lineNumber": 296
+        },
+        {
+          "caller": "__init__",
+          "callee": "OSError",
+          "lineNumber": 297
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 299
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 299
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._getstate",
+          "lineNumber": 308
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self._get_char",
+          "lineNumber": 309
+        },
+        {
+          "caller": "_printchar",
+          "callee": "bytearray_at",
+          "lineNumber": 312
+        },
+        {
+          "caller": "_printchar",
+          "callee": "addressof",
+          "lineNumber": 312
+        },
+        {
+          "caller": "_printchar",
+          "callee": "len",
+          "lineNumber": 312
+        },
+        {
+          "caller": "_printchar",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_printchar",
+          "callee": "palette.bg",
+          "lineNumber": 316
+        },
+        {
+          "caller": "_printchar",
+          "callee": "palette.fg",
+          "lineNumber": 317
+        },
+        {
+          "caller": "_printchar",
+          "callee": "self.device.blit",
+          "lineNumber": 318
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "writer/writer_demo.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "test",
+          "startLine": 40,
+          "endLine": 52,
+          "params": [
+            "use_spi"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test",
+          "callee": "setup",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test",
+          "callee": "ssd.line",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test",
+          "callee": "ssd.fill_rect",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test",
+          "callee": "Writer",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test",
+          "callee": "wri.printstring",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test",
+          "callee": "wri.printstring",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test",
+          "callee": "wri.printstring",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test",
+          "callee": "ssd.show",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "writer/writer_gui.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 219,
+      "functions": [
+        {
+          "name": "_circle",
+          "startLine": 33,
+          "endLine": 50,
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color"
+          ]
+        },
+        {
+          "name": "circle",
+          "startLine": 52,
+          "endLine": 55,
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color",
+            "width"
+          ]
+        },
+        {
+          "name": "fillcircle",
+          "startLine": 57,
+          "endLine": 73,
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DObject",
+          "startLine": 76,
+          "endLine": 135,
+          "methods": [
+            "__init__",
+            "warning",
+            "show",
+            "value"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Label",
+          "startLine": 138,
+          "endLine": 175,
+          "methods": [
+            "__init__",
+            "value",
+            "show"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Meter",
+          "startLine": 177,
+          "endLine": 221,
+          "methods": [
+            "__init__",
+            "value",
+            "show"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LED",
+          "startLine": 224,
+          "endLine": 242,
+          "methods": [
+            "__init__",
+            "color",
+            "show"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_circle",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "circle",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "fillcircle",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "DObject",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "Label",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "Meter",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "LED",
+          "line": 224,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_circle",
+          "callee": "dev.pixel",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_circle",
+          "callee": "dev.pixel",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_circle",
+          "callee": "dev.pixel",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_circle",
+          "callee": "dev.pixel",
+          "lineNumber": 41
+        },
+        {
+          "caller": "circle",
+          "callee": "int",
+          "lineNumber": 53
+        },
+        {
+          "caller": "circle",
+          "callee": "int",
+          "lineNumber": 53
+        },
+        {
+          "caller": "circle",
+          "callee": "int",
+          "lineNumber": 53
+        },
+        {
+          "caller": "circle",
+          "callee": "range",
+          "lineNumber": 54
+        },
+        {
+          "caller": "circle",
+          "callee": "dev._circle",
+          "lineNumber": 55
+        },
+        {
+          "caller": "fillcircle",
+          "callee": "int",
+          "lineNumber": 58
+        },
+        {
+          "caller": "fillcircle",
+          "callee": "int",
+          "lineNumber": 58
+        },
+        {
+          "caller": "fillcircle",
+          "callee": "int",
+          "lineNumber": 58
+        },
+        {
+          "caller": "fillcircle",
+          "callee": "dev.line",
+          "lineNumber": 63
+        },
+        {
+          "caller": "fillcircle",
+          "callee": "dev.line",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "writer.set_clip",
+          "lineNumber": 78
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.warning",
+          "lineNumber": 84
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.warning",
+          "lineNumber": 87
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.warning",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.warning",
+          "lineNumber": 93
+        },
+        {
+          "caller": "warning",
+          "callee": "print",
+          "lineNumber": 118
+        },
+        {
+          "caller": "warning",
+          "callee": "'Warning: attempt to create {} outside screen dimensions.'.format",
+          "lineNumber": 118
+        },
+        {
+          "caller": "show",
+          "callee": "isinstance",
+          "lineNumber": 124
+        },
+        {
+          "caller": "show",
+          "callee": "dev.rect",
+          "lineNumber": 126
+        },
+        {
+          "caller": "show",
+          "callee": "dev.rect",
+          "lineNumber": 129
+        },
+        {
+          "caller": "__init__",
+          "callee": "isinstance",
+          "lineNumber": 141
+        },
+        {
+          "caller": "__init__",
+          "callee": "writer.stringlen",
+          "lineNumber": 145
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 147
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 147
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.value",
+          "lineNumber": 149
+        },
+        {
+          "caller": "value",
+          "callee": "super().value",
+          "lineNumber": 152
+        },
+        {
+          "caller": "value",
+          "callee": "super",
+          "lineNumber": 152
+        },
+        {
+          "caller": "value",
+          "callee": "self.show",
+          "lineNumber": 160
+        },
+        {
+          "caller": "show",
+          "callee": "super().value",
+          "lineNumber": 164
+        },
+        {
+          "caller": "show",
+          "callee": "super",
+          "lineNumber": 164
+        },
+        {
+          "caller": "show",
+          "callee": "super().show",
+          "lineNumber": 167
+        },
+        {
+          "caller": "show",
+          "callee": "super",
+          "lineNumber": 167
+        },
+        {
+          "caller": "show",
+          "callee": "wri.setcolor",
+          "lineNumber": 170
+        },
+        {
+          "caller": "show",
+          "callee": "dev.fill_rect",
+          "lineNumber": 171
+        },
+        {
+          "caller": "show",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 172
+        },
+        {
+          "caller": "show",
+          "callee": "wri.setcolor",
+          "lineNumber": 173
+        },
+        {
+          "caller": "show",
+          "callee": "wri.printstring",
+          "lineNumber": 174
+        },
+        {
+          "caller": "show",
+          "callee": "wri.setcolor",
+          "lineNumber": 175
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 181
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 181
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.value",
+          "lineNumber": 185
+        },
+        {
+          "caller": "value",
+          "callee": "super().value",
+          "lineNumber": 189
+        },
+        {
+          "caller": "value",
+          "callee": "super",
+          "lineNumber": 189
+        },
+        {
+          "caller": "value",
+          "callee": "super().value",
+          "lineNumber": 190
+        },
+        {
+          "caller": "value",
+          "callee": "super",
+          "lineNumber": 190
+        },
+        {
+          "caller": "value",
+          "callee": "min",
+          "lineNumber": 190
+        },
+        {
+          "caller": "value",
+          "callee": "max",
+          "lineNumber": 190
+        },
+        {
+          "caller": "value",
+          "callee": "self.show",
+          "lineNumber": 191
+        },
+        {
+          "caller": "show",
+          "callee": "super().show",
+          "lineNumber": 195
+        },
+        {
+          "caller": "show",
+          "callee": "super",
+          "lineNumber": 195
+        },
+        {
+          "caller": "show",
+          "callee": "super().value",
+          "lineNumber": 196
+        },
+        {
+          "caller": "show",
+          "callee": "super",
+          "lineNumber": 196
+        },
+        {
+          "caller": "show",
+          "callee": "dev.fill_rect",
+          "lineNumber": 206
+        },
+        {
+          "caller": "show",
+          "callee": "range",
+          "lineNumber": 209
+        },
+        {
+          "caller": "show",
+          "callee": "int",
+          "lineNumber": 210
+        },
+        {
+          "caller": "show",
+          "callee": "dev.hline",
+          "lineNumber": 211
+        },
+        {
+          "caller": "show",
+          "callee": "len",
+          "lineNumber": 214
+        },
+        {
+          "caller": "show",
+          "callee": "len",
+          "lineNumber": 214
+        },
+        {
+          "caller": "show",
+          "callee": "Label",
+          "lineNumber": 217
+        },
+        {
+          "caller": "show",
+          "callee": "int",
+          "lineNumber": 217
+        },
+        {
+          "caller": "show",
+          "callee": "int",
+          "lineNumber": 220
+        },
+        {
+          "caller": "show",
+          "callee": "dev.hline",
+          "lineNumber": 221
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 227
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 227
+        },
+        {
+          "caller": "color",
+          "callee": "self.show",
+          "lineNumber": 233
+        },
+        {
+          "caller": "show",
+          "callee": "super().show",
+          "lineNumber": 236
+        },
+        {
+          "caller": "show",
+          "callee": "super",
+          "lineNumber": 236
+        },
+        {
+          "caller": "show",
+          "callee": "fillcircle",
+          "lineNumber": 240
+        },
+        {
+          "caller": "show",
+          "callee": "Label",
+          "lineNumber": 242
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 3,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "writer/writer_tests.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 230,
+      "nonEmptyLines": 202,
+      "functions": [
+        {
+          "name": "inverse",
+          "startLine": 44,
+          "endLine": 57,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "scroll",
+          "startLine": 59,
+          "endLine": 79,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "usd_scroll",
+          "startLine": 81,
+          "endLine": 100,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "usd",
+          "startLine": 102,
+          "endLine": 113,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "rjust",
+          "startLine": 115,
+          "endLine": 135,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "fonts",
+          "startLine": 137,
+          "endLine": 147,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "tabs",
+          "startLine": 149,
+          "endLine": 157,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "usd_tabs",
+          "startLine": 159,
+          "endLine": 169,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "wrap",
+          "startLine": 171,
+          "endLine": 177,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        },
+        {
+          "name": "dual",
+          "startLine": 179,
+          "endLine": 209,
+          "params": [
+            "use_spi",
+            "soft"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "inverse",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "scroll",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "usd_scroll",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "usd",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "rjust",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "fonts",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "tabs",
+          "line": 149,
+          "isDefault": false
+        },
+        {
+          "name": "usd_tabs",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "wrap",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "dual",
+          "line": 179,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "inverse",
+          "callee": "setup",
+          "lineNumber": 45
+        },
+        {
+          "caller": "inverse",
+          "callee": "ssd.line",
+          "lineNumber": 47
+        },
+        {
+          "caller": "inverse",
+          "callee": "ssd.fill_rect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "inverse",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 51
+        },
+        {
+          "caller": "inverse",
+          "callee": "Writer",
+          "lineNumber": 52
+        },
+        {
+          "caller": "inverse",
+          "callee": "wri.set_clip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "inverse",
+          "callee": "wri.printstring",
+          "lineNumber": 54
+        },
+        {
+          "caller": "inverse",
+          "callee": "wri.printstring",
+          "lineNumber": 55
+        },
+        {
+          "caller": "inverse",
+          "callee": "wri.printstring",
+          "lineNumber": 56
+        },
+        {
+          "caller": "inverse",
+          "callee": "ssd.show",
+          "lineNumber": 57
+        },
+        {
+          "caller": "scroll",
+          "callee": "setup",
+          "lineNumber": 60
+        },
+        {
+          "caller": "scroll",
+          "callee": "ssd.line",
+          "lineNumber": 62
+        },
+        {
+          "caller": "scroll",
+          "callee": "ssd.fill_rect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "scroll",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 66
+        },
+        {
+          "caller": "scroll",
+          "callee": "Writer",
+          "lineNumber": 67
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.set_clip",
+          "lineNumber": 68
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 69
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 70
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 71
+        },
+        {
+          "caller": "scroll",
+          "callee": "range",
+          "lineNumber": 72
+        },
+        {
+          "caller": "scroll",
+          "callee": "ssd.show",
+          "lineNumber": 73
+        },
+        {
+          "caller": "scroll",
+          "callee": "utime.sleep",
+          "lineNumber": 74
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 75
+        },
+        {
+          "caller": "scroll",
+          "callee": "'\\nCount = {:2d}'.format",
+          "lineNumber": 75
+        },
+        {
+          "caller": "scroll",
+          "callee": "ssd.show",
+          "lineNumber": 76
+        },
+        {
+          "caller": "scroll",
+          "callee": "utime.sleep",
+          "lineNumber": 77
+        },
+        {
+          "caller": "scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 78
+        },
+        {
+          "caller": "scroll",
+          "callee": "ssd.show",
+          "lineNumber": 79
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "setup",
+          "lineNumber": 82
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 84
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "CWriter.set_textpos",
+          "lineNumber": 85
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "CWriter",
+          "lineNumber": 86
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.set_clip",
+          "lineNumber": 87
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 89
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 90
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 91
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "range",
+          "lineNumber": 92
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "ssd.show",
+          "lineNumber": 93
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "utime.sleep",
+          "lineNumber": 94
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 95
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "'\\nCount = {:2d}'.format",
+          "lineNumber": 95
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "ssd.show",
+          "lineNumber": 96
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "utime.sleep",
+          "lineNumber": 97
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "wri.printstring",
+          "lineNumber": 98
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "ssd.show",
+          "lineNumber": 99
+        },
+        {
+          "caller": "usd_scroll",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 100
+        },
+        {
+          "caller": "usd",
+          "callee": "setup",
+          "lineNumber": 103
+        },
+        {
+          "caller": "usd",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 105
+        },
+        {
+          "caller": "usd",
+          "callee": "CWriter.set_textpos",
+          "lineNumber": 106
+        },
+        {
+          "caller": "usd",
+          "callee": "CWriter",
+          "lineNumber": 107
+        },
+        {
+          "caller": "usd",
+          "callee": "wri.set_clip",
+          "lineNumber": 108
+        },
+        {
+          "caller": "usd",
+          "callee": "wri.printstring",
+          "lineNumber": 109
+        },
+        {
+          "caller": "usd",
+          "callee": "wri.printstring",
+          "lineNumber": 110
+        },
+        {
+          "caller": "usd",
+          "callee": "wri.printstring",
+          "lineNumber": 111
+        },
+        {
+          "caller": "usd",
+          "callee": "ssd.show",
+          "lineNumber": 112
+        },
+        {
+          "caller": "usd",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 113
+        },
+        {
+          "caller": "rjust",
+          "callee": "setup",
+          "lineNumber": 116
+        },
+        {
+          "caller": "rjust",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 117
+        },
+        {
+          "caller": "rjust",
+          "callee": "Writer",
+          "lineNumber": 118
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.set_clip",
+          "lineNumber": 119
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.stringlen",
+          "lineNumber": 122
+        },
+        {
+          "caller": "rjust",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 123
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.printstring",
+          "lineNumber": 124
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.stringlen",
+          "lineNumber": 127
+        },
+        {
+          "caller": "rjust",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 128
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.printstring",
+          "lineNumber": 129
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.stringlen",
+          "lineNumber": 132
+        },
+        {
+          "caller": "rjust",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 133
+        },
+        {
+          "caller": "rjust",
+          "callee": "wri.printstring",
+          "lineNumber": 134
+        },
+        {
+          "caller": "rjust",
+          "callee": "ssd.show",
+          "lineNumber": 135
+        },
+        {
+          "caller": "fonts",
+          "callee": "setup",
+          "lineNumber": 138
+        },
+        {
+          "caller": "fonts",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 139
+        },
+        {
+          "caller": "fonts",
+          "callee": "Writer",
+          "lineNumber": 140
+        },
+        {
+          "caller": "fonts",
+          "callee": "wri.set_clip",
+          "lineNumber": 141
+        },
+        {
+          "caller": "fonts",
+          "callee": "Writer",
+          "lineNumber": 142
+        },
+        {
+          "caller": "fonts",
+          "callee": "wri_f.set_clip",
+          "lineNumber": 143
+        },
+        {
+          "caller": "fonts",
+          "callee": "wri_f.printstring",
+          "lineNumber": 144
+        },
+        {
+          "caller": "fonts",
+          "callee": "wri.printstring",
+          "lineNumber": 145
+        },
+        {
+          "caller": "fonts",
+          "callee": "wri.printstring",
+          "lineNumber": 146
+        },
+        {
+          "caller": "fonts",
+          "callee": "ssd.show",
+          "lineNumber": 147
+        },
+        {
+          "caller": "tabs",
+          "callee": "setup",
+          "lineNumber": 150
+        },
+        {
+          "caller": "tabs",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 151
+        },
+        {
+          "caller": "tabs",
+          "callee": "Writer",
+          "lineNumber": 152
+        },
+        {
+          "caller": "tabs",
+          "callee": "wri.set_clip",
+          "lineNumber": 153
+        },
+        {
+          "caller": "tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 154
+        },
+        {
+          "caller": "tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 155
+        },
+        {
+          "caller": "tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 156
+        },
+        {
+          "caller": "tabs",
+          "callee": "ssd.show",
+          "lineNumber": 157
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "setup",
+          "lineNumber": 160
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 161
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "CWriter.set_textpos",
+          "lineNumber": 162
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "CWriter",
+          "lineNumber": 163
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "wri.set_clip",
+          "lineNumber": 164
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 165
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 166
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "wri.printstring",
+          "lineNumber": 167
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "ssd.show",
+          "lineNumber": 168
+        },
+        {
+          "caller": "usd_tabs",
+          "callee": "CWriter.invert_display",
+          "lineNumber": 169
+        },
+        {
+          "caller": "wrap",
+          "callee": "setup",
+          "lineNumber": 172
+        },
+        {
+          "caller": "wrap",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 173
+        },
+        {
+          "caller": "wrap",
+          "callee": "Writer",
+          "lineNumber": 174
+        },
+        {
+          "caller": "wrap",
+          "callee": "wri.set_clip",
+          "lineNumber": 175
+        },
+        {
+          "caller": "wrap",
+          "callee": "wri.printstring",
+          "lineNumber": 176
+        },
+        {
+          "caller": "wrap",
+          "callee": "ssd.show",
+          "lineNumber": 177
+        },
+        {
+          "caller": "dual",
+          "callee": "setup",
+          "lineNumber": 180
+        },
+        {
+          "caller": "dual",
+          "callee": "setup",
+          "lineNumber": 181
+        },
+        {
+          "caller": "dual",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 182
+        },
+        {
+          "caller": "dual",
+          "callee": "Writer",
+          "lineNumber": 183
+        },
+        {
+          "caller": "dual",
+          "callee": "wri0.set_clip",
+          "lineNumber": 184
+        },
+        {
+          "caller": "dual",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 185
+        },
+        {
+          "caller": "dual",
+          "callee": "Writer",
+          "lineNumber": 186
+        },
+        {
+          "caller": "dual",
+          "callee": "wri1.set_clip",
+          "lineNumber": 187
+        },
+        {
+          "caller": "dual",
+          "callee": "small.height",
+          "lineNumber": 190
+        },
+        {
+          "caller": "dual",
+          "callee": "enumerate",
+          "lineNumber": 192
+        },
+        {
+          "caller": "dual",
+          "callee": "nfields.append",
+          "lineNumber": 193
+        },
+        {
+          "caller": "dual",
+          "callee": "Label",
+          "lineNumber": 196
+        },
+        {
+          "caller": "dual",
+          "callee": "nfields[n].append",
+          "lineNumber": 197
+        },
+        {
+          "caller": "dual",
+          "callee": "Label",
+          "lineNumber": 197
+        },
+        {
+          "caller": "dual",
+          "callee": "wri.stringlen",
+          "lineNumber": 197
+        },
+        {
+          "caller": "dual",
+          "callee": "range",
+          "lineNumber": 200
+        },
+        {
+          "caller": "dual",
+          "callee": "enumerate",
+          "lineNumber": 201
+        },
+        {
+          "caller": "dual",
+          "callee": "int.from_bytes",
+          "lineNumber": 203
+        },
+        {
+          "caller": "dual",
+          "callee": "uos.urandom",
+          "lineNumber": 203
+        },
+        {
+          "caller": "dual",
+          "callee": "field.value",
+          "lineNumber": 204
+        },
+        {
+          "caller": "dual",
+          "callee": "'{:5.2f}'.format",
+          "lineNumber": 204
+        },
+        {
+          "caller": "dual",
+          "callee": "wri.device.show",
+          "lineNumber": 205
+        },
+        {
+          "caller": "dual",
+          "callee": "utime.sleep",
+          "lineNumber": 206
+        },
+        {
+          "caller": "dual",
+          "callee": "Label",
+          "lineNumber": 208
+        },
+        {
+          "caller": "dual",
+          "callee": "wri.device.show",
+          "lineNumber": 209
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    }
+  ]
+}

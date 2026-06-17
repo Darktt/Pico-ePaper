@@ -1,0 +1,630 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:main.py",
+      "score": 5,
+      "name": "main.py",
+      "summary": "MicroPython entry point that instantiates the App and runs its async event loop; auto-executed on boot."
+    },
+    {
+      "id": "file:app.py",
+      "score": 5,
+      "name": "app.py",
+      "summary": "Central application controller managing device lifecycle states (AP mode, STA connection, init, run), wiring up WiFi, NTP, weather, scheduler, and display subsystems."
+    },
+    {
+      "id": "file:web_server.py",
+      "score": 3,
+      "name": "web_server.py",
+      "summary": "Browser-based HTTP configuration UI serving WiFi, time-zone, and weather-settings pages."
+    },
+    {
+      "id": "file:mdns.py",
+      "score": 3,
+      "name": "mdns.py",
+      "summary": "MDNSResponder: lifecycle-managed facade around vendored mdns_client, handles Pico W socket conflicts and service advertisement."
+    },
+    {
+      "id": "file:writer/writer_gui.py",
+      "score": 2,
+      "name": "writer_gui.py",
+      "summary": "GUI widgets (Label, Meter, LED) built on Writer."
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:display/canvas.py",
+      "fanIn": 6,
+      "name": "canvas.py"
+    },
+    {
+      "id": "file:config.py",
+      "fanIn": 4,
+      "name": "config.py"
+    },
+    {
+      "id": "file:writer/writer.py",
+      "fanIn": 4,
+      "name": "writer.py"
+    },
+    {
+      "id": "file:lib/mdns_client/structs.py",
+      "fanIn": 3,
+      "name": "structs.py"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "fanIn": 2,
+      "name": "wifi_manager.py"
+    },
+    {
+      "id": "file:lib/mdns_client/client.py",
+      "fanIn": 2,
+      "name": "client.py"
+    },
+    {
+      "id": "file:lib/mdns_client/constants.py",
+      "fanIn": 2,
+      "name": "constants.py"
+    },
+    {
+      "id": "file:app.py",
+      "fanIn": 1,
+      "name": "app.py"
+    },
+    {
+      "id": "file:ntp.py",
+      "fanIn": 1,
+      "name": "ntp.py"
+    },
+    {
+      "id": "file:scheduler.py",
+      "fanIn": 1,
+      "name": "scheduler.py"
+    },
+    {
+      "id": "file:weather.py",
+      "fanIn": 1,
+      "name": "weather.py"
+    },
+    {
+      "id": "file:Pico_ePaper_3_7.py",
+      "fanIn": 1,
+      "name": "Pico_ePaper_3_7.py"
+    },
+    {
+      "id": "file:display/__init__.py",
+      "fanIn": 1,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:display/fonts.py",
+      "fanIn": 1,
+      "name": "fonts.py"
+    },
+    {
+      "id": "file:display/icons.py",
+      "fanIn": 1,
+      "name": "icons.py"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "fanIn": 1,
+      "name": "main_screen.py"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "fanIn": 1,
+      "name": "calendar.py"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "fanIn": 1,
+      "name": "guide.py"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "fanIn": 1,
+      "name": "message.py"
+    },
+    {
+      "id": "file:lib/mdns_client/__init__.py",
+      "fanIn": 1,
+      "name": "__init__.py"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:app.py",
+      "fanOut": 10,
+      "name": "app.py"
+    },
+    {
+      "id": "file:lib/mdns_client/client.py",
+      "fanOut": 4,
+      "name": "client.py"
+    },
+    {
+      "id": "file:web_server.py",
+      "fanOut": 3,
+      "name": "web_server.py"
+    },
+    {
+      "id": "file:mdns.py",
+      "fanOut": 3,
+      "name": "mdns.py"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "fanOut": 3,
+      "name": "main_screen.py"
+    },
+    {
+      "id": "file:display/canvas.py",
+      "fanOut": 2,
+      "name": "canvas.py"
+    },
+    {
+      "id": "file:display/screens/__init__.py",
+      "fanOut": 2,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:lib/mdns_client/responder.py",
+      "fanOut": 2,
+      "name": "responder.py"
+    },
+    {
+      "id": "file:main.py",
+      "fanOut": 1,
+      "name": "main.py"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "fanOut": 1,
+      "name": "wifi_manager.py"
+    },
+    {
+      "id": "file:weather.py",
+      "fanOut": 1,
+      "name": "weather.py"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "fanOut": 1,
+      "name": "calendar.py"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "fanOut": 1,
+      "name": "guide.py"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "fanOut": 1,
+      "name": "message.py"
+    },
+    {
+      "id": "file:writer/writer_gui.py",
+      "fanOut": 1,
+      "name": "writer_gui.py"
+    },
+    {
+      "id": "file:writer/writer_tests.py",
+      "fanOut": 1,
+      "name": "writer_tests.py"
+    },
+    {
+      "id": "file:writer/writer_demo.py",
+      "fanOut": 1,
+      "name": "writer_demo.py"
+    },
+    {
+      "id": "file:lib/mdns_client/parser.py",
+      "fanOut": 1,
+      "name": "parser.py"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/discovery.py",
+      "fanOut": 1,
+      "name": "discovery.py"
+    },
+    {
+      "id": "file:config.py",
+      "fanOut": 0,
+      "name": "config.py"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:main.py",
+    "order": [
+      "file:main.py",
+      "file:app.py",
+      "file:config.py",
+      "file:display/__init__.py",
+      "file:display/canvas.py",
+      "file:display/screens/main_screen.py",
+      "file:display/screens/guide.py",
+      "file:display/screens/message.py",
+      "file:ntp.py",
+      "file:scheduler.py",
+      "file:weather.py",
+      "file:wifi_manager.py",
+      "file:display/fonts.py",
+      "file:Pico_ePaper_3_7.py",
+      "file:display/screens/calendar.py",
+      "file:display/icons.py"
+    ],
+    "depthMap": {
+      "file:main.py": 0,
+      "file:app.py": 1,
+      "file:config.py": 2,
+      "file:display/__init__.py": 2,
+      "file:display/canvas.py": 2,
+      "file:display/screens/main_screen.py": 2,
+      "file:display/screens/guide.py": 2,
+      "file:display/screens/message.py": 2,
+      "file:ntp.py": 2,
+      "file:scheduler.py": 2,
+      "file:weather.py": 2,
+      "file:wifi_manager.py": 2,
+      "file:display/fonts.py": 3,
+      "file:Pico_ePaper_3_7.py": 3,
+      "file:display/screens/calendar.py": 3,
+      "file:display/icons.py": 3
+    },
+    "byDepth": {
+      "0": [
+        "file:main.py"
+      ],
+      "1": [
+        "file:app.py"
+      ],
+      "2": [
+        "file:config.py",
+        "file:display/__init__.py",
+        "file:display/canvas.py",
+        "file:display/screens/main_screen.py",
+        "file:display/screens/guide.py",
+        "file:display/screens/message.py",
+        "file:ntp.py",
+        "file:scheduler.py",
+        "file:weather.py",
+        "file:wifi_manager.py"
+      ],
+      "3": [
+        "file:display/fonts.py",
+        "file:Pico_ePaper_3_7.py",
+        "file:display/screens/calendar.py",
+        "file:display/icons.py"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [],
+    "infrastructure": [],
+    "data": [],
+    "config": [
+      {
+        "id": "config:.gitignore",
+        "name": ".gitignore",
+        "type": "config",
+        "summary": "Git ignore rules."
+      },
+      {
+        "id": "config:.micropico",
+        "name": ".micropico",
+        "type": "config",
+        "summary": "MicroPico VS Code extension marker."
+      },
+      {
+        "id": "config:E-Paper.code-workspace",
+        "name": "E-Paper.code-workspace",
+        "type": "config",
+        "summary": "VS Code multi-root workspace config."
+      },
+      {
+        "id": "config:taiwan_cities.json",
+        "name": "taiwan_cities.json",
+        "type": "config",
+        "summary": "Taiwan city coordinates for weather location."
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 8,
+    "list": [
+      {
+        "id": "layer:boot",
+        "name": "Boot & Application Entry",
+        "description": "MicroPython firmware boot entry point and top-level App controller."
+      },
+      {
+        "id": "layer:service",
+        "name": "Application Services",
+        "description": "Core runtime services: WiFi, NTP, weather, scheduling, HTTP config UI, mDNS, config storage."
+      },
+      {
+        "id": "layer:hardware-driver",
+        "name": "Hardware Driver",
+        "description": "Low-level Waveshare 3.7\" ePaper SPI/GPIO driver."
+      },
+      {
+        "id": "layer:display",
+        "name": "Display Layer",
+        "description": "ePaper framebuffer abstraction and all screen renderers."
+      },
+      {
+        "id": "layer:font-renderer",
+        "name": "Font Renderer",
+        "description": "Writer/CWriter core font rendering library with GUI widgets."
+      },
+      {
+        "id": "layer:font-data",
+        "name": "Font Data & Writer Dev Assets",
+        "description": "Static bitmapped font data modules and legacy writer implementations."
+      },
+      {
+        "id": "layer:mdns-library",
+        "name": "mDNS Library",
+        "description": "Vendored third-party mDNS client library for Pico W network presence."
+      },
+      {
+        "id": "layer:config",
+        "name": "Project Configuration",
+        "description": "Development environment config and Taiwan city dataset."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:main.py": {
+      "name": "main.py",
+      "type": "file",
+      "summary": "MicroPython entry point that instantiates the App and runs its async event loop; auto-executed on boot."
+    },
+    "file:app.py": {
+      "name": "app.py",
+      "type": "file",
+      "summary": "Central application controller managing device lifecycle states (AP mode, STA connection, init, run), wiring up WiFi, NTP, weather, scheduler, and display subsystems."
+    },
+    "file:config.py": {
+      "name": "config.py",
+      "type": "file",
+      "summary": "JSON-backed configuration persistence layer with section-based access, batch write coalescing, and WiFi/weather readiness helpers."
+    },
+    "file:wifi_manager.py": {
+      "name": "wifi_manager.py",
+      "type": "file",
+      "summary": "WiFi connection manager handling AP mode, STA mode, RSSI-to-level conversion, and network scanning."
+    },
+    "file:web_server.py": {
+      "name": "web_server.py",
+      "type": "file",
+      "summary": "Browser-based HTTP configuration UI serving WiFi, time-zone, and weather-settings pages."
+    },
+    "file:ntp.py": {
+      "name": "ntp.py",
+      "type": "file",
+      "summary": "sync() function querying NTP server, applying timezone offset, setting hardware RTC."
+    },
+    "file:scheduler.py": {
+      "name": "scheduler.py",
+      "type": "file",
+      "summary": "Async time-event dispatcher firing minute, hour, day, weather-tick, NTP-tick events from RTC."
+    },
+    "file:weather.py": {
+      "name": "weather.py",
+      "type": "file",
+      "summary": "Fetches OpenWeatherMap data, persists to rotating log file, exposes read/rotate helpers."
+    },
+    "file:mdns.py": {
+      "name": "mdns.py",
+      "type": "file",
+      "summary": "MDNSResponder: lifecycle-managed facade around vendored mdns_client, handles Pico W socket conflicts and service advertisement."
+    },
+    "file:Pico_ePaper_3_7.py": {
+      "name": "Pico_ePaper_3_7.py",
+      "type": "file",
+      "summary": "EPD_3in7: low-level hardware driver for Waveshare 3.7\" ePaper via SPI/GPIO, 1-bit/4-gray modes, partial refresh."
+    },
+    "file:display/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "Empty package initializer for display module."
+    },
+    "file:display/canvas.py": {
+      "name": "canvas.py",
+      "type": "file",
+      "summary": "LandscapeCanvas: ePaper framebuffer abstraction with coordinate transposition, partial/full refresh, PBM blitting."
+    },
+    "file:display/fonts.py": {
+      "name": "fonts.py",
+      "type": "file",
+      "summary": "Lazy-loads bitmap font modules with graceful fallback."
+    },
+    "file:display/icons.py": {
+      "name": "icons.py",
+      "type": "file",
+      "summary": "Loads PBM bitmap icons with LRU cache."
+    },
+    "file:display/screens/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "log_display helper and make_writer factory for Writer on ePaper canvas."
+    },
+    "file:display/screens/main_screen.py": {
+      "name": "main_screen.py",
+      "type": "file",
+      "summary": "Main ePaper screen compositing time, weather, WiFi strength, and calendar with partial-refresh functions."
+    },
+    "file:display/screens/calendar.py": {
+      "name": "calendar.py",
+      "type": "file",
+      "summary": "Renders monthly calendar grid with today highlighted."
+    },
+    "file:display/screens/guide.py": {
+      "name": "guide.py",
+      "type": "file",
+      "summary": "WiFi setup guide screen shown in AP mode."
+    },
+    "file:display/screens/message.py": {
+      "name": "message.py",
+      "type": "file",
+      "summary": "Centered status message screen for loading/error states."
+    },
+    "file:writer/writer.py": {
+      "name": "writer.py",
+      "type": "file",
+      "summary": "Core Writer/CWriter font rendering for MicroPython framebuffers."
+    },
+    "file:writer/writer_gui.py": {
+      "name": "writer_gui.py",
+      "type": "file",
+      "summary": "GUI widgets (Label, Meter, LED) built on Writer."
+    },
+    "file:writer/writer_tests.py": {
+      "name": "writer_tests.py",
+      "type": "file",
+      "summary": "Writer test suite."
+    },
+    "file:writer/writer_demo.py": {
+      "name": "writer_demo.py",
+      "type": "file",
+      "summary": "Writer demo/example script."
+    },
+    "file:writer/ssd1306_setup.py": {
+      "name": "ssd1306_setup.py",
+      "type": "file",
+      "summary": "SSD1306 hardware init helper."
+    },
+    "file:writer/clock_big.py": {
+      "name": "clock_big.py",
+      "type": "file",
+      "summary": "Bitmap font data — large clock font."
+    },
+    "file:writer/noto20.py": {
+      "name": "noto20.py",
+      "type": "file",
+      "summary": "Bitmap font data — 20px Noto with binary search."
+    },
+    "file:writer/noto12.py": {
+      "name": "noto12.py",
+      "type": "file",
+      "summary": "Bitmap font data — 12px Noto."
+    },
+    "file:writer/freesans20.py": {
+      "name": "freesans20.py",
+      "type": "file",
+      "summary": "Bitmap font data — 20px FreeSans."
+    },
+    "file:writer/courier20.py": {
+      "name": "courier20.py",
+      "type": "file",
+      "summary": "Bitmap font data — 20px Courier."
+    },
+    "file:writer/font10.py": {
+      "name": "font10.py",
+      "type": "file",
+      "summary": "Bitmap font data — 10px proportional."
+    },
+    "file:writer/font6.py": {
+      "name": "font6.py",
+      "type": "file",
+      "summary": "Bitmap font data — 6px compact."
+    },
+    "file:writer/old_versions/writer_fw_compatible.py": {
+      "name": "writer_fw_compatible.py",
+      "type": "file",
+      "summary": "Legacy Writer/CWriter for firmware compatibility reference."
+    },
+    "file:writer/old_versions/writer_minimal.py": {
+      "name": "writer_minimal.py",
+      "type": "file",
+      "summary": "Minimal legacy Writer class."
+    },
+    "file:lib/mdns_client/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "mDNS client library package init."
+    },
+    "file:lib/mdns_client/client.py": {
+      "name": "client.py",
+      "type": "file",
+      "summary": "Core mDNS async UDP client with callback management."
+    },
+    "file:lib/mdns_client/constants.py": {
+      "name": "constants.py",
+      "type": "file",
+      "summary": "DNS/mDNS protocol constants."
+    },
+    "file:lib/mdns_client/parser.py": {
+      "name": "parser.py",
+      "type": "file",
+      "summary": "DNS packet parser for raw UDP bytes."
+    },
+    "file:lib/mdns_client/responder.py": {
+      "name": "responder.py",
+      "type": "file",
+      "summary": "mDNS responder sending service advertisement answers."
+    },
+    "file:lib/mdns_client/structs.py": {
+      "name": "structs.py",
+      "type": "file",
+      "summary": "DNS data structures with binary serialization."
+    },
+    "file:lib/mdns_client/util.py": {
+      "name": "util.py",
+      "type": "file",
+      "summary": "DNS wire-format utilities."
+    },
+    "file:lib/mdns_client/service_discovery/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "mDNS service discovery subpackage init."
+    },
+    "file:lib/mdns_client/service_discovery/discovery.py": {
+      "name": "discovery.py",
+      "type": "file",
+      "summary": "mDNS service discovery engine with TTL lifecycle."
+    },
+    "file:lib/mdns_client/service_discovery/service_monitor.py": {
+      "name": "service_monitor.py",
+      "type": "file",
+      "summary": "ServiceMonitor observer interface."
+    },
+    "file:lib/mdns_client/service_discovery/service_response.py": {
+      "name": "service_response.py",
+      "type": "file",
+      "summary": "mDNS service response data model."
+    },
+    "file:lib/mdns_client/service_discovery/txt_discovery.py": {
+      "name": "txt_discovery.py",
+      "type": "file",
+      "summary": "TXT record service discovery extension."
+    },
+    "config:.gitignore": {
+      "name": ".gitignore",
+      "type": "config",
+      "summary": "Git ignore rules."
+    },
+    "config:.micropico": {
+      "name": ".micropico",
+      "type": "config",
+      "summary": "MicroPico VS Code extension marker."
+    },
+    "config:E-Paper.code-workspace": {
+      "name": "E-Paper.code-workspace",
+      "type": "config",
+      "summary": "VS Code multi-root workspace config."
+    },
+    "config:taiwan_cities.json": {
+      "name": "taiwan_cities.json",
+      "type": "config",
+      "summary": "Taiwan city coordinates for weather location."
+    }
+  },
+  "totalNodes": 49,
+  "totalEdges": 40
+}

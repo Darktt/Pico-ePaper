@@ -1,0 +1,15 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 1,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section was minimal (1 correction: 1 tested_by edge dropped as orphan). No systemic ID prefix issues — node quality was high.",
+    "The only 'could not fix' issue was a dropped imports edge from file:web_server.py to file:taiwan_cities.json. The target node exists in the graph as config:taiwan_cities.json (correct type — it is a static JSON data file, not a source file). The imports edge was restored with source=file:web_server.py, target=config:taiwan_cities.json, type=imports, weight=0.7.",
+    "A reverse configures edge (config:taiwan_cities.json -> file:web_server.py) was already present in the graph and remains intact alongside the newly added forward imports edge.",
+    "All 19 import map relationships that could be verified against file: nodes were already present. The taiwan_cities.json entry was the only import map target without a file: node (it uses config: prefix), which explains why the automated import recovery skipped it.",
+    "No nodes with missing IDs, unknown types, or unknown complexity values were found. No nodes needed recovery."
+  ]
+}

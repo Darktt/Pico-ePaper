@@ -1,0 +1,760 @@
+{
+  "nodes": [
+    {
+      "id": "file:app.py",
+      "type": "file",
+      "name": "app.py",
+      "filePath": "app.py",
+      "summary": "Central application controller that manages device lifecycle states (AP mode, STA connection, init, run), wires up WiFi, NTP, weather, scheduler, and display subsystems, and drives the async event loop on the Pico W.",
+      "tags": ["entry-point", "service", "event-handler", "singleton"],
+      "complexity": "complex",
+      "languageNotes": "Uses MicroPython asyncio for cooperative multitasking on RP2040 — no threading, all concurrency via async/await and an event loop."
+    },
+    {
+      "id": "class:app.py:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "app.py",
+      "lineRange": [84, 303],
+      "summary": "Main application class that orchestrates device boot, WiFi negotiation, NTP sync, weather fetching, scheduler callbacks, and ePaper display rendering across its full lifecycle.",
+      "tags": ["service", "singleton", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "display/__init__.py",
+      "summary": "Empty package initializer that marks the display directory as a MicroPython module package.",
+      "tags": ["entry-point", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/canvas.py",
+      "type": "file",
+      "name": "canvas.py",
+      "filePath": "display/canvas.py",
+      "summary": "Provides the LandscapeCanvas class that wraps the 3.7\" ePaper framebuffer, handling coordinate transposition (portrait hardware rendered as landscape), partial and full display commits, and PBM image blitting.",
+      "tags": ["component", "service", "utility"],
+      "complexity": "complex",
+      "languageNotes": "Uses MicroPython's framebuf module and includes a viper-accelerated transposition path for performance on the RP2040."
+    },
+    {
+      "id": "class:display/canvas.py:LandscapeCanvas",
+      "type": "class",
+      "name": "LandscapeCanvas",
+      "filePath": "display/canvas.py",
+      "lineRange": [100, 230],
+      "summary": "Framebuffer subclass that presents a landscape coordinate system over the physically portrait 3.7\" ePaper panel, with full and partial refresh commit methods and PBM sprite blitting support.",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/fonts.py",
+      "type": "file",
+      "name": "fonts.py",
+      "filePath": "display/fonts.py",
+      "summary": "Defines and lazy-loads bitmap font modules used across all display screens, with a graceful fallback helper for missing optional fonts.",
+      "tags": ["utility", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/icons.py",
+      "type": "file",
+      "name": "icons.py",
+      "filePath": "display/icons.py",
+      "summary": "Loads PBM monochrome bitmap icons from the filesystem into framebuffer objects, with an LRU cache and a path-existence helper used by screen renderers for weather and WiFi icons.",
+      "tags": ["utility", "component"],
+      "complexity": "moderate",
+      "languageNotes": "Implements a small manual LRU cache (list-based) to limit RAM usage on the memory-constrained RP2040."
+    },
+    {
+      "id": "function:display/icons.py:load_pbm",
+      "type": "function",
+      "name": "load_pbm",
+      "filePath": "display/icons.py",
+      "lineRange": [42, 74],
+      "summary": "Reads a PBM file from the Pico filesystem, converts it into a MicroPython FrameBuffer object, and caches the result with LRU eviction.",
+      "tags": ["utility", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/icons.py:exists",
+      "type": "function",
+      "name": "exists",
+      "filePath": "display/icons.py",
+      "lineRange": [77, 86],
+      "summary": "Checks whether a PBM file path exists in the Pico filesystem by listing the parent directory, used as a guard before loading icons.",
+      "tags": ["utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "type": "file",
+      "name": "calendar.py",
+      "filePath": "display/screens/calendar.py",
+      "summary": "Renders a monthly calendar grid onto a canvas region, computing day-of-week layout and highlighting today's date, with support for configurable week-start day and proportional font rendering.",
+      "tags": ["component", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/screens/calendar.py:render",
+      "type": "function",
+      "name": "render",
+      "filePath": "display/screens/calendar.py",
+      "lineRange": [36, 104],
+      "summary": "Draws a full monthly calendar grid into a bounded canvas area, placing day-of-week headers and date cells with today's date highlighted via an inverse fill rectangle.",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "type": "file",
+      "name": "guide.py",
+      "filePath": "display/screens/guide.py",
+      "summary": "Renders the WiFi setup guide screen that shows AP SSID, password, and configuration URL when the device is in access-point mode awaiting initial setup.",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/guide.py:show",
+      "type": "function",
+      "name": "show",
+      "filePath": "display/screens/guide.py",
+      "lineRange": [20, 46],
+      "summary": "Clears the canvas and renders centered WiFi connection instructions (SSID, password, config URL) onto the ePaper display for the first-run AP setup flow.",
+      "tags": ["component", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "type": "file",
+      "name": "main_screen.py",
+      "filePath": "display/screens/main_screen.py",
+      "summary": "Composites the main ePaper display layout showing time, weather data, WiFi signal strength, and a monthly calendar, with separate partial-refresh render functions for time-only and calendar-only updates.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_full",
+      "type": "function",
+      "name": "render_full",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [177, 208],
+      "summary": "Reads current RTC time and config settings, clears the canvas, draws all main-screen widgets (WiFi, time, weather, calendar), and commits a full ePaper refresh.",
+      "tags": ["component", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_time",
+      "type": "function",
+      "name": "render_time",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [211, 220],
+      "summary": "Reads current RTC time and redraws only the time widget using a partial ePaper refresh, minimizing display wear.",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_calendar",
+      "type": "function",
+      "name": "render_calendar",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [230, 241],
+      "summary": "Reads current date from RTC and redraws only the calendar widget using a partial ePaper refresh.",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "function",
+      "name": "_draw_weather",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [109, 169],
+      "summary": "Draws the weather panel including condition icon, temperature, description text, and humidity/wind data onto a canvas region, with fallback text rendering when icon files are missing.",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:_draw_time",
+      "type": "function",
+      "name": "_draw_time",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [57, 103],
+      "summary": "Renders the large time display with configurable 12h/24h format and AM/PM label onto a canvas region, using proportional font sizing and centering.",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "type": "file",
+      "name": "message.py",
+      "filePath": "display/screens/message.py",
+      "summary": "Renders a single centered status message string to the full ePaper screen, used to display loading, error, and progress states during device boot and WiFi operations.",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/message.py:show",
+      "type": "function",
+      "name": "show",
+      "filePath": "display/screens/message.py",
+      "lineRange": [22, 35],
+      "summary": "Clears the canvas, centers the given text string using font metrics, writes it via the font Writer, and commits a full ePaper refresh.",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "summary": "MicroPython entry point that instantiates the App and runs its async event loop; this is the file MicroPython auto-executes on boot.",
+      "tags": ["entry-point"],
+      "complexity": "simple",
+      "languageNotes": "MicroPython automatically executes main.py on device boot after boot.py."
+    },
+    {
+      "id": "function:main.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "main.py",
+      "lineRange": [5, 10],
+      "summary": "Creates an App instance, runs it via asyncio, and resets the event loop — serves as the top-level boot entry point.",
+      "tags": ["entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ntp.py",
+      "type": "file",
+      "name": "ntp.py",
+      "filePath": "ntp.py",
+      "summary": "Provides a sync() function that queries an NTP server, applies a timezone offset, and sets the hardware RTC on the Pico W.",
+      "tags": ["utility", "service"],
+      "complexity": "simple",
+      "languageNotes": "Uses MicroPython's ntptime module and the machine.RTC class to write the corrected datetime directly to hardware."
+    },
+    {
+      "id": "function:ntp.py:sync",
+      "type": "function",
+      "name": "sync",
+      "filePath": "ntp.py",
+      "lineRange": [10, 32],
+      "summary": "Fetches current time from an NTP host, adjusts for a configurable timezone offset in minutes, and programs the hardware RTC; returns True on success.",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scheduler.py",
+      "type": "file",
+      "name": "scheduler.py",
+      "filePath": "scheduler.py",
+      "summary": "Provides the Scheduler class, an async time-event dispatcher that fires minute, hour, day, weather-tick, and NTP-tick events based on RTC wall-clock time.",
+      "tags": ["service", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:scheduler.py:Scheduler",
+      "type": "class",
+      "name": "Scheduler",
+      "filePath": "scheduler.py",
+      "lineRange": [14, 77],
+      "summary": "Async scheduler that polls the RTC at sub-second intervals, fires named time-based events (minute, hour, day, weather, ntp) to registered async handler callbacks, with deduplication to prevent double-firing.",
+      "tags": ["service", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:weather.py",
+      "type": "file",
+      "name": "weather.py",
+      "filePath": "weather.py",
+      "summary": "Fetches current weather data from the OpenWeatherMap API, persists results to a rotating log file on the Pico filesystem, and exposes helpers to read and rotate the log.",
+      "tags": ["service", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:weather.py:fetch",
+      "type": "function",
+      "name": "fetch",
+      "filePath": "weather.py",
+      "lineRange": [37, 87],
+      "summary": "Builds an OpenWeatherMap API URL from config, makes an HTTP GET request with retry logic, parses the JSON response into a weather dict, logs the result, and returns the dict on success or None on failure.",
+      "tags": ["api-handler", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:weather.py:rotate_if_needed",
+      "type": "function",
+      "name": "rotate_if_needed",
+      "filePath": "weather.py",
+      "lineRange": [98, 111],
+      "summary": "Checks whether the weather log file has grown beyond one day's worth of entries and rotates it by truncating if needed, preserving only recent data.",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:main.py",
+      "target": "file:app.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "function:main.py:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:main.py",
+      "target": "function:main.py:main",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:main.py:main",
+      "target": "class:app.py:App",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/__init__.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/main_screen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/calendar.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/guide.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/message.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:ntp.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:scheduler.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:weather.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:wifi_manager.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:app.py:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:app.py:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:weather.py:fetch",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:ntp.py:sync",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:display/screens/guide.py:show",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:app.py:App",
+      "target": "function:display/screens/message.py:show",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "file:display/fonts.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:exists",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:exists",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/guide.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/guide.py",
+      "target": "function:display/screens/guide.py:show",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/guide.py",
+      "target": "function:display/screens/guide.py:show",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:display/icons.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:weather.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_time",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:display/screens/main_screen.py:render_full",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:display/screens/main_screen.py:render_full",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:display/screens/main_screen.py:_draw_weather",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:display/screens/main_screen.py:_draw_weather",
+      "target": "function:display/icons.py:exists",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/message.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/message.py",
+      "target": "function:display/screens/message.py:show",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/message.py",
+      "target": "function:display/screens/message.py:show",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:ntp.py",
+      "target": "function:ntp.py:sync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ntp.py",
+      "target": "function:ntp.py:sync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scheduler.py",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scheduler.py",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:weather.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:fetch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:rotate_if_needed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:fetch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:rotate_if_needed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

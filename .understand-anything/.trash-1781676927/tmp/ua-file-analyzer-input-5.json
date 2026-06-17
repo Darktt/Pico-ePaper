@@ -1,0 +1,15 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": ".gitignore", "language": "gitignore", "sizeLines": 30, "fileCategory": "config"},
+    {"path": ".micropico", "language": "unknown", "sizeLines": 2, "fileCategory": "config"},
+    {"path": "E-Paper.code-workspace", "language": "json", "sizeLines": 13, "fileCategory": "config"},
+    {"path": "taiwan_cities.json", "language": "json", "sizeLines": 111, "fileCategory": "data"}
+  ],
+  "batchImportData": {
+    ".gitignore": [],
+    ".micropico": [],
+    "E-Paper.code-workspace": [],
+    "taiwan_cities.json": []
+  }
+}

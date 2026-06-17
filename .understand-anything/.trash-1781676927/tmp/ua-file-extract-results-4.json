@@ -1,0 +1,1492 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 97,
+      "classes": [
+        {
+          "name": "ConfigManager",
+          "startLine": 27,
+          "endLine": 102,
+          "methods": [
+            "__init__",
+            "load",
+            "save",
+            "batch",
+            "_enter_batch",
+            "_exit_batch",
+            "get",
+            "set",
+            "set_weather_city",
+            "is_wifi_configured",
+            "is_weather_configured"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Batch",
+          "startLine": 105,
+          "endLine": 115,
+          "methods": [
+            "__init__",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConfigManager",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "_Batch",
+          "line": 105,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "self.load",
+          "lineNumber": 33
+        },
+        {
+          "caller": "load",
+          "callee": "os.listdir",
+          "lineNumber": 37
+        },
+        {
+          "caller": "load",
+          "callee": "open",
+          "lineNumber": 38
+        },
+        {
+          "caller": "load",
+          "callee": "ujson.load",
+          "lineNumber": 39
+        },
+        {
+          "caller": "load",
+          "callee": "ujson.loads",
+          "lineNumber": 41
+        },
+        {
+          "caller": "load",
+          "callee": "ujson.dumps",
+          "lineNumber": 41
+        },
+        {
+          "caller": "load",
+          "callee": "self.save",
+          "lineNumber": 42
+        },
+        {
+          "caller": "load",
+          "callee": "ujson.loads",
+          "lineNumber": 44
+        },
+        {
+          "caller": "load",
+          "callee": "ujson.dumps",
+          "lineNumber": 44
+        },
+        {
+          "caller": "load",
+          "callee": "self.save",
+          "lineNumber": 45
+        },
+        {
+          "caller": "save",
+          "callee": "open",
+          "lineNumber": 53
+        },
+        {
+          "caller": "save",
+          "callee": "ujson.dump",
+          "lineNumber": 54
+        },
+        {
+          "caller": "batch",
+          "callee": "_Batch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "_exit_batch",
+          "callee": "self.save",
+          "lineNumber": 66
+        },
+        {
+          "caller": "get",
+          "callee": "isinstance",
+          "lineNumber": 69
+        },
+        {
+          "caller": "get",
+          "callee": "self.load",
+          "lineNumber": 70
+        },
+        {
+          "caller": "get",
+          "callee": "isinstance",
+          "lineNumber": 71
+        },
+        {
+          "caller": "get",
+          "callee": "self.config.get(section, {}).get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "get",
+          "callee": "self.config.get",
+          "lineNumber": 74
+        },
+        {
+          "caller": "get",
+          "callee": "self.config.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "set",
+          "callee": "isinstance",
+          "lineNumber": 78
+        },
+        {
+          "caller": "set",
+          "callee": "self.load",
+          "lineNumber": 79
+        },
+        {
+          "caller": "set",
+          "callee": "isinstance",
+          "lineNumber": 80
+        },
+        {
+          "caller": "set",
+          "callee": "self.save",
+          "lineNumber": 85
+        },
+        {
+          "caller": "set_weather_city",
+          "callee": "isinstance",
+          "lineNumber": 88
+        },
+        {
+          "caller": "set_weather_city",
+          "callee": "self.load",
+          "lineNumber": 89
+        },
+        {
+          "caller": "set_weather_city",
+          "callee": "isinstance",
+          "lineNumber": 90
+        },
+        {
+          "caller": "set_weather_city",
+          "callee": "self.save",
+          "lineNumber": 93
+        },
+        {
+          "caller": "is_wifi_configured",
+          "callee": "self.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "is_wifi_configured",
+          "callee": "bool",
+          "lineNumber": 97
+        },
+        {
+          "caller": "is_weather_configured",
+          "callee": "self.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "is_weather_configured",
+          "callee": "self.get",
+          "lineNumber": 101
+        },
+        {
+          "caller": "is_weather_configured",
+          "callee": "bool",
+          "lineNumber": 102
+        },
+        {
+          "caller": "is_weather_configured",
+          "callee": "bool",
+          "lineNumber": 102
+        },
+        {
+          "caller": "is_weather_configured",
+          "callee": "city.get",
+          "lineNumber": 102
+        },
+        {
+          "caller": "__enter__",
+          "callee": "self.manager._enter_batch",
+          "lineNumber": 110
+        },
+        {
+          "caller": "__exit__",
+          "callee": "self.manager._exit_batch",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "web_server.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 457,
+      "nonEmptyLines": 401,
+      "functions": [
+        {
+          "name": "_load_cities",
+          "startLine": 9,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "_url_decode",
+          "startLine": 17,
+          "endLine": 35,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "_parse_form",
+          "startLine": 38,
+          "endLine": 46,
+          "params": [
+            "body"
+          ]
+        },
+        {
+          "name": "_parse_query",
+          "startLine": 49,
+          "endLine": 53,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "_page",
+          "startLine": 92,
+          "endLine": 107,
+          "params": [
+            "title",
+            "body",
+            "active"
+          ]
+        },
+        {
+          "name": "_wifi_page",
+          "startLine": 110,
+          "endLine": 153,
+          "params": [
+            "scan_list",
+            "current_ssid",
+            "msg"
+          ]
+        },
+        {
+          "name": "_time_page",
+          "startLine": 171,
+          "endLine": 211,
+          "params": [
+            "timecfg",
+            "msg"
+          ]
+        },
+        {
+          "name": "_weather_page",
+          "startLine": 214,
+          "endLine": 258,
+          "params": [
+            "weather_cfg",
+            "cities",
+            "msg"
+          ]
+        },
+        {
+          "name": "_done_page",
+          "startLine": 261,
+          "endLine": 267,
+          "params": [
+            "state"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "WebConfigServer",
+          "startLine": 272,
+          "endLine": 457,
+          "methods": [
+            "__init__",
+            "start",
+            "_handle",
+            "_send",
+            "_redirect",
+            "_route",
+            "_time_seen"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_load_cities",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "_url_decode",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "_parse_form",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "_parse_query",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "_page",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "_wifi_page",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "_time_page",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "_weather_page",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "_done_page",
+          "line": 261,
+          "isDefault": false
+        },
+        {
+          "name": "WebConfigServer",
+          "line": 272,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_load_cities",
+          "callee": "open",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_load_cities",
+          "callee": "ujson.load",
+          "lineNumber": 12
+        },
+        {
+          "caller": "_url_decode",
+          "callee": "len",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_url_decode",
+          "callee": "len",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_url_decode",
+          "callee": "chr",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_url_decode",
+          "callee": "int",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_parse_form",
+          "callee": "body.split",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_parse_form",
+          "callee": "pair.split",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_parse_form",
+          "callee": "_url_decode",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_parse_form",
+          "callee": "_url_decode",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_parse_form",
+          "callee": "_url_decode",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_parse_query",
+          "callee": "path.split",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_parse_query",
+          "callee": "_parse_form",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_page",
+          "callee": "\"<a class='{cls}' href='/{key}'>{label}</a>\".format",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_page",
+          "callee": "(\n        \"<!doctype html><html lang='zh-TW'><head>\"\n        \"<meta charset='utf-8'>\"\n        \"<meta name='viewport' content='width=device-width,initial-scale=1'>\"\n        \"<title>{title}</title>{css}\"\n        \"</head><body>\"\n        \"<h1>ePaper 設定</h1>\"\n        \"<nav>{nav}</nav>\"\n        \"{body}\"\n        \"</body></html>\"\n    ).format",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "set",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "x.get",
+          "lineNumber": 113
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "\"<option value='{0}' selected>{0}（已儲存）</option>\".format",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "seen.add",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "x.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "seen.add",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "x.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "\"<option value='{0}'{1}>{0}（{2}dBm）</option>\".format",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "\"<div class='notice'>{}</div>\".format",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "(\n        \"{msg}\"\n        \"<form method='POST' action='/wifi'>\"\n        \"<h2>Wi-Fi 設定</h2>\"\n        \"<label>SSID</label>\"\n        \"<select name='ssid'>{options}</select>\"\n        \"<button type='button' class='secondary' onclick='rescan()'>重新掃描</button>\"\n        \"<label>密碼</label>\"\n        \"<input type='password' name='password' autocomplete='off'>\"\n        \"<input type='submit' value='儲存並連線'>\"\n        \"</form>\"\n        \"<script>\"\n        \"function rescan(){{\"\n          \"var b=event.target;b.disabled=true;b.textContent='掃描中…';\"\n          \"fetch('/scan').then(r=>r.json()).then(j=>{{\"\n            \"var sel=document.querySelector('select[name=ssid]');\"\n            \"sel.innerHTML='';\"\n            \"j.forEach(x=>{{\"\n              \"var o=document.createElement('option');\"\n              \"o.value=x.ssid;o.textContent=x.ssid+'（'+x.rssi+'dBm）';\"\n              \"sel.appendChild(o);}});\"\n            \"b.disabled=false;b.textContent='重新掃描';\"\n          \"}}).catch(e=>{{b.disabled=false;b.textContent='重新掃描';alert(e);}});\"\n        \"}}\"\n        \"</script>\"\n    ).format",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_wifi_page",
+          "callee": "_page",
+          "lineNumber": 153
+        },
+        {
+          "caller": "_time_page",
+          "callee": "bool",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_time_page",
+          "callee": "timecfg.get",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_time_page",
+          "callee": "timecfg.get",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_time_page",
+          "callee": "timecfg.get",
+          "lineNumber": 174
+        },
+        {
+          "caller": "_time_page",
+          "callee": "\"<div class='ok'>{}</div>\".format",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_time_page",
+          "callee": "\"\".join",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_time_page",
+          "callee": "\"<option value='{v}' {s}>{l}</option>\".format",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_time_page",
+          "callee": "(\n        \"{msg}\"\n        \"<form method='POST' action='/time'>\"\n        \"<h2>時間 / 日曆</h2>\"\n        \"<label>時制</label>\"\n        \"<div class='radio-row'>\"\n        \"<label><input type='radio' name='is_24h' value='1' {c24}/>24 小時制</label>\"\n        \"<label><input type='radio' name='is_24h' value='0' {c12}/>12 小時制</label>\"\n        \"</div>\"\n        \"<label>一週起始日</label>\"\n        \"<select name='week_start'>\"\n        \"<option value='1' {w1}>週一</option>\"\n        \"<option value='7' {w7}>週日</option>\"\n        \"</select>\"\n        \"<label>時區</label>\"\n        \"<select name='tz_offset_minutes'>{tz_html}</select>\"\n        \"<input type='submit' value='儲存'>\"\n        \"</form>\"\n    ).format",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_time_page",
+          "callee": "_page",
+          "lineNumber": 211
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "weather_cfg.get",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "bool",
+          "lineNumber": 216
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "weather_cfg.get",
+          "lineNumber": 216
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "weather_cfg.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "city.get",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "enumerate",
+          "lineNumber": 221
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "c.get",
+          "lineNumber": 222
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "\"<option value='{}' {}>{}</option>\".format",
+          "lineNumber": 223
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "c.get",
+          "lineNumber": 223
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "os.listdir",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "\"<div class='ok'>{}</div>\".format",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "(\n        \"{msg}\"\n        \"<form method='POST' action='/weather'>\"\n        \"<h2>天氣設定</h2>\"\n        \"<label>OpenWeather API Key</label>\"\n        \"<input type='text' name='api_key' value='{api}' autocomplete='off'>\"\n        \"<label>城市</label>\"\n        \"<select name='city_idx'>{options}</select>\"\n        \"<label>溫度單位</label>\"\n        \"<div class='radio-row'>\"\n        \"<label><input type='radio' name='is_celsius' value='1' {cc}/>攝氏 ℃</label>\"\n        \"<label><input type='radio' name='is_celsius' value='0' {cf}/>華氏 ℉</label>\"\n        \"</div>\"\n        \"<input type='submit' value='儲存並套用'>\"\n        \"</form>\"\n        \"{log}\"\n    ).format",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_weather_page",
+          "callee": "_page",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_done_page",
+          "callee": "(\n        \"<div class='ok'>裝置運作中 — 設定已套用</div>\"\n        \"<p>目前狀態：{state}</p>\"\n        \"<p>你可以隨時回到上方的分頁修改設定。</p>\"\n    ).format",
+          "lineNumber": 262
+        },
+        {
+          "caller": "_done_page",
+          "callee": "_page",
+          "lineNumber": 267
+        },
+        {
+          "caller": "__init__",
+          "callee": "_load_cities",
+          "lineNumber": 278
+        },
+        {
+          "caller": "start",
+          "callee": "asyncio.start_server",
+          "lineNumber": 282
+        },
+        {
+          "caller": "start",
+          "callee": "print",
+          "lineNumber": 283
+        },
+        {
+          "caller": "start",
+          "callee": "\"Web server listening on :{}\".format",
+          "lineNumber": 283
+        },
+        {
+          "caller": "_handle",
+          "callee": "reader.readline",
+          "lineNumber": 287
+        },
+        {
+          "caller": "_handle",
+          "callee": "request_line.decode().split",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_handle",
+          "callee": "request_line.decode",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_handle",
+          "callee": "len",
+          "lineNumber": 291
+        },
+        {
+          "caller": "_handle",
+          "callee": "reader.readline",
+          "lineNumber": 297
+        },
+        {
+          "caller": "_handle",
+          "callee": "line.decode().split",
+          "lineNumber": 301
+        },
+        {
+          "caller": "_handle",
+          "callee": "line.decode",
+          "lineNumber": 301
+        },
+        {
+          "caller": "_handle",
+          "callee": "k.strip().lower",
+          "lineNumber": 302
+        },
+        {
+          "caller": "_handle",
+          "callee": "k.strip",
+          "lineNumber": 302
+        },
+        {
+          "caller": "_handle",
+          "callee": "v.strip",
+          "lineNumber": 302
+        },
+        {
+          "caller": "_handle",
+          "callee": "int",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_handle",
+          "callee": "headers.get",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_handle",
+          "callee": "reader.readexactly",
+          "lineNumber": 309
+        },
+        {
+          "caller": "_handle",
+          "callee": "self._route",
+          "lineNumber": 311
+        },
+        {
+          "caller": "_handle",
+          "callee": "print",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_handle",
+          "callee": "\"web handler error: {}\".format",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_handle",
+          "callee": "self._send",
+          "lineNumber": 315
+        },
+        {
+          "caller": "_handle",
+          "callee": "\"Server error: {}\".format",
+          "lineNumber": 315
+        },
+        {
+          "caller": "_handle",
+          "callee": "writer.aclose",
+          "lineNumber": 320
+        },
+        {
+          "caller": "_send",
+          "callee": "isinstance",
+          "lineNumber": 325
+        },
+        {
+          "caller": "_send",
+          "callee": "body.encode",
+          "lineNumber": 326
+        },
+        {
+          "caller": "_send",
+          "callee": "{200: \"OK\", 302: \"Found\", 404: \"Not Found\",\n                       400: \"Bad Request\", 500: \"Server Error\"}.get",
+          "lineNumber": 327
+        },
+        {
+          "caller": "_send",
+          "callee": "\"HTTP/1.0 {} {}\\r\\nContent-Type: {}\\r\\nContent-Length: {}\\r\\nConnection: close\\r\\n\".format",
+          "lineNumber": 329
+        },
+        {
+          "caller": "_send",
+          "callee": "len",
+          "lineNumber": 330
+        },
+        {
+          "caller": "_send",
+          "callee": "extra_headers.items",
+          "lineNumber": 332
+        },
+        {
+          "caller": "_send",
+          "callee": "\"{}: {}\\r\\n\".format",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_send",
+          "callee": "writer.write",
+          "lineNumber": 335
+        },
+        {
+          "caller": "_send",
+          "callee": "head.encode",
+          "lineNumber": 335
+        },
+        {
+          "caller": "_send",
+          "callee": "writer.write",
+          "lineNumber": 336
+        },
+        {
+          "caller": "_send",
+          "callee": "writer.drain",
+          "lineNumber": 337
+        },
+        {
+          "caller": "_redirect",
+          "callee": "self._send",
+          "lineNumber": 340
+        },
+        {
+          "caller": "_route",
+          "callee": "_parse_query",
+          "lineNumber": 343
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.is_connected",
+          "lineNumber": 347
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 348
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.is_weather_configured",
+          "lineNumber": 349
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 350
+        },
+        {
+          "caller": "_route",
+          "callee": "self._time_seen",
+          "lineNumber": 350
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 351
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.scan",
+          "lineNumber": 354
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 355
+        },
+        {
+          "caller": "_route",
+          "callee": "_wifi_page",
+          "lineNumber": 356
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.get",
+          "lineNumber": 356
+        },
+        {
+          "caller": "_route",
+          "callee": "_parse_form",
+          "lineNumber": 359
+        },
+        {
+          "caller": "_route",
+          "callee": "body.decode",
+          "lineNumber": 359
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get(\"ssid\", \"\").strip",
+          "lineNumber": 360
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 360
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get(\"password\", \"\").strip",
+          "lineNumber": 361
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 361
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.batch",
+          "lineNumber": 362
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 363
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 364
+        },
+        {
+          "caller": "_route",
+          "callee": "self.app.try_connect_wifi",
+          "lineNumber": 366
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 368
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.scan",
+          "lineNumber": 369
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 370
+        },
+        {
+          "caller": "_route",
+          "callee": "_wifi_page",
+          "lineNumber": 371
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.scan",
+          "lineNumber": 374
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 375
+        },
+        {
+          "caller": "_route",
+          "callee": "ujson.dumps",
+          "lineNumber": 375
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.is_connected",
+          "lineNumber": 378
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 379
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 380
+        },
+        {
+          "caller": "_route",
+          "callee": "_time_page",
+          "lineNumber": 381
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.get",
+          "lineNumber": 381
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.is_connected",
+          "lineNumber": 384
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 385
+        },
+        {
+          "caller": "_route",
+          "callee": "_parse_form",
+          "lineNumber": 386
+        },
+        {
+          "caller": "_route",
+          "callee": "body.decode",
+          "lineNumber": 386
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 387
+        },
+        {
+          "caller": "_route",
+          "callee": "int",
+          "lineNumber": 389
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 389
+        },
+        {
+          "caller": "_route",
+          "callee": "int",
+          "lineNumber": 393
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 393
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.batch",
+          "lineNumber": 401
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 402
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 403
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 404
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 405
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.is_connected",
+          "lineNumber": 408
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 409
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 410
+        },
+        {
+          "caller": "_route",
+          "callee": "_weather_page",
+          "lineNumber": 411
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.get",
+          "lineNumber": 411
+        },
+        {
+          "caller": "_route",
+          "callee": "self.wifi.is_connected",
+          "lineNumber": 414
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 415
+        },
+        {
+          "caller": "_route",
+          "callee": "_parse_form",
+          "lineNumber": 416
+        },
+        {
+          "caller": "_route",
+          "callee": "body.decode",
+          "lineNumber": 416
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get(\"api_key\", \"\").strip",
+          "lineNumber": 417
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 417
+        },
+        {
+          "caller": "_route",
+          "callee": "int",
+          "lineNumber": 419
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 419
+        },
+        {
+          "caller": "_route",
+          "callee": "form.get",
+          "lineNumber": 422
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.batch",
+          "lineNumber": 423
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 424
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set",
+          "lineNumber": 425
+        },
+        {
+          "caller": "_route",
+          "callee": "len",
+          "lineNumber": 426
+        },
+        {
+          "caller": "_route",
+          "callee": "self.config.set_weather_city",
+          "lineNumber": 428
+        },
+        {
+          "caller": "_route",
+          "callee": "city.get",
+          "lineNumber": 429
+        },
+        {
+          "caller": "_route",
+          "callee": "city.get",
+          "lineNumber": 430
+        },
+        {
+          "caller": "_route",
+          "callee": "city.get",
+          "lineNumber": 431
+        },
+        {
+          "caller": "_route",
+          "callee": "self.app.request_reinit",
+          "lineNumber": 434
+        },
+        {
+          "caller": "_route",
+          "callee": "self._redirect",
+          "lineNumber": 435
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 438
+        },
+        {
+          "caller": "_route",
+          "callee": "_done_page",
+          "lineNumber": 439
+        },
+        {
+          "caller": "_route",
+          "callee": "self.app.state_name",
+          "lineNumber": 439
+        },
+        {
+          "caller": "_route",
+          "callee": "os.listdir",
+          "lineNumber": 443
+        },
+        {
+          "caller": "_route",
+          "callee": "open",
+          "lineNumber": 444
+        },
+        {
+          "caller": "_route",
+          "callee": "f.read",
+          "lineNumber": 445
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 446
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 450
+        },
+        {
+          "caller": "_route",
+          "callee": "self._send",
+          "lineNumber": 452
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 10,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "wifi_manager.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 157,
+      "nonEmptyLines": 141,
+      "functions": [
+        {
+          "name": "rssi_to_level",
+          "startLine": 15,
+          "endLine": 27,
+          "params": [
+            "rssi"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "WiFiManager",
+          "startLine": 30,
+          "endLine": 157,
+          "methods": [
+            "__init__",
+            "start_ap",
+            "stop_ap",
+            "ap_info",
+            "connect_sta",
+            "disconnect_sta",
+            "is_connected",
+            "current_rssi",
+            "current_level",
+            "sta_ip",
+            "scan"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "rssi_to_level",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "WiFiManager",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "network.WLAN",
+          "lineNumber": 32
+        },
+        {
+          "caller": "__init__",
+          "callee": "network.WLAN",
+          "lineNumber": 33
+        },
+        {
+          "caller": "__init__",
+          "callee": "network.hostname",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 41
+        },
+        {
+          "caller": "__init__",
+          "callee": "print",
+          "lineNumber": 43
+        },
+        {
+          "caller": "start_ap",
+          "callee": "self.ap.active",
+          "lineNumber": 48
+        },
+        {
+          "caller": "start_ap",
+          "callee": "self.ap.config",
+          "lineNumber": 49
+        },
+        {
+          "caller": "start_ap",
+          "callee": "self.ap.ifconfig",
+          "lineNumber": 51
+        },
+        {
+          "caller": "start_ap",
+          "callee": "self.ap.ifconfig",
+          "lineNumber": 58
+        },
+        {
+          "caller": "stop_ap",
+          "callee": "self.ap.active",
+          "lineNumber": 72
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.active",
+          "lineNumber": 81
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 83
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.config",
+          "lineNumber": 85
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.disconnect",
+          "lineNumber": 90
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "time.sleep",
+          "lineNumber": 93
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 94
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.connect",
+          "lineNumber": 95
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "time.time",
+          "lineNumber": 96
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 97
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "time.time",
+          "lineNumber": 98
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "time.sleep",
+          "lineNumber": 100
+        },
+        {
+          "caller": "connect_sta",
+          "callee": "self.sta.ifconfig",
+          "lineNumber": 101
+        },
+        {
+          "caller": "disconnect_sta",
+          "callee": "self.sta.disconnect",
+          "lineNumber": 110
+        },
+        {
+          "caller": "disconnect_sta",
+          "callee": "self.sta.active",
+          "lineNumber": 113
+        },
+        {
+          "caller": "is_connected",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 116
+        },
+        {
+          "caller": "current_rssi",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 120
+        },
+        {
+          "caller": "current_rssi",
+          "callee": "self.sta.status",
+          "lineNumber": 121
+        },
+        {
+          "caller": "current_level",
+          "callee": "rssi_to_level",
+          "lineNumber": 127
+        },
+        {
+          "caller": "current_level",
+          "callee": "self.current_rssi",
+          "lineNumber": 127
+        },
+        {
+          "caller": "sta_ip",
+          "callee": "self.sta.isconnected",
+          "lineNumber": 130
+        },
+        {
+          "caller": "sta_ip",
+          "callee": "self.sta.ifconfig",
+          "lineNumber": 132
+        },
+        {
+          "caller": "scan",
+          "callee": "self.sta.active",
+          "lineNumber": 140
+        },
+        {
+          "caller": "scan",
+          "callee": "self.sta.scan",
+          "lineNumber": 141
+        },
+        {
+          "caller": "scan",
+          "callee": "entry[0].decode",
+          "lineNumber": 147
+        },
+        {
+          "caller": "scan",
+          "callee": "len",
+          "lineNumber": 152
+        },
+        {
+          "caller": "scan",
+          "callee": "len",
+          "lineNumber": 153
+        },
+        {
+          "caller": "scan",
+          "callee": "results.get",
+          "lineNumber": 154
+        },
+        {
+          "caller": "scan",
+          "callee": "sorted",
+          "lineNumber": 157
+        },
+        {
+          "caller": "scan",
+          "callee": "results.values",
+          "lineNumber": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}

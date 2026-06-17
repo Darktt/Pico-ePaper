@@ -1,0 +1,438 @@
+{
+  "nodes": [
+    {
+      "id": "file:display/screens/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "display/screens/__init__.py",
+      "summary": "Package initializer for the display screens module, providing the `log_display` debug logging helper and the `make_writer` factory function that wraps the Writer class with pixel-doubling and coordinate patching for the ePaper canvas.",
+      "tags": ["entry-point", "factory", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/__init__.py:log_display",
+      "type": "function",
+      "name": "log_display",
+      "filePath": "display/screens/__init__.py",
+      "lineRange": [1, 7],
+      "summary": "Formats and prints a labeled debug message for the EPD display layer, joining variadic string parts with ' | ' separators.",
+      "tags": ["utility", "logging"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/__init__.py:make_writer",
+      "type": "function",
+      "name": "make_writer",
+      "filePath": "display/screens/__init__.py",
+      "lineRange": [10, 33],
+      "summary": "Factory function that creates a Writer instance for a given canvas and font, applying monkey-patches to scale pixel coordinates by 2 and to intercept printstring calls for ePaper-compatible rendering.",
+      "tags": ["factory", "utility", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "lib/mdns_client/service_discovery/__init__.py",
+      "summary": "Empty package initializer for the mDNS service discovery subpackage, making the directory importable as a Python package with no additional top-level exports.",
+      "tags": ["entry-point", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Pico_ePaper_3_7.py",
+      "type": "file",
+      "name": "Pico_ePaper_3_7.py",
+      "filePath": "Pico_ePaper_3_7.py",
+      "summary": "Low-level hardware driver for the Waveshare 3.7\" ePaper display on Raspberry Pi Pico W, implementing the EPD_3in7 class with SPI communication, GPIO control, 1-bit and 4-gray display modes, partial refresh, LUT loading, and power management.",
+      "tags": ["service", "hardware-driver", "singleton"],
+      "complexity": "complex",
+      "languageNotes": "MicroPython driver using machine.SPI and machine.Pin; manages two framebuffers (black and red channels) for 4-gray rendering by interleaving bit planes."
+    },
+    {
+      "id": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "class",
+      "name": "EPD_3in7",
+      "filePath": "Pico_ePaper_3_7.py",
+      "lineRange": [99, 572],
+      "summary": "Main ePaper display driver class encapsulating SPI initialization, hardware reset, command/data sending, LUT loading, 4-gray and 1-gray display modes, partial refresh, clear operations, and sleep/wake control for the 3.7-inch e-ink panel.",
+      "tags": ["hardware-driver", "singleton", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:writer/clock_big.py",
+      "type": "file",
+      "name": "clock_big.py",
+      "filePath": "writer/clock_big.py",
+      "summary": "Bitmapped font data module for a large monospaced clock-style font, encoding glyph pixel data as packed binary bytes and exposing font metadata accessors (`height`, `max_width`, `hmap`, `reverse`, `monospaced`, `get_ch`) compatible with the MicroPython Writer interface.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "complex",
+      "languageNotes": "Font glyph data is stored as a flat Python bytes literal; get_ch() uses index tables and binary search helpers to locate per-character slice offsets."
+    },
+    {
+      "id": "function:writer/clock_big.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/clock_big.py",
+      "lineRange": [513, 520],
+      "summary": "Looks up and returns the bitmap data, height, and width for a given character from the clock_big font's packed glyph table.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/courier20.py",
+      "type": "file",
+      "name": "courier20.py",
+      "filePath": "writer/courier20.py",
+      "summary": "Bitmapped font data module for the 20px Courier monospaced font, storing packed glyph bitmaps and providing font metadata and the `get_ch` character lookup function for use with the Writer rendering layer.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/courier20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/courier20.py",
+      "lineRange": [301, 307],
+      "summary": "Returns the bitmap slice, height, and width for a given character by looking up its offset in the Courier20 glyph index table.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/font10.py",
+      "type": "file",
+      "name": "font10.py",
+      "filePath": "writer/font10.py",
+      "summary": "Bitmapped font data module for a 10px proportional font, encoding glyph bitmaps as packed bytes and exposing the standard Writer-compatible font interface including `get_ch` for character lookup.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/font10.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/font10.py",
+      "lineRange": [222, 228],
+      "summary": "Returns the bitmap data, height, and width for a given character from the font10 glyph table using offset-based indexing.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/font6.py",
+      "type": "file",
+      "name": "font6.py",
+      "filePath": "writer/font6.py",
+      "summary": "Bitmapped font data module for a compact 6px font, providing packed glyph binary data and the standard Writer-compatible metadata and `get_ch` character accessor.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/font6.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/font6.py",
+      "lineRange": [169, 175],
+      "summary": "Returns the bitmap data, height, and width for a character from the font6 glyph table.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/freesans20.py",
+      "type": "file",
+      "name": "freesans20.py",
+      "filePath": "writer/freesans20.py",
+      "summary": "Bitmapped font data module for the 20px FreeSans proportional sans-serif font, encoding glyph pixel data and providing the Writer-compatible font interface including `get_ch` for character-level bitmap retrieval.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/freesans20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/freesans20.py",
+      "lineRange": [280, 287],
+      "summary": "Returns the bitmap slice, height, and width for a given character from the freesans20 font's packed glyph data using inline offset arithmetic.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/noto12.py",
+      "type": "file",
+      "name": "noto12.py",
+      "filePath": "writer/noto12.py",
+      "summary": "Bitmapped font data module for the 12px Noto proportional font, storing an extended glyph set with binary search support (`bs` helper) and the standard `get_ch` lookup, suitable for rendering multi-language characters on the ePaper display.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "complex",
+      "languageNotes": "Uses a binary-search helper function `bs` to locate characters in a sorted index table, enabling sparse Unicode coverage beyond contiguous ASCII."
+    },
+    {
+      "id": "function:writer/noto12.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/noto12.py",
+      "lineRange": [451, 456],
+      "summary": "Looks up a character in the noto12 font index via binary search and returns the corresponding bitmap data and glyph dimensions.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/noto20.py",
+      "type": "file",
+      "name": "noto20.py",
+      "filePath": "writer/noto20.py",
+      "summary": "Bitmapped font data module for the 20px Noto proportional font with a large character set, using a binary-search index for sparse Unicode glyph lookup and providing the full Writer-compatible font interface.",
+      "tags": ["data-model", "utility", "type-definition"],
+      "complexity": "complex",
+      "languageNotes": "Largest font file in the project (843 lines); binary search over a packed index allows O(log n) character lookup without a dense table, saving RAM on MicroPython."
+    },
+    {
+      "id": "function:writer/noto20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/noto20.py",
+      "lineRange": [837, 842],
+      "summary": "Returns the glyph bitmap, height, and width for a character from the noto20 font using binary search over the glyph index.",
+      "tags": ["utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/old_versions/writer_fw_compatible.py",
+      "type": "file",
+      "name": "writer_fw_compatible.py",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "summary": "Legacy MicroPython Writer and CWriter class implementation retained for firmware compatibility reference, providing text rendering to a framebuffer device with word-wrapping, clipping, color support, and a fast native-code path via uctypes in CWriter.",
+      "tags": ["utility", "component", "service"],
+      "complexity": "complex",
+      "languageNotes": "CWriter extends Writer with a fast rendering path using uctypes.bytearray_at and addressof for direct memory-mapped framebuffer access, requiring a specific MicroPython build with native emitters enabled."
+    },
+    {
+      "id": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "lineRange": [60, 268],
+      "summary": "Text rendering engine for MicroPython framebuffer devices that draws proportional or monospaced fonts with word-wrap, line clipping, tab support, and configurable foreground/background colors.",
+      "tags": ["component", "utility", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "class",
+      "name": "CWriter",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "lineRange": [271, 342],
+      "summary": "Optimized color Writer subclass that uses uctypes memory views for fast glyph blitting, falling back to a slow pixel-by-pixel path when native memory access is unavailable.",
+      "tags": ["component", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:writer/old_versions/writer_minimal.py",
+      "type": "file",
+      "name": "writer_minimal.py",
+      "filePath": "writer/old_versions/writer_minimal.py",
+      "summary": "Minimal legacy Writer class for MicroPython, providing bare-minimum font rendering to a framebuffer device with line wrapping and `blit`-based character drawing, kept for historical reference.",
+      "tags": ["utility", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/old_versions/writer_minimal.py",
+      "lineRange": [33, 98],
+      "summary": "Lightweight text renderer that writes bitmapped font characters to a MicroPython framebuffer, handling newlines, clipping, and glyph blitting with minimal overhead.",
+      "tags": ["component", "utility"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:log_display",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:make_writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:log_display",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:make_writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Pico_ePaper_3_7.py",
+      "target": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Pico_ePaper_3_7.py",
+      "target": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/clock_big.py",
+      "target": "function:writer/clock_big.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/clock_big.py",
+      "target": "function:writer/clock_big.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/courier20.py",
+      "target": "function:writer/courier20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/courier20.py",
+      "target": "function:writer/courier20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/font10.py",
+      "target": "function:writer/font10.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/font10.py",
+      "target": "function:writer/font10.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/font6.py",
+      "target": "function:writer/font6.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/font6.py",
+      "target": "function:writer/font6.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/freesans20.py",
+      "target": "function:writer/freesans20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/freesans20.py",
+      "target": "function:writer/freesans20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:writer/old_versions/writer_minimal.py",
+      "target": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_minimal.py",
+      "target": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,686 @@
+{
+  "nodes": [
+    {
+      "id": "file:writer/ssd1306_setup.py",
+      "type": "file",
+      "name": "ssd1306_setup.py",
+      "filePath": "writer/ssd1306_setup.py",
+      "summary": "Hardware setup helper that initializes an SSD1306 OLED display over either SPI or I2C, returning the display object for use by the Writer library.",
+      "tags": ["utility", "hardware-init", "spi", "i2c"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/ssd1306_setup.py:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "writer/ssd1306_setup.py",
+      "lineRange": [38, 69],
+      "summary": "Initializes the SSD1306 display via SPI or I2C based on the use_spi flag, configuring GPIO pins and returning the display instance.",
+      "tags": ["hardware-init", "utility", "factory"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:writer/writer.py",
+      "type": "file",
+      "name": "writer.py",
+      "filePath": "writer/writer.py",
+      "summary": "Core font rendering library providing the Writer and CWriter classes for drawing proportional and monospaced fonts onto MicroPython framebuffer-compatible displays, including ePaper.",
+      "tags": ["font-rendering", "display", "utility", "service"],
+      "complexity": "complex",
+      "languageNotes": "Uses MicroPython-specific APIs such as framebuf.FrameBuffer, bytearray_at, and addressof for zero-copy pixel blitting in CWriter."
+    },
+    {
+      "id": "class:writer/writer.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/writer.py",
+      "lineRange": [44, 278],
+      "summary": "Base text rendering class that manages cursor position, line wrapping, scrolling, and character blitting for any framebuffer-compatible display device.",
+      "tags": ["font-rendering", "display", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:writer/writer.py:CWriter",
+      "type": "class",
+      "name": "CWriter",
+      "filePath": "writer/writer.py",
+      "lineRange": [282, 331],
+      "summary": "Color-capable subclass of Writer that supports foreground/background color via a palette, using zero-copy memory views for efficient pixel blitting on color displays.",
+      "tags": ["font-rendering", "color", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:writer/writer_demo.py",
+      "type": "file",
+      "name": "writer_demo.py",
+      "filePath": "writer/writer_demo.py",
+      "summary": "Demonstration script that initializes the SSD1306 display and uses the Writer class to render sample text lines, illustrating basic Writer usage.",
+      "tags": ["example", "display", "font-rendering"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_demo.py:test",
+      "type": "function",
+      "name": "test",
+      "filePath": "writer/writer_demo.py",
+      "lineRange": [40, 52],
+      "summary": "Runs the Writer demo by setting up the display, drawing a dividing line, and printing three text strings via a Writer instance.",
+      "tags": ["example", "display", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/writer_gui.py",
+      "type": "file",
+      "name": "writer_gui.py",
+      "filePath": "writer/writer_gui.py",
+      "summary": "GUI widget library built on top of Writer, providing Label, Meter, and LED display widgets plus circle drawing primitives for building simple on-screen interfaces.",
+      "tags": ["gui", "widget", "display", "font-rendering"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/writer_gui.py:_circle",
+      "type": "function",
+      "name": "_circle",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [33, 50],
+      "summary": "Internal Bresenham circle algorithm that plots pixels at eight octant-symmetric points for a given center and radius.",
+      "tags": ["graphics", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_gui.py:fillcircle",
+      "type": "function",
+      "name": "fillcircle",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [57, 73],
+      "summary": "Draws a filled circle by iterating a Bresenham scan and drawing horizontal lines between symmetric points.",
+      "tags": ["graphics", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:DObject",
+      "type": "class",
+      "name": "DObject",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [76, 135],
+      "summary": "Abstract base display object that validates widget placement bounds, manages foreground/background color, and provides the common show/value interface for GUI widgets.",
+      "tags": ["gui", "base-class", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:Label",
+      "type": "class",
+      "name": "Label",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [138, 175],
+      "summary": "Text label widget that renders a string at a fixed screen position using a Writer instance, supporting optional clipping and color.",
+      "tags": ["gui", "widget", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:Meter",
+      "type": "class",
+      "name": "Meter",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [177, 221],
+      "summary": "Vertical bar-graph meter widget that renders a normalized float value as a filled bar with optional numeric label.",
+      "tags": ["gui", "widget", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:LED",
+      "type": "class",
+      "name": "LED",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [224, 242],
+      "summary": "Circular LED indicator widget that draws a filled circle in a configurable color to represent on/off or status states.",
+      "tags": ["gui", "widget", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/writer_tests.py",
+      "type": "file",
+      "name": "writer_tests.py",
+      "filePath": "writer/writer_tests.py",
+      "summary": "Comprehensive test suite for the Writer/CWriter library, covering inverse display, scrolling, upside-down mode, right-justification, multi-font rendering, tab stops, text wrapping, and dual-display operation.",
+      "tags": ["test", "font-rendering", "display"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/writer_tests.py:inverse",
+      "type": "function",
+      "name": "inverse",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [44, 57],
+      "summary": "Tests inverse (white-on-black) text rendering by printing three strings with clip mode enabled.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:scroll",
+      "type": "function",
+      "name": "scroll",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [59, 79],
+      "summary": "Tests automatic screen scrolling by printing lines in a loop until the display scrolls, with timed pauses between frames.",
+      "tags": ["test", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_tests.py:usd_scroll",
+      "type": "function",
+      "name": "usd_scroll",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [81, 100],
+      "summary": "Tests upside-down scrolling mode via CWriter with an inverted display, verifying scroll behavior in rotated orientation.",
+      "tags": ["test", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_tests.py:usd",
+      "type": "function",
+      "name": "usd",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [102, 113],
+      "summary": "Tests upside-down (inverted) static text rendering using CWriter.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:rjust",
+      "type": "function",
+      "name": "rjust",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [115, 135],
+      "summary": "Tests right-justification of text by measuring string pixel widths with stringlen and positioning the cursor accordingly.",
+      "tags": ["test", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_tests.py:fonts",
+      "type": "function",
+      "name": "fonts",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [137, 147],
+      "summary": "Tests multi-font rendering by creating two Writer instances with different fonts and printing text with each.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:tabs",
+      "type": "function",
+      "name": "tabs",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [149, 157],
+      "summary": "Tests tab-stop handling by printing tab-delimited strings and verifying column alignment.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:usd_tabs",
+      "type": "function",
+      "name": "usd_tabs",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [159, 169],
+      "summary": "Tests tab stops in upside-down (inverted) display mode using CWriter.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:wrap",
+      "type": "function",
+      "name": "wrap",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [171, 177],
+      "summary": "Tests word-wrap behavior by printing a long string that exceeds display width.",
+      "tags": ["test", "display"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_tests.py:dual",
+      "type": "function",
+      "name": "dual",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [179, 209],
+      "summary": "Tests simultaneous rendering to two independent displays using separate Writer instances, updating Label widgets with random values in a loop.",
+      "tags": ["test", "display", "multi-device"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:writer/ssd1306_setup.py",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/ssd1306_setup.py",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/writer.py:CWriter",
+      "target": "class:writer/writer.py:Writer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "file:writer/ssd1306_setup.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "function:writer/writer_demo.py:test",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "function:writer/writer_demo.py:test",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_demo.py:test",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_demo.py:test",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "function:writer/writer_gui.py:_circle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "function:writer/writer_gui.py:fillcircle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Meter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:LED",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "function:writer/writer_gui.py:_circle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "function:writer/writer_gui.py:fillcircle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Meter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:LED",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/writer_gui.py:Label",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:Meter",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:LED",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:DObject",
+      "target": "class:writer/writer.py:Writer",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:inverse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:scroll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd_scroll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:rjust",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:fonts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:tabs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd_tabs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:wrap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:dual",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:inverse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:scroll",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd_scroll",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:rjust",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:fonts",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:tabs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:usd_tabs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:wrap",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:dual",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "file:writer/writer.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "function:writer/writer_tests.py:inverse",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:scroll",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:usd_scroll",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:usd",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:rjust",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:fonts",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:tabs",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:usd_tabs",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:wrap",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:dual",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

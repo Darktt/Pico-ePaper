@@ -1,0 +1,94 @@
+[
+  {
+    "order": 1,
+    "title": "Boot Entry Point",
+    "description": "When the Pico W powers on, MicroPython automatically executes main.py — there is no OS, no shell, and no user interaction. This file is deliberately minimal: it instantiates the App class and calls its async run loop. Understanding this file answers the first question: how does a microcontroller know what to do when the power switch flips?",
+    "nodeIds": ["file:main.py"],
+    "languageLesson": "MicroPython's asyncio (uasyncio) is a cooperative multitasking runtime — not preemptive threads. All concurrent work must yield with 'await' so that other coroutines get CPU time. On a bare-metal microcontroller there is no OS scheduler to fall back on, so a blocked coroutine freezes everything."
+  },
+  {
+    "order": 2,
+    "title": "Application Controller",
+    "description": "app.py is the brain of the firmware. It defines the device's lifecycle as a state machine with four distinct phases: AP mode (first-run WiFi setup), STA connection (joining a known network), init (syncing time and weather), and the main run loop. With the highest fan-out in the entire codebase (10 direct imports), this file wires together every subsystem — WiFi, NTP, weather, scheduler, and all display screens. Reading it top-to-bottom reveals the full boot narrative.",
+    "nodeIds": ["file:app.py"]
+  },
+  {
+    "order": 3,
+    "title": "Configuration Persistence",
+    "description": "config.py is the most depended-upon module in the project (fan-in of 4: app, weather, wifi_manager, and web_server all import it). It provides a JSON-backed key-value store with section-based access so that WiFi credentials, timezone offset, and weather settings survive power cycles. It also exposes convenience helpers like 'is WiFi configured?' and 'is weather configured?' that drive the state machine in app.py.",
+    "nodeIds": ["file:config.py"],
+    "languageLesson": "On a microcontroller, flash storage is the only persistent medium — there is no disk. MicroPython's json module writes to the filesystem on the Pico's internal flash. Batch write coalescing (collecting multiple changes before a single flush) is important because flash has limited write cycles and each write operation has measurable latency."
+  },
+  {
+    "order": 4,
+    "title": "WiFi & First-Run Setup",
+    "description": "wifi_manager.py handles the two network modes the Pico W supports: AP (access point) mode, where the device itself becomes a hotspot for first-run configuration, and STA (station) mode, where it connects to an existing network. It also converts raw RSSI values into discrete signal-strength levels used by the display. This file, together with app.py's state machine, is what makes the device self-configuring out of the box.",
+    "nodeIds": ["file:wifi_manager.py", "file:web_server.py"],
+    "languageLesson": "Embedded devices often use a 'captive portal' pattern for first-run setup: the device starts in AP mode, the user connects to it with a phone or laptop, and a lightweight HTTP server (web_server.py here) serves a configuration form. Once credentials are saved, the device reboots into STA mode. This avoids the need to hardcode secrets into firmware."
+  },
+  {
+    "order": 5,
+    "title": "Weather Location Data",
+    "description": "taiwan_cities.json is a static dataset of Taiwan city coordinates used by web_server.py to populate the weather location selector. It is the only data file in the project and illustrates a common embedded pattern: bundle reference data as a static asset rather than fetching it at runtime to conserve bandwidth and memory. The city chosen here feeds directly into weather.py's API calls.",
+    "nodeIds": ["config:taiwan_cities.json"]
+  },
+  {
+    "order": 6,
+    "title": "Time Sync with NTP",
+    "description": "ntp.py provides the sync() function that contacts an NTP server over UDP, applies a configurable timezone offset (read from config.py), and sets the hardware RTC. This is essential because the Pico W has no battery-backed clock — every boot starts at epoch zero. Accurate time is a prerequisite for the scheduler, the calendar display, and timestamped weather logs.",
+    "nodeIds": ["file:ntp.py"],
+    "languageLesson": "NTP (Network Time Protocol) works by sending a UDP packet to a time server and measuring the round-trip delay. MicroPython's ntptime module handles this, but the hardware RTC must be set manually afterward using machine.RTC().datetime(). Timezone handling is done purely by adding an offset in seconds — there is no timezone database on a microcontroller."
+  },
+  {
+    "order": 7,
+    "title": "Event Scheduler",
+    "description": "scheduler.py is the heartbeat of the running firmware. It reads the hardware RTC every second and fires named async events — 'minute', 'hour', 'day', 'weather-tick', 'ntp-tick' — at the appropriate intervals. app.py subscribes to these events to trigger display refreshes, weather fetches, and NTP re-syncs. This event-driven design keeps all subsystems decoupled: the scheduler knows nothing about weather or display logic.",
+    "nodeIds": ["file:scheduler.py"],
+    "languageLesson": "This is an observer pattern implemented with async callbacks in MicroPython. Rather than each subsystem having its own polling loop, a single scheduler loop fires events that registered handlers await. This cooperative approach avoids the need for threading and keeps RAM usage predictable — critical on a device with only 264KB of RAM."
+  },
+  {
+    "order": 8,
+    "title": "Weather Fetching",
+    "description": "weather.py fetches current conditions and forecasts from the OpenWeatherMap API using coordinates provided by the user during setup. It persists responses to a rotating log file so that a stale reading is still available after a network failure. The 'weather-tick' event from scheduler.py triggers periodic fetches, and app.py reads the latest log entry to update the display.",
+    "nodeIds": ["file:weather.py"]
+  },
+  {
+    "order": 9,
+    "title": "ePaper Hardware Driver",
+    "description": "Pico_ePaper_3_7.py is the lowest-level file in the project. It implements the EPD_3in7 class, communicating with the Waveshare display over SPI and GPIO pins. It supports two rendering modes — 1-bit (black/white, fast) and 4-gray (full quality, slow) — and handles the display's unusual power-up and refresh sequences. Everything in the display layer above depends on this driver, but it knows nothing about the application above it.",
+    "nodeIds": ["file:Pico_ePaper_3_7.py"],
+    "languageLesson": "ePaper displays use an electrophoretic ink technology: charged particles physically migrate through a fluid when voltage is applied. A full refresh takes 2-4 seconds and produces a characteristic 'flash'. Partial refresh is faster (~0.5s) but only safe for small changed regions — overusing it causes ghosting artifacts. This driver exposes both modes so higher layers can choose the right tradeoff."
+  },
+  {
+    "order": 10,
+    "title": "Canvas Abstraction",
+    "description": "display/canvas.py sits directly above the hardware driver and is the most imported module in the display layer (fan-in of 6). LandscapeCanvas wraps the EPD framebuffer and handles the coordinate transposition needed because the physical display is wired in portrait orientation but the UI is designed in landscape. It also provides the partial/full refresh API and PBM image blitting, giving all screen renderers a stable drawing surface.",
+    "nodeIds": ["file:display/canvas.py", "file:display/fonts.py", "file:display/icons.py"]
+  },
+  {
+    "order": 11,
+    "title": "Font Rendering Engine",
+    "description": "writer/writer.py is the vendored Writer/CWriter library — the second most-imported module (fan-in of 4). It renders proportional bitmap fonts onto MicroPython framebuffers by iterating over glyph bitmaps stored in companion font data modules. display/screens/__init__.py's make_writer factory ties Writer to the LandscapeCanvas so that all screens can render text consistently.",
+    "nodeIds": ["file:writer/writer.py", "file:display/screens/__init__.py"],
+    "languageLesson": "MicroPython's framebuf module provides pixel-level drawing but has no text rendering beyond a tiny built-in 8x8 font. The Writer library fills this gap by storing font glyphs as Python byte arrays — no binary file loading needed, which matters because the Pico's filesystem is slow. Fonts are lazy-loaded (display/fonts.py) to avoid importing all glyph data at boot."
+  },
+  {
+    "order": 12,
+    "title": "Main Screen Compositor",
+    "description": "display/screens/main_screen.py is the primary visual output of the entire project. It composites four information panels onto the canvas: the current time (using the large clock font), today's weather conditions with icons, WiFi signal strength, and a monthly calendar. It uses partial refresh to update only the region of the display that changed — for example, refreshing only the clock area every minute rather than the full screen.",
+    "nodeIds": ["file:display/screens/main_screen.py", "file:display/screens/calendar.py"]
+  },
+  {
+    "order": 13,
+    "title": "Status & Setup Screens",
+    "description": "The remaining screen renderers handle the device's non-running states. guide.py renders the WiFi AP setup instructions shown during first boot, giving the user the SSID and URL needed to configure the device. message.py renders a centered status text used for transient states like 'Connecting...' or error messages. Together with main_screen.py, these three files cover all visual states the user will encounter.",
+    "nodeIds": ["file:display/screens/guide.py", "file:display/screens/message.py"]
+  },
+  {
+    "order": 14,
+    "title": "mDNS Network Presence",
+    "description": "mdns.py wraps the vendored lib/mdns_client library behind a lifecycle-managed MDNSResponder facade. Once connected to WiFi, it advertises the device on the local network under a human-readable name (e.g., pico-epaper.local) so users can access the web configuration UI without knowing the device's IP address. The facade pattern exists because the Pico W's WiFi driver and the mDNS UDP socket have a known conflict that requires careful teardown sequencing.",
+    "nodeIds": ["file:mdns.py", "file:lib/mdns_client/client.py", "file:lib/mdns_client/responder.py"],
+    "languageLesson": "mDNS (Multicast DNS) allows devices to resolve hostnames like 'device.local' without a DNS server. The device multicasts its own A record answer to the 224.0.0.251 group address. On the Pico W, the CYW43 WiFi chip processes multicast at the hardware level, which can conflict with user-space UDP sockets — hence the need for careful socket lifecycle management in mdns.py."
+  }
+]

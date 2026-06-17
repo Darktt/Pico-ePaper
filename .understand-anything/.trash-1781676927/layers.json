@@ -1,0 +1,107 @@
+[
+  {
+    "id": "layer:boot",
+    "name": "Boot & Application Entry",
+    "description": "MicroPython firmware boot entry point and the top-level App controller that wires all subsystems together and drives the async event loop on the Pico W.",
+    "nodeIds": [
+      "file:main.py",
+      "file:app.py"
+    ]
+  },
+  {
+    "id": "layer:service",
+    "name": "Application Services",
+    "description": "Core runtime services managing WiFi connectivity, NTP time synchronisation, OpenWeatherMap data fetching, async event scheduling, HTTP configuration UI, mDNS advertisement, and persistent JSON config storage.",
+    "nodeIds": [
+      "file:config.py",
+      "file:weather.py",
+      "file:ntp.py",
+      "file:scheduler.py",
+      "file:wifi_manager.py",
+      "file:web_server.py",
+      "file:mdns.py"
+    ]
+  },
+  {
+    "id": "layer:hardware-driver",
+    "name": "Hardware Driver",
+    "description": "Low-level Waveshare 3.7\" ePaper SPI/GPIO driver providing 1-bit and 4-gray display modes, partial refresh, LUT loading, and power management directly against the RP2040 hardware.",
+    "nodeIds": [
+      "file:Pico_ePaper_3_7.py"
+    ]
+  },
+  {
+    "id": "layer:display",
+    "name": "Display Layer",
+    "description": "ePaper framebuffer abstraction and all screen renderers — including the main composite screen, calendar grid, AP-mode setup guide, and status message screen — built on top of the LandscapeCanvas.",
+    "nodeIds": [
+      "file:display/__init__.py",
+      "file:display/canvas.py",
+      "file:display/fonts.py",
+      "file:display/icons.py",
+      "file:display/screens/__init__.py",
+      "file:display/screens/calendar.py",
+      "file:display/screens/guide.py",
+      "file:display/screens/main_screen.py",
+      "file:display/screens/message.py"
+    ]
+  },
+  {
+    "id": "layer:font-renderer",
+    "name": "Font Renderer",
+    "description": "Writer and CWriter core font-rendering library with GUI widget primitives and hardware setup helpers for drawing proportional and monospaced bitmap fonts onto MicroPython framebuffer-compatible displays.",
+    "nodeIds": [
+      "file:writer/writer.py",
+      "file:writer/writer_gui.py",
+      "file:writer/ssd1306_setup.py",
+      "file:writer/writer_demo.py"
+    ]
+  },
+  {
+    "id": "layer:font-data",
+    "name": "Font Data & Writer Dev Assets",
+    "description": "Static bitmapped font data modules (clock, Courier, FreeSans, Noto, and compact fonts), the Writer test suite, and legacy writer implementations kept for historical reference.",
+    "nodeIds": [
+      "file:writer/clock_big.py",
+      "file:writer/courier20.py",
+      "file:writer/font10.py",
+      "file:writer/font6.py",
+      "file:writer/freesans20.py",
+      "file:writer/noto12.py",
+      "file:writer/noto20.py",
+      "file:writer/writer_tests.py",
+      "file:writer/old_versions/writer_fw_compatible.py",
+      "file:writer/old_versions/writer_minimal.py"
+    ]
+  },
+  {
+    "id": "layer:mdns-library",
+    "name": "mDNS Library",
+    "description": "Vendored third-party mDNS client library providing async UDP packet dispatch, DNS wire-format parsing and serialisation, service advertisement, and TTL-based service discovery for Pico W network presence.",
+    "nodeIds": [
+      "file:lib/mdns_client/__init__.py",
+      "file:lib/mdns_client/client.py",
+      "file:lib/mdns_client/constants.py",
+      "file:lib/mdns_client/parser.py",
+      "file:lib/mdns_client/responder.py",
+      "file:lib/mdns_client/structs.py",
+      "file:lib/mdns_client/util.py",
+      "file:lib/mdns_client/service_discovery/__init__.py",
+      "file:lib/mdns_client/service_discovery/discovery.py",
+      "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "file:lib/mdns_client/service_discovery/service_response.py",
+      "file:lib/mdns_client/service_discovery/txt_discovery.py"
+    ]
+  },
+  {
+    "id": "layer:config",
+    "name": "Project Configuration",
+    "description": "Development environment configuration files including VS Code workspace settings, MicroPico extension marker, git ignore rules, and the static Taiwan city coordinate dataset used by the weather location selector.",
+    "nodeIds": [
+      "config:.gitignore",
+      "config:.micropico",
+      "config:E-Paper.code-workspace",
+      "config:taiwan_cities.json"
+    ]
+  }
+]

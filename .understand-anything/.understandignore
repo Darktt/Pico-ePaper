@@ -1,0 +1,44 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# .DS_Store
+# mDns/
+# fonts/
+# tools/
+# API/
+# *.md
+# plant.md
+# Pico-ePaper-3.7.md
+# ProjectDetail.md
+# CLAUDE.md
+# lib/README.md
+# weather_icon/build_icons.sh
+# wifi_icon/*.sh
+# **/build_*.sh
+# config.json
+# weather.log
+
+# --- Detected directories (uncomment to exclude) ---
+
+# lib/
+# writer/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap
+
+# --- Binary/asset files (recommended to exclude) ---
+
+*.pbm
+.DS_Store
+E-Paper.code-workspace
+.micropico

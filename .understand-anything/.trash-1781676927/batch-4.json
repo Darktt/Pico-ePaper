@@ -1,0 +1,289 @@
+{
+  "nodes": [
+    {
+      "id": "file:config.py",
+      "type": "file",
+      "name": "config.py",
+      "filePath": "config.py",
+      "summary": "Configuration persistence layer for the ePaper firmware, providing a JSON-backed key/value store with section-based access, batch write coalescing, and convenience helpers for checking WiFi and weather readiness.",
+      "tags": ["service", "configuration", "singleton", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:config.py:ConfigManager",
+      "type": "class",
+      "name": "ConfigManager",
+      "filePath": "config.py",
+      "lineRange": [27, 102],
+      "summary": "Manages reading and writing the device configuration JSON file, supporting lazy loading, batch writes via a context manager, sectioned get/set access, and weather-city storage.",
+      "tags": ["configuration", "singleton", "serialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:config.py:_Batch",
+      "type": "class",
+      "name": "_Batch",
+      "filePath": "config.py",
+      "lineRange": [105, 115],
+      "summary": "Context manager returned by ConfigManager.batch() that defers file writes until the block exits, coalescing multiple set() calls into a single save.",
+      "tags": ["utility", "configuration"],
+      "complexity": "simple",
+      "languageNotes": "Implements the Python context manager protocol (__enter__/__exit__) to batch-defer JSON flushes on MicroPython where flash writes are expensive."
+    },
+    {
+      "id": "file:web_server.py",
+      "type": "file",
+      "name": "web_server.py",
+      "filePath": "web_server.py",
+      "summary": "Browser-based HTTP configuration UI for the Pico W ePaper device, serving WiFi, time-zone, and weather-settings pages over an asyncio socket server with URL decoding, form parsing, and live WiFi scanning.",
+      "tags": ["api-handler", "service", "middleware", "component"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:web_server.py:_url_decode",
+      "type": "function",
+      "name": "_url_decode",
+      "filePath": "web_server.py",
+      "lineRange": [17, 35],
+      "summary": "Decodes a percent-encoded URL string (converting %XX hex escapes and '+' to space) for safe extraction of form field values submitted by the browser.",
+      "tags": ["utility", "middleware"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:web_server.py:_page",
+      "type": "function",
+      "name": "_page",
+      "filePath": "web_server.py",
+      "lineRange": [92, 107],
+      "summary": "Renders the outer HTML page shell — doctype, head, nav bar with active-tab highlighting, and embedded CSS — wrapping any inner body content passed by the caller.",
+      "tags": ["utility", "component"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:web_server.py:_wifi_page",
+      "type": "function",
+      "name": "_wifi_page",
+      "filePath": "web_server.py",
+      "lineRange": [110, 153],
+      "summary": "Generates the WiFi settings page HTML, listing scanned networks in a dropdown with the currently saved SSID pre-selected and including a JavaScript rescan button that fetches /scan without a page reload.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:web_server.py:_time_page",
+      "type": "function",
+      "name": "_time_page",
+      "filePath": "web_server.py",
+      "lineRange": [171, 211],
+      "summary": "Generates the time/calendar settings page HTML with 12/24-hour radio buttons, week-start day selector, and a timezone offset dropdown populated from a static list of UTC offsets.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:web_server.py:_weather_page",
+      "type": "function",
+      "name": "_weather_page",
+      "filePath": "web_server.py",
+      "lineRange": [214, 258],
+      "summary": "Generates the weather settings page HTML allowing the user to enter an OpenWeather API key, pick a Taiwan city from the preloaded list, and choose Celsius or Fahrenheit display, with optional weather log output.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:web_server.py:WebConfigServer",
+      "type": "class",
+      "name": "WebConfigServer",
+      "filePath": "web_server.py",
+      "lineRange": [272, 457],
+      "summary": "Async HTTP server that handles all configuration routes (/wifi, /time, /weather, /done, /scan, /log), dispatching GET and POST requests to the appropriate page-rendering functions and persisting form submissions via ConfigManager.",
+      "tags": ["api-handler", "service", "middleware"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "type": "file",
+      "name": "wifi_manager.py",
+      "filePath": "wifi_manager.py",
+      "summary": "WiFi connection manager for the Pico W, handling AP mode (captive-portal hosting), STA mode (connection, reconnection with timeout), RSSI-to-signal-level conversion, and network scanning.",
+      "tags": ["service", "utility", "middleware"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:wifi_manager.py:rssi_to_level",
+      "type": "function",
+      "name": "rssi_to_level",
+      "filePath": "wifi_manager.py",
+      "lineRange": [15, 27],
+      "summary": "Converts a raw RSSI dBm value to a discrete signal-strength level (0–4) for display on the ePaper status bar.",
+      "tags": ["utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:wifi_manager.py:WiFiManager",
+      "type": "class",
+      "name": "WiFiManager",
+      "filePath": "wifi_manager.py",
+      "lineRange": [30, 157],
+      "summary": "Manages both AP and STA WLAN interfaces on the Pico W, exposing methods to start/stop the access point, connect/disconnect as a station, query connection status and IP, and scan for nearby networks.",
+      "tags": ["service", "utility"],
+      "complexity": "complex",
+      "languageNotes": "Uses the MicroPython `network` module directly; AP and STA interfaces are independent WLAN objects that can run concurrently on the Pico W CYW43 chip."
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:ConfigManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:_Batch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:ConfigManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:_Batch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:taiwan_cities.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:wifi_manager.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_url_decode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_wifi_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_time_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_weather_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "class:web_server.py:WebConfigServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "class:web_server.py:WebConfigServer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:web_server.py:WebConfigServer",
+      "target": "class:config.py:ConfigManager",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:web_server.py:WebConfigServer",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:wifi_manager.py:WiFiManager",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

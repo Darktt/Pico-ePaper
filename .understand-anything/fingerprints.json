@@ -1,0 +1,3447 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "b7c4994116f358c6d2f17d1ac3f3e6d2bf47d5c6",
+  "generatedAt": "2026-06-17T06:15:12.699Z",
+  "files": {
+    ".gitignore": {
+      "filePath": ".gitignore",
+      "contentHash": "40b266343e33d84d228d020e1323db32a6578de211ca2d37ea2b0d54a085f33b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    ".micropico": {
+      "filePath": ".micropico",
+      "contentHash": "6ae080c3773fb01772dec125e7e59cb4ea1446fb61b5b5c96309ab3809a18ecf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "E-Paper.code-workspace": {
+      "filePath": "E-Paper.code-workspace",
+      "contentHash": "4b2303ff5b38a53ff22126828b18cde6214f2e23d10dec547bb265425aa2618e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "Pico_ePaper_3_7.py": {
+      "filePath": "Pico_ePaper_3_7.py",
+      "contentHash": "eefa30a9feaf65d0233835d06906756ba2bb5c9e5622b7ab56f79fddf7580a4e",
+      "functions": [],
+      "classes": [
+        {
+          "name": "EPD_3in7",
+          "methods": [
+            "__init__",
+            "digital_write",
+            "digital_read",
+            "delay_ms",
+            "spi_writebyte",
+            "module_exit",
+            "reset",
+            "send_command",
+            "send_data",
+            "ReadBusy",
+            "Load_LUT",
+            "EPD_3IN7_4Gray_init",
+            "EPD_3IN7_1Gray_init",
+            "EPD_3IN7_4Gray_Clear",
+            "EPD_3IN7_1Gray_Clear",
+            "EPD_3IN7_4Gray_Display",
+            "EPD_3IN7_1Gray_Display",
+            "EPD_3IN7_1Gray_Display_Part",
+            "Sleep"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 474
+        }
+      ],
+      "imports": [
+        {
+          "source": "machine",
+          "specifiers": [
+            "Pin",
+            "SPI"
+          ]
+        },
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        },
+        {
+          "source": "utime",
+          "specifiers": [
+            "utime"
+          ]
+        }
+      ],
+      "exports": [
+        "EPD_3in7"
+      ],
+      "totalLines": 622,
+      "hasStructuralAnalysis": true
+    },
+    "app.py": {
+      "filePath": "app.py",
+      "contentHash": "2a13393a3ace60b7d619250bf13bba7f37366005ac73013b3c9ffa34f1a77de7",
+      "functions": [
+        {
+          "name": "_print_disk_usage",
+          "params": [],
+          "exported": true,
+          "lineCount": 56
+        }
+      ],
+      "classes": [
+        {
+          "name": "App",
+          "methods": [
+            "__init__",
+            "state_name",
+            "_bench_canvas",
+            "run",
+            "_main_loop",
+            "_enter_ap",
+            "_enter_sta_try",
+            "_enter_init",
+            "_enter_run",
+            "try_connect_wifi",
+            "request_reinit",
+            "_on_minute",
+            "_on_day",
+            "_on_weather_tick",
+            "_on_ntp_tick",
+            "_on_log_rotate"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 220
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ConfigManager"
+          ]
+        },
+        {
+          "source": "wifi_manager",
+          "specifiers": [
+            "WiFiManager"
+          ]
+        },
+        {
+          "source": "web_server",
+          "specifiers": [
+            "WebConfigServer"
+          ]
+        },
+        {
+          "source": "scheduler",
+          "specifiers": [
+            "Scheduler",
+            "EV_MINUTE",
+            "EV_DAY",
+            "EV_WEATHER",
+            "EV_NTP",
+            "EV_LOG_ROTATE",
+            "EV_WIFI_LEVEL"
+          ]
+        },
+        {
+          "source": "Pico_ePaper_3_7",
+          "specifiers": [
+            "EPD_3in7"
+          ]
+        },
+        {
+          "source": "display.canvas",
+          "specifiers": [
+            "LandscapeCanvas"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "guide",
+            "message",
+            "main_screen"
+          ]
+        },
+        {
+          "source": "mdns",
+          "specifiers": [
+            "MDNSResponder"
+          ]
+        },
+        {
+          "source": "weather",
+          "specifiers": [
+            "weather_mod"
+          ]
+        },
+        {
+          "source": "ntp",
+          "specifiers": [
+            "ntp"
+          ]
+        }
+      ],
+      "exports": [
+        "_print_disk_usage",
+        "App"
+      ],
+      "totalLines": 306,
+      "hasStructuralAnalysis": true
+    },
+    "config.py": {
+      "filePath": "config.py",
+      "contentHash": "6725231681211d4c7997fd457840a2865ed79181b81919e25e85f48b82384ddc",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ConfigManager",
+          "methods": [
+            "__init__",
+            "load",
+            "save",
+            "batch",
+            "_enter_batch",
+            "_exit_batch",
+            "get",
+            "set",
+            "set_weather_city",
+            "is_wifi_configured",
+            "is_weather_configured"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 76
+        },
+        {
+          "name": "_Batch",
+          "methods": [
+            "__init__",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "ujson",
+          "specifiers": [
+            "ujson"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        }
+      ],
+      "exports": [
+        "ConfigManager",
+        "_Batch"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "display/__init__.py": {
+      "filePath": "display/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "display/canvas.py": {
+      "filePath": "display/canvas.py",
+      "contentHash": "96d15d5cebbdb6b474e60e9db941732b0d5e5da8aa45e497bfac2b6fcea829ba",
+      "functions": [],
+      "classes": [
+        {
+          "name": "LandscapeCanvas",
+          "methods": [
+            "__init__",
+            "clear",
+            "blit_pbm",
+            "_transpose_pixel",
+            "_transpose_into",
+            "commit_full",
+            "_native_rect",
+            "commit_part",
+            "shutdown"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 131
+        }
+      ],
+      "imports": [
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        }
+      ],
+      "exports": [
+        "LandscapeCanvas"
+      ],
+      "totalLines": 231,
+      "hasStructuralAnalysis": true
+    },
+    "display/fonts.py": {
+      "filePath": "display/fonts.py",
+      "contentHash": "44962ab2088d1253b13471a1c79c459e64595ff40bc93ee63c574bf4fa9340da",
+      "functions": [
+        {
+          "name": "_try_import",
+          "params": [
+            "modname"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "writer.freesans20",
+          "specifiers": [
+            "freesans20"
+          ]
+        },
+        {
+          "source": "writer.courier20",
+          "specifiers": [
+            "courier20"
+          ]
+        },
+        {
+          "source": "writer.font10",
+          "specifiers": [
+            "font10"
+          ]
+        },
+        {
+          "source": "writer.font6",
+          "specifiers": [
+            "font6"
+          ]
+        }
+      ],
+      "exports": [
+        "_try_import"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "display/icons.py": {
+      "filePath": "display/icons.py",
+      "contentHash": "1e66a33b55df50ec7ffcb2a25f663df9ae1e4c722ba837dc62f560737d88805d",
+      "functions": [
+        {
+          "name": "_read_pbm_header",
+          "params": [
+            "f"
+          ],
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "load_pbm",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "exists",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        }
+      ],
+      "exports": [
+        "_read_pbm_header",
+        "load_pbm",
+        "exists"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "display/screens/__init__.py": {
+      "filePath": "display/screens/__init__.py",
+      "contentHash": "8ef99a5f76300454de69afcb03508915070e7060ed1279eff248dc0dd03f20b0",
+      "functions": [
+        {
+          "name": "log_display",
+          "params": [
+            "label",
+            "*parts"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "make_writer",
+          "params": [
+            "canvas",
+            "font"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "log_display",
+        "make_writer"
+      ],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "display/screens/calendar.py": {
+      "filePath": "display/screens/calendar.py",
+      "contentHash": "37b9b84ba5efba71949377a53117b4e79f9568269cfe0b33910ad39cbbfd579c",
+      "functions": [
+        {
+          "name": "_days_in_month",
+          "params": [
+            "year",
+            "month"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_first_weekday",
+          "params": [
+            "year",
+            "month",
+            "week_start"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_strwidth",
+          "params": [
+            "font",
+            "s"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "render",
+          "params": [
+            "canvas",
+            "year",
+            "month",
+            "today",
+            "week_start",
+            "x",
+            "y",
+            "w",
+            "h",
+            "font"
+          ],
+          "exported": true,
+          "lineCount": 69
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "utime",
+          "specifiers": [
+            "utime"
+          ]
+        },
+        {
+          "source": "writer.writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "display.fonts",
+          "specifiers": [
+            "FONT_SMALL"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "make_writer"
+          ]
+        }
+      ],
+      "exports": [
+        "_days_in_month",
+        "_first_weekday",
+        "_strwidth",
+        "render"
+      ],
+      "totalLines": 105,
+      "hasStructuralAnalysis": true
+    },
+    "display/screens/guide.py": {
+      "filePath": "display/screens/guide.py",
+      "contentHash": "4e657345cd0bfb902768b21bd36700a967dd001771368d332be90501eb5d357b",
+      "functions": [
+        {
+          "name": "_text_width",
+          "params": [
+            "font",
+            "s"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "show",
+          "params": [
+            "canvas",
+            "wifi_info"
+          ],
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "writer.writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "display.fonts",
+          "specifiers": [
+            "FONT_BODY"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "log_display",
+            "make_writer"
+          ]
+        }
+      ],
+      "exports": [
+        "_text_width",
+        "show"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "display/screens/main_screen.py": {
+      "filePath": "display/screens/main_screen.py",
+      "contentHash": "1d7529d8f99ddaf5e1e9af83c709270ff941665f088313f73f4a233281b1526c",
+      "functions": [
+        {
+          "name": "_fmt_time",
+          "params": [
+            "hour",
+            "minute",
+            "is_24h"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_wifi_icon_path",
+          "params": [
+            "level"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_weather_icon_path",
+          "params": [
+            "code"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_draw_wifi",
+          "params": [
+            "canvas",
+            "level"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "_draw_time",
+          "params": [
+            "canvas",
+            "hour",
+            "minute",
+            "is_24h"
+          ],
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "_draw_weather",
+          "params": [
+            "canvas",
+            "weather",
+            "is_celsius"
+          ],
+          "exported": true,
+          "lineCount": 61
+        },
+        {
+          "name": "_draw_calendar",
+          "params": [
+            "canvas",
+            "year",
+            "month",
+            "today",
+            "week_start"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "render_full",
+          "params": [
+            "canvas",
+            "config",
+            "weather",
+            "wifi_level"
+          ],
+          "exported": true,
+          "lineCount": 32
+        },
+        {
+          "name": "render_time",
+          "params": [
+            "canvas",
+            "config"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "render_wifi",
+          "params": [
+            "canvas",
+            "level"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "render_calendar",
+          "params": [
+            "canvas",
+            "config"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "machine",
+          "specifiers": [
+            "RTC"
+          ]
+        },
+        {
+          "source": "writer.writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "display",
+          "specifiers": [
+            "icons"
+          ]
+        },
+        {
+          "source": "display.fonts",
+          "specifiers": [
+            "FONT_BODY",
+            "FONT_SMALL",
+            "FONT_MONO",
+            "FONT_CLOCK",
+            "FONT_LABEL"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "cal_screen"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "log_display",
+            "make_writer"
+          ]
+        }
+      ],
+      "exports": [
+        "_fmt_time",
+        "_wifi_icon_path",
+        "_weather_icon_path",
+        "_draw_wifi",
+        "_draw_time",
+        "_draw_weather",
+        "_draw_calendar",
+        "render_full",
+        "render_time",
+        "render_wifi",
+        "render_calendar"
+      ],
+      "totalLines": 242,
+      "hasStructuralAnalysis": true
+    },
+    "display/screens/message.py": {
+      "filePath": "display/screens/message.py",
+      "contentHash": "74c26d47ff949eb6a6802647796fc02b85c1b694953463d34b147f850fb5595f",
+      "functions": [
+        {
+          "name": "_text_width",
+          "params": [
+            "font",
+            "s"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "show",
+          "params": [
+            "canvas",
+            "text",
+            "font"
+          ],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "writer.writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "display.fonts",
+          "specifiers": [
+            "FONT_BODY"
+          ]
+        },
+        {
+          "source": "display.screens",
+          "specifiers": [
+            "log_display",
+            "make_writer"
+          ]
+        }
+      ],
+      "exports": [
+        "_text_width",
+        "show"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/__init__.py": {
+      "filePath": "lib/mdns_client/__init__.py",
+      "contentHash": "864521bccc4063b3e32209afabd726e0ed84b6207bbd3d6dee601aa1998641c2",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "mdns_client.client",
+          "specifiers": [
+            "Client"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/client.py": {
+      "filePath": "lib/mdns_client/client.py",
+      "contentHash": "a6039a07255cc88ef06facf2a953446ad2f360b0fc27e689a2c78bc0f102e866",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Callback",
+          "methods": [
+            "timedout"
+          ],
+          "properties": [
+            "id",
+            "callback",
+            "remove_if",
+            "timeout",
+            "created_ticks"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "Client",
+          "methods": [
+            "__init__",
+            "add_callback",
+            "add_membership",
+            "_make_socket",
+            "start",
+            "_init_socket",
+            "stop",
+            "_close_socket",
+            "consume",
+            "process_waiting_data",
+            "process_packet",
+            "remove_if_check",
+            "remove_if_present",
+            "remove_id",
+            "send_question",
+            "send_response",
+            "_send_bytes",
+            "getaddrinfo",
+            "mdns_getaddr",
+            "scan_for_response",
+            "dprint"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 216
+        }
+      ],
+      "imports": [
+        {
+          "source": "gc",
+          "specifiers": [
+            "gc"
+          ]
+        },
+        {
+          "source": "socket",
+          "specifiers": [
+            "socket"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "namedtuple"
+          ]
+        },
+        {
+          "source": "select",
+          "specifiers": [
+            "select"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "uasyncio"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "CLASS_IN",
+            "LOCAL_MDNS_SUFFIX",
+            "MAX_PACKET_SIZE",
+            "MDNS_ADDR",
+            "MDNS_PORT",
+            "TYPE_A"
+          ]
+        },
+        {
+          "source": "mdns_client.parser",
+          "specifiers": [
+            "parse_packet"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSQuestion",
+            "DNSQuestionWrapper",
+            "DNSRecord",
+            "DNSResponse"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "a_record_rdata_to_string",
+            "dotted_ip_to_bytes",
+            "set_after_timeout"
+          ]
+        }
+      ],
+      "exports": [
+        "Callback",
+        "Client"
+      ],
+      "totalLines": 246,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/constants.py": {
+      "filePath": "lib/mdns_client/constants.py",
+      "contentHash": "066bfe47a5c16f4ac99ef0c09edf983109aa2a3dfaf0ad0137979aed688c57f6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "micropython",
+          "specifiers": [
+            "const"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/parser.py": {
+      "filePath": "lib/mdns_client/parser.py",
+      "contentHash": "4b211bd15fbc1d9fb3d4c57f3bb97aa39c2dc1b7746c5dd87ccfeb78d4577608",
+      "functions": [
+        {
+          "name": "parse_packet",
+          "params": [
+            "buffer"
+          ],
+          "returnType": "\"Optional[DNSResponse]\"",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "PacketParser",
+          "methods": [
+            "__init__",
+            "parse",
+            "parse_questions",
+            "parse_question",
+            "parse_records",
+            "parse_record",
+            "_parse_srv_entry",
+            "_parse_soa_entry",
+            "_parse_mx_entry",
+            "_expand_name",
+            "parse_answers",
+            "parse_authorities",
+            "parse_additionals",
+            "_parse_record_name",
+            "_parse_name",
+            "_parse_repeat_name",
+            "_parse_bytes",
+            "_parse_record_entry",
+            "_parse_bytes_of",
+            "_unpack"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 153
+        }
+      ],
+      "imports": [
+        {
+          "source": "struct",
+          "specifiers": [
+            "struct"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "namedtuple"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "REPEAT_TYPE_FLAG",
+            "TYPE_CNAME",
+            "TYPE_NS",
+            "TYPE_PTR",
+            "TYPE_SOA",
+            "TYPE_SRV"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSQuestion",
+            "DNSRecord",
+            "DNSResponse"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "end_index_of_name"
+          ]
+        }
+      ],
+      "exports": [
+        "parse_packet",
+        "PacketParser"
+      ],
+      "totalLines": 172,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/responder.py": {
+      "filePath": "lib/mdns_client/responder.py",
+      "contentHash": "cbeface29b662d1fc02c88124a3e3aaaefdbfd4331b8bd586f3cabfbfd71cdfa",
+      "functions": [
+        {
+          "name": "generate_random_postfix",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "Responder",
+          "methods": [
+            "__init__",
+            "stopped",
+            "own_ip",
+            "host",
+            "generate_random_postfix",
+            "host_fqdn",
+            "advertise",
+            "withdraw",
+            "start",
+            "stop",
+            "_on_response",
+            "_on_question",
+            "_on_ptr_question",
+            "_send_service_discovery_ptrs",
+            "_on_srv_question",
+            "_on_a_question",
+            "_on_txt_question",
+            "_get_service_of",
+            "_ptr_record_for",
+            "_srv_record_for",
+            "_txt_record_for",
+            "_service_name_of",
+            "_a_record",
+            "_send_response",
+            "_dprint"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 238
+        }
+      ],
+      "imports": [
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "namedtuple"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "uasyncio"
+          ]
+        },
+        {
+          "source": "mdns_client.client",
+          "specifiers": [
+            "Client"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "CLASS_IN",
+            "DEFAULT_TTL",
+            "FLAGS_QR_AUTHORITATIVE",
+            "FLAGS_QR_RESPONSE",
+            "TYPE_A",
+            "TYPE_PTR",
+            "TYPE_SRV",
+            "TYPE_TXT"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSQuestion",
+            "DNSRecord",
+            "DNSResponse",
+            "ServiceProtocol",
+            "SRVRecord"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "dotted_ip_to_bytes",
+            "name_to_bytes",
+            "txt_data_to_bytes"
+          ]
+        }
+      ],
+      "exports": [
+        "generate_random_postfix",
+        "Responder"
+      ],
+      "totalLines": 266,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/service_discovery/__init__.py": {
+      "filePath": "lib/mdns_client/service_discovery/__init__.py",
+      "contentHash": "10e9a78d0da4b9cafe562399359e6dd390b0e7d2b248b0b0893d88e7f2e7b5b9",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "mdns_client.service_discovery.discovery",
+          "specifiers": [
+            "ServiceDiscovery"
+          ]
+        },
+        {
+          "source": "mdns_client.service_discovery.service_response",
+          "specifiers": [
+            "ServiceResponse"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/service_discovery/discovery.py": {
+      "filePath": "lib/mdns_client/service_discovery/discovery.py",
+      "contentHash": "e65f0582e366639bfda9493ea3c40a2a19d2543e3301c2ef7dad714039406c73",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ServiceChange",
+          "methods": [
+            "__init__",
+            "has_update"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "ServiceDiscovery",
+          "methods": [
+            "__init__",
+            "start_if_necessary",
+            "add_service_monitor",
+            "remove_service_monitor",
+            "start",
+            "_change_loop",
+            "_tick",
+            "_propagate_current_change",
+            "stop",
+            "query",
+            "stop_watching",
+            "current",
+            "query_once",
+            "_register_monitored_service",
+            "_remove_from_monitor",
+            "_remove_item",
+            "_remove_item_from_target",
+            "_request_once",
+            "_run_service_discovery_request",
+            "_on_response",
+            "_records_of",
+            "_on_record",
+            "_on_ptr_record",
+            "_enqueue_srv_for",
+            "_on_srv_record",
+            "_on_a_record",
+            "dprint",
+            "_add_to_a_record_buffer",
+            "_clean_up_buffer",
+            "_ensure_no_buffer_overflow"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 311
+        }
+      ],
+      "imports": [
+        {
+          "source": "collections",
+          "specifiers": [
+            "namedtuple"
+          ]
+        },
+        {
+          "source": "gc",
+          "specifiers": [
+            "gc"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "uasyncio"
+          ]
+        },
+        {
+          "source": "mdns_client.client",
+          "specifiers": [
+            "Client"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "CLASS_IN",
+            "TYPE_A",
+            "TYPE_PTR",
+            "TYPE_SRV"
+          ]
+        },
+        {
+          "source": "mdns_client.service_discovery.service_response",
+          "specifiers": [
+            "ServiceResponse"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSQuestion",
+            "DNSRecord",
+            "DNSResponse",
+            "ServiceProtocol",
+            "SRVRecord"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "a_record_rdata_to_string",
+            "bytes_to_name_list",
+            "name_list_to_name"
+          ]
+        }
+      ],
+      "exports": [
+        "ServiceChange",
+        "ServiceDiscovery"
+      ],
+      "totalLines": 339,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/service_discovery/service_monitor.py": {
+      "filePath": "lib/mdns_client/service_discovery/service_monitor.py",
+      "contentHash": "97f45dc257e7390c4d70c7a72425db70280beab11e2049b500e44dbd3a8ee8d6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ServiceMonitor",
+          "methods": [
+            "service_added",
+            "service_updated",
+            "service_removed"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "imports": [
+        {
+          "source": "mdns_client.service_discovery.service_response",
+          "specifiers": [
+            "ServiceResponse"
+          ]
+        }
+      ],
+      "exports": [
+        "ServiceMonitor"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/service_discovery/service_response.py": {
+      "filePath": "lib/mdns_client/service_discovery/service_response.py",
+      "contentHash": "83bee9f65be90d2cc23bd5ee6acc017fb992bdbdbe0f9d6543895ce75acf43c0",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ServiceResponse",
+          "methods": [
+            "__init__",
+            "__repr__",
+            "__hash__",
+            "__eq__",
+            "ttl_ms",
+            "should_refresh_at",
+            "expired_at",
+            "refresh_with"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 73
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "CLASS_IN",
+            "TYPE_SRV"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSQuestion",
+            "SRVMixin"
+          ]
+        }
+      ],
+      "exports": [
+        "ServiceResponse"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/service_discovery/txt_discovery.py": {
+      "filePath": "lib/mdns_client/service_discovery/txt_discovery.py",
+      "contentHash": "75f7ff0d20a9f29fe65a2fc603133af2009eb4e76b3dbb05477df265d1b7d2b2",
+      "functions": [
+        {
+          "name": "sort_record_by_type",
+          "params": [
+            "response"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "TXTServiceDiscovery",
+          "methods": [
+            "_on_record",
+            "_records_of",
+            "_on_txt_record"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "imports": [
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "TYPE_A",
+            "TYPE_PTR",
+            "TYPE_SRV",
+            "TYPE_TXT"
+          ]
+        },
+        {
+          "source": "mdns_client.service_discovery.discovery",
+          "specifiers": [
+            "ServiceDiscovery"
+          ]
+        },
+        {
+          "source": "mdns_client.structs",
+          "specifiers": [
+            "DNSRecord",
+            "DNSResponse"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "bytes_to_name_list"
+          ]
+        }
+      ],
+      "exports": [
+        "sort_record_by_type",
+        "TXTServiceDiscovery"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/structs.py": {
+      "filePath": "lib/mdns_client/structs.py",
+      "contentHash": "24a46a8529ddf10da00c518743ef4ee33c1dd662644c42207bc76943adb0ba85",
+      "functions": [],
+      "classes": [
+        {
+          "name": "DNSQuestion",
+          "methods": [
+            "checked_query",
+            "to_bytes"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "DNSQuestionWrapper",
+          "methods": [
+            "to_bytes"
+          ],
+          "properties": [
+            "questions"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "DNSRecord",
+          "methods": [
+            "checked_name",
+            "to_bytes",
+            "invalid_at"
+          ],
+          "properties": [
+            "name",
+            "record_type",
+            "query_class",
+            "time_to_live",
+            "rdata"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "DNSResponse",
+          "methods": [
+            "is_response",
+            "is_request",
+            "records",
+            "to_bytes"
+          ],
+          "properties": [
+            "transaction_id",
+            "message_type",
+            "questions",
+            "answers",
+            "authorities",
+            "additional"
+          ],
+          "exported": true,
+          "lineCount": 52
+        },
+        {
+          "name": "ServiceProtocol",
+          "methods": [
+            "domain",
+            "to_name"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "SRVMixin",
+          "methods": [
+            "protocol"
+          ],
+          "properties": [
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "SRVRecord",
+          "methods": [
+            "from_dns_record",
+            "to_bytes"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "collections",
+          "specifiers": [
+            "namedtuple"
+          ]
+        },
+        {
+          "source": "struct",
+          "specifiers": [
+            "pack_into",
+            "unpack_from"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "FLAGS_QR_QUERY",
+            "FLAGS_QR_RESPONSE"
+          ]
+        },
+        {
+          "source": "mdns_client.util",
+          "specifiers": [
+            "byte_count_of_lists",
+            "bytes_to_name",
+            "check_name",
+            "fill_buffer",
+            "name_to_bytes",
+            "pack_name",
+            "string_packed_len"
+          ]
+        }
+      ],
+      "exports": [
+        "DNSQuestion",
+        "DNSQuestionWrapper",
+        "DNSRecord",
+        "DNSResponse",
+        "ServiceProtocol",
+        "SRVMixin",
+        "SRVRecord"
+      ],
+      "totalLines": 167,
+      "hasStructuralAnalysis": true
+    },
+    "lib/mdns_client/util.py": {
+      "filePath": "lib/mdns_client/util.py",
+      "contentHash": "6a17daf14902cd4c244cb03e7fb61e9733549f67ee974e0a2a8d1dd66ad3a813",
+      "functions": [
+        {
+          "name": "dotted_ip_to_bytes",
+          "params": [
+            "ip"
+          ],
+          "returnType": "bytes",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "bytes_to_dotted_ip",
+          "params": [
+            "a"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "check_name",
+          "params": [
+            "n"
+          ],
+          "returnType": "\"List[bytes]\"",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "string_packed_len",
+          "params": [
+            "byte_list"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "name_to_bytes",
+          "params": [
+            "name"
+          ],
+          "returnType": "bytes",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "pack_name",
+          "params": [
+            "buffer",
+            "string"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "string_to_bytes",
+          "params": [
+            "item"
+          ],
+          "returnType": "bytes",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "might_have_repeatable_payload",
+          "params": [
+            "record_type"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "byte_count_of_lists",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "fill_buffer",
+          "params": [
+            "buffer",
+            "item",
+            "offset"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "end_index_of_name",
+          "params": [
+            "buffer",
+            "offset"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "bytes_to_name",
+          "params": [
+            "data"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "name_list_to_name",
+          "params": [
+            "data"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "bytes_to_name_list",
+          "params": [
+            "data"
+          ],
+          "returnType": "\"List[str]\"",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "a_record_rdata_to_string",
+          "params": [
+            "rdata"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "set_after_timeout",
+          "params": [
+            "event",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "txt_data_to_bytes",
+          "params": [
+            "txt_data"
+          ],
+          "returnType": "bytes",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "struct",
+          "specifiers": [
+            "struct"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "uasyncio"
+          ]
+        },
+        {
+          "source": "mdns_client.constants",
+          "specifiers": [
+            "REPEAT_TYPE_FLAG",
+            "TYPE_CNAME",
+            "TYPE_MX",
+            "TYPE_NS",
+            "TYPE_PTR",
+            "TYPE_SOA",
+            "TYPE_SRV"
+          ]
+        }
+      ],
+      "exports": [
+        "dotted_ip_to_bytes",
+        "bytes_to_dotted_ip",
+        "check_name",
+        "string_packed_len",
+        "name_to_bytes",
+        "pack_name",
+        "string_to_bytes",
+        "might_have_repeatable_payload",
+        "byte_count_of_lists",
+        "fill_buffer",
+        "end_index_of_name",
+        "bytes_to_name",
+        "name_list_to_name",
+        "bytes_to_name_list",
+        "a_record_rdata_to_string",
+        "set_after_timeout",
+        "txt_data_to_bytes"
+      ],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "main.py": {
+      "filePath": "main.py",
+      "contentHash": "2b01db00a158639859b4167f1ee7f9982d0f0a7429a012a4375d4e508ff9087b",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "app",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "mdns.py": {
+      "filePath": "mdns.py",
+      "contentHash": "b82966b5c372199843f97ba0400ef26f69bc799d7d3bc5259f863bfa9e44c5b9",
+      "functions": [
+        {
+          "name": "_patch_bind_to_any",
+          "params": [
+            "client"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_builtin_mdns_holds_port",
+          "params": [],
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [
+        {
+          "name": "MDNSResponder",
+          "methods": [
+            "__init__",
+            "_consume_wrapper",
+            "available",
+            "start",
+            "restart",
+            "stop",
+            "_spawn",
+            "_teardown"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 147
+        }
+      ],
+      "imports": [
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        }
+      ],
+      "exports": [
+        "_patch_bind_to_any",
+        "_builtin_mdns_holds_port",
+        "MDNSResponder"
+      ],
+      "totalLines": 212,
+      "hasStructuralAnalysis": true
+    },
+    "ntp.py": {
+      "filePath": "ntp.py",
+      "contentHash": "dde3f0a9de322cfb81e3b62df097f008c42feb56f64ebbce40c0370f9f9068cd",
+      "functions": [
+        {
+          "name": "sync",
+          "params": [
+            "timeout",
+            "host",
+            "tz_offset_minutes"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "ntptime",
+          "specifiers": [
+            "ntptime"
+          ]
+        },
+        {
+          "source": "utime",
+          "specifiers": [
+            "utime"
+          ]
+        },
+        {
+          "source": "machine",
+          "specifiers": [
+            "RTC"
+          ]
+        }
+      ],
+      "exports": [
+        "sync"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "scheduler.py": {
+      "filePath": "scheduler.py",
+      "contentHash": "4d42aed04894e965acd7467de36839d2bf5945bca1c8df7847cf196a97ce039e",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Scheduler",
+          "methods": [
+            "__init__",
+            "on",
+            "_emit",
+            "run",
+            "stop"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 64
+        }
+      ],
+      "imports": [
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "machine",
+          "specifiers": [
+            "RTC"
+          ]
+        }
+      ],
+      "exports": [
+        "Scheduler"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "taiwan_cities.json": {
+      "filePath": "taiwan_cities.json",
+      "contentHash": "428d5623787003684ee2196bc5c549082c3c073894b594f27cf3054a6e1bcf4e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 112,
+      "hasStructuralAnalysis": true
+    },
+    "weather.py": {
+      "filePath": "weather.py",
+      "contentHash": "39102fefa60a1813cbecd5d918e783d4950edebc9d193f124d2662348928e76c",
+      "functions": [
+        {
+          "name": "_datetime_now",
+          "params": [
+            "have_ntp"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_fmt_timestamp",
+          "params": [
+            "year",
+            "month",
+            "day",
+            "hour",
+            "minute"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_append_log",
+          "params": [
+            "line"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "fetch",
+          "params": [
+            "config",
+            "have_ntp"
+          ],
+          "exported": true,
+          "lineCount": 51
+        },
+        {
+          "name": "_log_result",
+          "params": [
+            "have_ntp",
+            "result_text"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "rotate_if_needed",
+          "params": [
+            "have_ntp"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "log_exists",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "read_log",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "utime",
+          "specifiers": [
+            "utime"
+          ]
+        },
+        {
+          "source": "urequests",
+          "specifiers": [
+            "urequests"
+          ]
+        },
+        {
+          "source": "machine",
+          "specifiers": [
+            "RTC"
+          ]
+        }
+      ],
+      "exports": [
+        "_datetime_now",
+        "_fmt_timestamp",
+        "_append_log",
+        "fetch",
+        "_log_result",
+        "rotate_if_needed",
+        "log_exists",
+        "read_log"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "web_server.py": {
+      "filePath": "web_server.py",
+      "contentHash": "421ed1fff2486a52c9a68b1e5d2d10e2caa63b379287d44ca1f803f6cff0b3ef",
+      "functions": [
+        {
+          "name": "_load_cities",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_url_decode",
+          "params": [
+            "s"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "_parse_form",
+          "params": [
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_parse_query",
+          "params": [
+            "path"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_page",
+          "params": [
+            "title",
+            "body",
+            "active"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_wifi_page",
+          "params": [
+            "scan_list",
+            "current_ssid",
+            "msg"
+          ],
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "_time_page",
+          "params": [
+            "timecfg",
+            "msg"
+          ],
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "_weather_page",
+          "params": [
+            "weather_cfg",
+            "cities",
+            "msg"
+          ],
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "_done_page",
+          "params": [
+            "state"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "WebConfigServer",
+          "methods": [
+            "__init__",
+            "start",
+            "_handle",
+            "_send",
+            "_redirect",
+            "_route",
+            "_time_seen"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 186
+        }
+      ],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "ujson",
+          "specifiers": [
+            "ujson"
+          ]
+        },
+        {
+          "source": "uasyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        }
+      ],
+      "exports": [
+        "_load_cities",
+        "_url_decode",
+        "_parse_form",
+        "_parse_query",
+        "_page",
+        "_wifi_page",
+        "_time_page",
+        "_weather_page",
+        "_done_page",
+        "WebConfigServer"
+      ],
+      "totalLines": 458,
+      "hasStructuralAnalysis": true
+    },
+    "wifi_manager.py": {
+      "filePath": "wifi_manager.py",
+      "contentHash": "dc2cc655b9edaab887aa45b6d9c8313e8d41bbc87084b81b3d5d16bf2397807f",
+      "functions": [
+        {
+          "name": "rssi_to_level",
+          "params": [
+            "rssi"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "WiFiManager",
+          "methods": [
+            "__init__",
+            "start_ap",
+            "stop_ap",
+            "ap_info",
+            "connect_sta",
+            "disconnect_sta",
+            "is_connected",
+            "current_rssi",
+            "current_level",
+            "sta_ip",
+            "scan"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 128
+        }
+      ],
+      "imports": [
+        {
+          "source": "network",
+          "specifiers": [
+            "network"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        }
+      ],
+      "exports": [
+        "rssi_to_level",
+        "WiFiManager"
+      ],
+      "totalLines": 158,
+      "hasStructuralAnalysis": true
+    },
+    "writer/clock_big.py": {
+      "filePath": "writer/clock_big.py",
+      "contentHash": "eda93879cb3451158db4b0ed160f4f715849b330065e8fe17e2a1ea11205c473",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "baseline",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "baseline",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "get_ch"
+      ],
+      "totalLines": 522,
+      "hasStructuralAnalysis": true
+    },
+    "writer/courier20.py": {
+      "filePath": "writer/courier20.py",
+      "contentHash": "9c586add38ceea56adc89b795e9f6910e4d663980273ba325551f64aab37f06d",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_chr_addr",
+          "params": [
+            "ordch"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "_chr_addr",
+        "get_ch"
+      ],
+      "totalLines": 309,
+      "hasStructuralAnalysis": true
+    },
+    "writer/font10.py": {
+      "filePath": "writer/font10.py",
+      "contentHash": "d0220d22033bf27ca66d62912014485711b237ae01aa7760a55340bab239352d",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_chr_addr",
+          "params": [
+            "ordch"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "_chr_addr",
+        "get_ch"
+      ],
+      "totalLines": 230,
+      "hasStructuralAnalysis": true
+    },
+    "writer/font6.py": {
+      "filePath": "writer/font6.py",
+      "contentHash": "5a0a47f991a36f4c0f9d022110dff95ce2b396272c40759eed9d5da6add6b52e",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_chr_addr",
+          "params": [
+            "ordch"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "_chr_addr",
+        "get_ch"
+      ],
+      "totalLines": 177,
+      "hasStructuralAnalysis": true
+    },
+    "writer/freesans20.py": {
+      "filePath": "writer/freesans20.py",
+      "contentHash": "54d2f00b7db9c74670f1b88ae2957d1ec89cda66fb3b45b59925b517965ed935",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "get_ch"
+      ],
+      "totalLines": 289,
+      "hasStructuralAnalysis": true
+    },
+    "writer/noto12.py": {
+      "filePath": "writer/noto12.py",
+      "contentHash": "269023df31f9db2de37858363fc4ee9725cecca8ebc648f952e703c50284253e",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "baseline",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "bs",
+          "params": [
+            "lst",
+            "val"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "baseline",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "bs",
+        "get_ch"
+      ],
+      "totalLines": 458,
+      "hasStructuralAnalysis": true
+    },
+    "writer/noto20.py": {
+      "filePath": "writer/noto20.py",
+      "contentHash": "40cd88fc18360b47ffc74e1598cd06bb2f57d101dbae8e0cc43ffda5bfed18c4",
+      "functions": [
+        {
+          "name": "height",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "baseline",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_width",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "hmap",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "reverse",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "monospaced",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "min_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "max_ch",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "bs",
+          "params": [
+            "lst",
+            "val"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "get_ch",
+          "params": [
+            "ch"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "height",
+        "baseline",
+        "max_width",
+        "hmap",
+        "reverse",
+        "monospaced",
+        "min_ch",
+        "max_ch",
+        "bs",
+        "get_ch"
+      ],
+      "totalLines": 844,
+      "hasStructuralAnalysis": true
+    },
+    "writer/old_versions/writer_fw_compatible.py": {
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "contentHash": "74a6ce3f696ec2cc6641c16ba5e140cb0eda659ecb0eb9b160bed4fd71ff9681",
+      "functions": [
+        {
+          "name": "buildcheck",
+          "params": [
+            "device"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_get_id",
+          "params": [
+            "device"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "DisplayState",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "Writer",
+          "methods": [
+            "set_textpos",
+            "__init__",
+            "_getstate",
+            "_newline",
+            "set_clip",
+            "height",
+            "printstring",
+            "_printline",
+            "stringlen",
+            "_truelen",
+            "_get_char",
+            "_printchar",
+            "tabsize",
+            "setcolor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 209
+        },
+        {
+          "name": "CWriter",
+          "methods": [
+            "__init__",
+            "_pchfast",
+            "_pchslow",
+            "setcolor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 72
+        }
+      ],
+      "imports": [
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        },
+        {
+          "source": "uctypes",
+          "specifiers": [
+            "bytearray_at",
+            "addressof"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "implementation"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        }
+      ],
+      "exports": [
+        "buildcheck",
+        "DisplayState",
+        "_get_id",
+        "Writer",
+        "CWriter"
+      ],
+      "totalLines": 343,
+      "hasStructuralAnalysis": true
+    },
+    "writer/old_versions/writer_minimal.py": {
+      "filePath": "writer/old_versions/writer_minimal.py",
+      "contentHash": "de142c3e1a66b747fa21e5d3628282ee1b1dddff2e07f434bf188f71fd614f07",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Writer",
+          "methods": [
+            "set_textpos",
+            "set_clip",
+            "__init__",
+            "_newline",
+            "printstring",
+            "_printchar"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 66
+        }
+      ],
+      "imports": [
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        }
+      ],
+      "exports": [
+        "Writer"
+      ],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "writer/ssd1306_setup.py": {
+      "filePath": "writer/ssd1306_setup.py",
+      "contentHash": "d980938d40b41eda7a7e44c69b5392c7292b6c49987b996b1230fba3b319f7d9",
+      "functions": [
+        {
+          "name": "setup",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "machine",
+          "specifiers": [
+            "machine"
+          ]
+        },
+        {
+          "source": "ssd1306",
+          "specifiers": [
+            "SSD1306_SPI",
+            "SSD1306_I2C"
+          ]
+        }
+      ],
+      "exports": [
+        "setup"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "writer/writer.py": {
+      "filePath": "writer/writer.py",
+      "contentHash": "67dc44de2888df7cc33dbcbef66ecd5d5c5b454f9462120bad4cb94533c2c081",
+      "functions": [
+        {
+          "name": "_get_id",
+          "params": [
+            "device"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "DisplayState",
+          "methods": [
+            "__init__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "Writer",
+          "methods": [
+            "set_textpos",
+            "__init__",
+            "_getstate",
+            "_newline",
+            "set_clip",
+            "height",
+            "printstring",
+            "_printline",
+            "stringlen",
+            "_truelen",
+            "_get_char",
+            "_printchar",
+            "tabsize",
+            "setcolor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 235
+        },
+        {
+          "name": "CWriter",
+          "methods": [
+            "create_color",
+            "__init__",
+            "_printchar",
+            "setcolor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "imports": [
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        },
+        {
+          "source": "uctypes",
+          "specifiers": [
+            "bytearray_at",
+            "addressof"
+          ]
+        }
+      ],
+      "exports": [
+        "DisplayState",
+        "_get_id",
+        "Writer",
+        "CWriter"
+      ],
+      "totalLines": 332,
+      "hasStructuralAnalysis": true
+    },
+    "writer/writer_demo.py": {
+      "filePath": "writer/writer_demo.py",
+      "contentHash": "f19f279b7f5e2c0e6785c8ee5ad34164c970b3a9de11877d74ba59b7de2aec2b",
+      "functions": [
+        {
+          "name": "test",
+          "params": [
+            "use_spi"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "machine",
+          "specifiers": [
+            "machine"
+          ]
+        },
+        {
+          "source": "ssd1306_setup",
+          "specifiers": [
+            "WIDTH",
+            "HEIGHT",
+            "setup"
+          ]
+        },
+        {
+          "source": "writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "freesans20",
+          "specifiers": [
+            "freesans20"
+          ]
+        }
+      ],
+      "exports": [
+        "test"
+      ],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "writer/writer_gui.py": {
+      "filePath": "writer/writer_gui.py",
+      "contentHash": "1493fb89653f9c909f5c042ab7bdfc9bbc243796e98f8e7b83da030c2b1d7d7b",
+      "functions": [
+        {
+          "name": "_circle",
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "circle",
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color",
+            "width"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "fillcircle",
+          "params": [
+            "dev",
+            "x0",
+            "y0",
+            "r",
+            "color"
+          ],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [
+        {
+          "name": "DObject",
+          "methods": [
+            "__init__",
+            "warning",
+            "show",
+            "value"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 60
+        },
+        {
+          "name": "Label",
+          "methods": [
+            "__init__",
+            "value",
+            "show"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "Meter",
+          "methods": [
+            "__init__",
+            "value",
+            "show"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "LED",
+          "methods": [
+            "__init__",
+            "color",
+            "show"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "imports": [
+        {
+          "source": "writer",
+          "specifiers": [
+            "Writer"
+          ]
+        },
+        {
+          "source": "framebuf",
+          "specifiers": [
+            "framebuf"
+          ]
+        }
+      ],
+      "exports": [
+        "_circle",
+        "circle",
+        "fillcircle",
+        "DObject",
+        "Label",
+        "Meter",
+        "LED"
+      ],
+      "totalLines": 243,
+      "hasStructuralAnalysis": true
+    },
+    "writer/writer_tests.py": {
+      "filePath": "writer/writer_tests.py",
+      "contentHash": "17cd4abaf26d265dc9920a7046bfca9f30cd1278b33a0b30dfcbc692fcfa21c3",
+      "functions": [
+        {
+          "name": "inverse",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "scroll",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "usd_scroll",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "usd",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "rjust",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "fonts",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "tabs",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "usd_tabs",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "wrap",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "dual",
+          "params": [
+            "use_spi",
+            "soft"
+          ],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "machine",
+          "specifiers": [
+            "machine"
+          ]
+        },
+        {
+          "source": "utime",
+          "specifiers": [
+            "utime"
+          ]
+        },
+        {
+          "source": "uos",
+          "specifiers": [
+            "uos"
+          ]
+        },
+        {
+          "source": "ssd1306_setup",
+          "specifiers": [
+            "WIDTH",
+            "HEIGHT",
+            "setup"
+          ]
+        },
+        {
+          "source": "writer",
+          "specifiers": [
+            "Writer",
+            "CWriter"
+          ]
+        },
+        {
+          "source": "writer_gui",
+          "specifiers": [
+            "Label",
+            "Meter"
+          ]
+        },
+        {
+          "source": "freesans20",
+          "specifiers": [
+            "freesans20"
+          ]
+        },
+        {
+          "source": "courier20",
+          "specifiers": [
+            "fixed"
+          ]
+        },
+        {
+          "source": "font6",
+          "specifiers": [
+            "small"
+          ]
+        },
+        {
+          "source": "arial10",
+          "specifiers": [
+            "arial10"
+          ]
+        }
+      ],
+      "exports": [
+        "inverse",
+        "scroll",
+        "usd_scroll",
+        "usd",
+        "rjust",
+        "fonts",
+        "tabs",
+        "usd_tabs",
+        "wrap",
+        "dual"
+      ],
+      "totalLines": 231,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

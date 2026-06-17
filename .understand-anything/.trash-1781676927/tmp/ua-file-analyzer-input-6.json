@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": "display/screens/__init__.py", "language": "python", "sizeLines": 33, "fileCategory": "code"},
+    {"path": "lib/mdns_client/service_discovery/__init__.py", "language": "python", "sizeLines": 4, "fileCategory": "code"},
+    {"path": "Pico_ePaper_3_7.py", "language": "python", "sizeLines": 621, "fileCategory": "code"},
+    {"path": "writer/clock_big.py", "language": "python", "sizeLines": 521, "fileCategory": "code"},
+    {"path": "writer/courier20.py", "language": "python", "sizeLines": 308, "fileCategory": "code"},
+    {"path": "writer/font10.py", "language": "python", "sizeLines": 229, "fileCategory": "code"},
+    {"path": "writer/font6.py", "language": "python", "sizeLines": 176, "fileCategory": "code"},
+    {"path": "writer/freesans20.py", "language": "python", "sizeLines": 288, "fileCategory": "code"},
+    {"path": "writer/noto12.py", "language": "python", "sizeLines": 457, "fileCategory": "code"},
+    {"path": "writer/noto20.py", "language": "python", "sizeLines": 843, "fileCategory": "code"},
+    {"path": "writer/old_versions/writer_fw_compatible.py", "language": "python", "sizeLines": 342, "fileCategory": "code"},
+    {"path": "writer/old_versions/writer_minimal.py", "language": "python", "sizeLines": 98, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "display/screens/__init__.py": [],
+    "lib/mdns_client/service_discovery/__init__.py": [],
+    "Pico_ePaper_3_7.py": [],
+    "writer/clock_big.py": [],
+    "writer/courier20.py": [],
+    "writer/font10.py": [],
+    "writer/font6.py": [],
+    "writer/freesans20.py": [],
+    "writer/noto12.py": [],
+    "writer/noto20.py": [],
+    "writer/old_versions/writer_fw_compatible.py": [],
+    "writer/old_versions/writer_minimal.py": []
+  }
+}

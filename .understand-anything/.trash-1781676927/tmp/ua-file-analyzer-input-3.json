@@ -1,0 +1,17 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": "writer/ssd1306_setup.py", "language": "python", "sizeLines": 69, "fileCategory": "code"},
+    {"path": "writer/writer.py", "language": "python", "sizeLines": 331, "fileCategory": "code"},
+    {"path": "writer/writer_demo.py", "language": "python", "sizeLines": 58, "fileCategory": "code"},
+    {"path": "writer/writer_gui.py", "language": "python", "sizeLines": 242, "fileCategory": "code"},
+    {"path": "writer/writer_tests.py", "language": "python", "sizeLines": 230, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "writer/ssd1306_setup.py": [],
+    "writer/writer.py": [],
+    "writer/writer_demo.py": ["writer/writer.py", "writer/ssd1306_setup.py"],
+    "writer/writer_gui.py": ["writer/writer.py"],
+    "writer/writer_tests.py": ["writer/writer.py"]
+  }
+}

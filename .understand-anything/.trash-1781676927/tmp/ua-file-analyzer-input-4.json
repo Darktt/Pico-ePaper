@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": "config.py", "language": "python", "sizeLines": 115, "fileCategory": "code"},
+    {"path": "web_server.py", "language": "python", "sizeLines": 457, "fileCategory": "code"},
+    {"path": "wifi_manager.py", "language": "python", "sizeLines": 157, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "config.py": [],
+    "web_server.py": ["config.py", "taiwan_cities.json", "wifi_manager.py"],
+    "wifi_manager.py": ["config.py"]
+  }
+}
