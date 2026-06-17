@@ -1,0 +1,622 @@
+{
+  "nodes": [
+    {
+      "id": "file:app.py",
+      "type": "file",
+      "name": "app.py",
+      "filePath": "app.py",
+      "summary": "應用程式核心，定義 App 類別管理 Wi-Fi 連線狀態機、排程觸發、NTP 同步、天氣資料更新，以及各畫面的渲染協調邏輯。",
+      "tags": ["entry-point", "service", "event-handler", "singleton"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:app.py:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "app.py",
+      "lineRange": [84, 303],
+      "summary": "主要應用程式類別，以非同步狀態機實作 AP 熱點模式、STA 連線嘗試、初始化與執行四個狀態的切換，並協調排程器、天氣模組與畫面渲染。",
+      "tags": ["singleton", "event-handler", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "display/__init__.py",
+      "summary": "display 套件的 Python 初始化檔案，為空白檔案，僅用於標記此目錄為 Python 套件。",
+      "tags": ["entry-point", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/canvas.py",
+      "type": "file",
+      "name": "canvas.py",
+      "filePath": "display/canvas.py",
+      "summary": "提供 LandscapeCanvas 類別，封裝橫向 ePaper 畫布的繪圖操作，包含像素轉置、PBM 圖示繪製、局部與全螢幕刷新等低階 ePaper 驅動介面。",
+      "tags": ["component", "utility", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:display/canvas.py:LandscapeCanvas",
+      "type": "class",
+      "name": "LandscapeCanvas",
+      "filePath": "display/canvas.py",
+      "lineRange": [100, 230],
+      "summary": "橫向 ePaper 畫布類別，繼承 framebuf.FrameBuffer，實作像素 CW 旋轉轉置（支援 Viper 加速）、PBM blitting、全版或局部刷新至 EPD 硬體。",
+      "tags": ["component", "utility"],
+      "complexity": "complex",
+      "languageNotes": "MicroPython 特有的 @micropython.viper 裝飾器用於加速像素轉置運算，是嵌入式效能優化的慣用寫法。"
+    },
+    {
+      "id": "file:display/fonts.py",
+      "type": "file",
+      "name": "fonts.py",
+      "filePath": "display/fonts.py",
+      "summary": "字體載入模組，透過 _try_import 安全動態匯入字體模組，並對外暴露 FONT_TIME、FONT_BODY、FONT_LABEL 等字體常數供各畫面使用。",
+      "tags": ["utility", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/icons.py",
+      "type": "file",
+      "name": "icons.py",
+      "filePath": "display/icons.py",
+      "summary": "PBM 點陣圖示載入模組，實作 LRU 快取機制從 Flash 讀取 PBM 格式圖示檔，供 ePaper 顯示使用，並提供 exists() 函式用於偵測圖示是否存在。",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/icons.py:load_pbm",
+      "type": "function",
+      "name": "load_pbm",
+      "filePath": "display/icons.py",
+      "lineRange": [42, 74],
+      "summary": "從 Flash 讀取 PBM 圖示檔案並解碼為 framebuf.FrameBuffer，實作最近最少使用（LRU）快取以節省 MicroPython 的有限記憶體。",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "type": "file",
+      "name": "calendar.py",
+      "filePath": "display/screens/calendar.py",
+      "summary": "日曆渲染模組，提供 render() 函式在指定畫布區域繪製月份日曆格，支援可設定的一週起始日、今日標記與 Writer 字體渲染。",
+      "tags": ["component", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/screens/calendar.py:render",
+      "type": "function",
+      "name": "render",
+      "filePath": "display/screens/calendar.py",
+      "lineRange": [36, 104],
+      "summary": "在畫布指定區域繪製完整的月份日曆，計算日期格線位置、標記今日日期，並支援 Writer 高解析度字體與 framebuf 回退兩種渲染路徑。",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "type": "file",
+      "name": "guide.py",
+      "filePath": "display/screens/guide.py",
+      "summary": "Wi-Fi AP 模式引導畫面模組，提供 show() 函式在 ePaper 上顯示熱點 SSID、密碼與設定頁 URL，引導使用者完成初始 Wi-Fi 設定。",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "type": "file",
+      "name": "main_screen.py",
+      "filePath": "display/screens/main_screen.py",
+      "summary": "主畫面渲染模組，整合時間、天氣、Wi-Fi 強度與日曆四個區塊的繪製函式，提供 render_full、render_time、render_calendar 等局部/全量刷新 API。",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_full",
+      "type": "function",
+      "name": "render_full",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [177, 208],
+      "summary": "清空畫布並重繪完整主畫面，依序繪製 Wi-Fi 圖示、時間、天氣與日曆區塊，最後執行全版 ePaper 刷新。",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_time",
+      "type": "function",
+      "name": "render_time",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [211, 220],
+      "summary": "每分鐘局部刷新時間區塊，讀取 RTC 時間後僅重繪時間區域並執行局部 ePaper 刷新，避免全版閃爍。",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:render_calendar",
+      "type": "function",
+      "name": "render_calendar",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [230, 241],
+      "summary": "局部刷新日曆區塊，讀取 RTC 日期與週起始設定後，重繪日曆格並執行局部 ePaper 更新。",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "function",
+      "name": "_draw_weather",
+      "filePath": "display/screens/main_screen.py",
+      "lineRange": [109, 169],
+      "summary": "在天氣區塊繪製天氣圖示、溫度、天氣描述文字及 AQI，支援攝氏/華氏切換，並在圖示不存在時以文字回退。",
+      "tags": ["component", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "type": "file",
+      "name": "message.py",
+      "filePath": "display/screens/message.py",
+      "summary": "訊息畫面模組，提供 show() 函式在 ePaper 中央顯示單行提示文字，用於 Wi-Fi 連線狀態、NTP 同步等過渡畫面。",
+      "tags": ["component", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "main.py",
+      "summary": "MicroPython 韌體入口點，初始化 App 實例並透過 asyncio.run 啟動非同步事件循環。",
+      "tags": ["entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ntp.py",
+      "type": "file",
+      "name": "ntp.py",
+      "filePath": "ntp.py",
+      "summary": "NTP 時間同步模組，提供 sync() 函式透過網路對時並將結果寫入 MicroPython RTC，支援時區偏移與重試邏輯。",
+      "tags": ["utility", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ntp.py:sync",
+      "type": "function",
+      "name": "sync",
+      "filePath": "ntp.py",
+      "lineRange": [10, 32],
+      "summary": "透過 ntptime.settime 同步網路時間，套用時區分鐘偏移後更新 RTC，並在 NTP 伺服器不可達時等待並重試。",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scheduler.py",
+      "type": "file",
+      "name": "scheduler.py",
+      "filePath": "scheduler.py",
+      "summary": "基於 RTC 的非同步排程器，提供 Scheduler 類別定期發出 minute、hour、day、weather_tick、ntp_tick 等事件，驅動應用程式的週期性任務。",
+      "tags": ["service", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:scheduler.py:Scheduler",
+      "type": "class",
+      "name": "Scheduler",
+      "filePath": "scheduler.py",
+      "lineRange": [14, 77],
+      "summary": "非同步事件排程器類別，以 asyncio 迴圈每秒輪詢 RTC，依時間條件分發 minute/hour/day/weather_tick/ntp_tick 事件給已登錄的處理函式。",
+      "tags": ["service", "event-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:weather.py",
+      "type": "file",
+      "name": "weather.py",
+      "filePath": "weather.py",
+      "summary": "天氣資料擷取模組，呼叫 OpenWeatherMap API 取得即時天氣，並實作日誌記錄、日誌輪替，以及讀取快取天氣紀錄的功能。",
+      "tags": ["service", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:weather.py:fetch",
+      "type": "function",
+      "name": "fetch",
+      "filePath": "weather.py",
+      "lineRange": [37, 87],
+      "summary": "向 OpenWeatherMap API 發送 HTTP 請求取得天氣 JSON，解析溫度、天氣代碼、描述及 AQI，並在失敗時進行有限次重試。",
+      "tags": ["service", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:weather.py:rotate_if_needed",
+      "type": "function",
+      "name": "rotate_if_needed",
+      "filePath": "weather.py",
+      "lineRange": [98, 111],
+      "summary": "在每日首次執行時輪替天氣日誌檔，將當日新增記錄重置以避免 Flash 空間耗盡。",
+      "tags": ["utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:main.py",
+      "target": "file:app.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:main.py",
+      "target": "class:app.py:App",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/__init__.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/main_screen.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/calendar.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/guide.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:display/screens/message.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:ntp.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:scheduler.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:weather.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "file:wifi_manager.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:app.py:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:app.py:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "function:weather.py:fetch",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "function:ntp.py:sync",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "file:display/fonts.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/canvas.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/icons.py",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/calendar.py",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/guide.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:display/icons.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "file:weather.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_full",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_time",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/icons.py:load_pbm",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/calendar.py:render",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/message.py",
+      "target": "file:display/canvas.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ntp.py",
+      "target": "function:ntp.py:sync",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:ntp.py",
+      "target": "function:ntp.py:sync",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:scheduler.py",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:scheduler.py",
+      "target": "class:scheduler.py:Scheduler",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:weather.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:fetch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:fetch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:rotate_if_needed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:rotate_if_needed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

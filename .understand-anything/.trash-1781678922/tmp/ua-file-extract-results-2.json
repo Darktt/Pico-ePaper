@@ -1,0 +1,3681 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "lib/mdns_client/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 2,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/mdns_client/client.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 245,
+      "nonEmptyLines": 206,
+      "classes": [
+        {
+          "name": "Callback",
+          "startLine": 15,
+          "endLine": 27,
+          "methods": [
+            "timedout"
+          ],
+          "properties": [
+            "id",
+            "callback",
+            "remove_if",
+            "timeout",
+            "created_ticks"
+          ]
+        },
+        {
+          "name": "Client",
+          "startLine": 30,
+          "endLine": 245,
+          "methods": [
+            "__init__",
+            "add_callback",
+            "add_membership",
+            "_make_socket",
+            "start",
+            "_init_socket",
+            "stop",
+            "_close_socket",
+            "consume",
+            "process_waiting_data",
+            "process_packet",
+            "remove_if_check",
+            "remove_if_present",
+            "remove_id",
+            "send_question",
+            "send_response",
+            "_send_bytes",
+            "getaddrinfo",
+            "mdns_getaddr",
+            "scan_for_response",
+            "dprint"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Callback",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "Client",
+          "line": 30,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "timedout",
+          "callee": "int",
+          "lineNumber": 27
+        },
+        {
+          "caller": "timedout",
+          "callee": "time.ticks_ms",
+          "lineNumber": 27
+        },
+        {
+          "caller": "add_callback",
+          "callee": "Callback",
+          "lineNumber": 47
+        },
+        {
+          "caller": "add_callback",
+          "callee": "time.ticks_ms",
+          "lineNumber": 52
+        },
+        {
+          "caller": "add_callback",
+          "callee": "self.dprint",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add_callback",
+          "callee": "\"Adding callback with id {}\".format",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add_callback",
+          "callee": "self.dprint",
+          "lineNumber": 58
+        },
+        {
+          "caller": "add_callback",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 59
+        },
+        {
+          "caller": "add_callback",
+          "callee": "loop.create_task",
+          "lineNumber": 60
+        },
+        {
+          "caller": "add_callback",
+          "callee": "self.start",
+          "lineNumber": 60
+        },
+        {
+          "caller": "add_membership",
+          "callee": "dotted_ip_to_bytes",
+          "lineNumber": 66
+        },
+        {
+          "caller": "add_membership",
+          "callee": "dotted_ip_to_bytes",
+          "lineNumber": 66
+        },
+        {
+          "caller": "add_membership",
+          "callee": "sock.setsockopt",
+          "lineNumber": 67
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "self.dprint",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "socket.socket",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "sock.setsockopt",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "self.add_membership",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "sock.setblocking",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_make_socket",
+          "callee": "self.dprint",
+          "lineNumber": 75
+        },
+        {
+          "caller": "start",
+          "callee": "self.consume",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_init_socket",
+          "callee": "self._close_socket",
+          "lineNumber": 84
+        },
+        {
+          "caller": "_init_socket",
+          "callee": "self._make_socket",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_init_socket",
+          "callee": "self.socket.bind",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_init_socket",
+          "callee": "self.dprint",
+          "lineNumber": 87
+        },
+        {
+          "caller": "stop",
+          "callee": "self._close_socket",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_close_socket",
+          "callee": "self.socket.close",
+          "lineNumber": 95
+        },
+        {
+          "caller": "consume",
+          "callee": "self.dprint",
+          "lineNumber": 99
+        },
+        {
+          "caller": "consume",
+          "callee": "self._init_socket",
+          "lineNumber": 100
+        },
+        {
+          "caller": "consume",
+          "callee": "self.process_waiting_data",
+          "lineNumber": 102
+        },
+        {
+          "caller": "consume",
+          "callee": "uasyncio.sleep_ms",
+          "lineNumber": 103
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "uasyncio.sleep_ms",
+          "lineNumber": 107
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "select",
+          "lineNumber": 108
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "self.socket.recvfrom",
+          "lineNumber": 113
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "self.dprint",
+          "lineNumber": 116
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "self._init_socket",
+          "lineNumber": 119
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "self.process_packet",
+          "lineNumber": 126
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "self.dprint",
+          "lineNumber": 128
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "\"Issue processing packet: {}\".format",
+          "lineNumber": 128
+        },
+        {
+          "caller": "process_waiting_data",
+          "callee": "gc.collect",
+          "lineNumber": 130
+        },
+        {
+          "caller": "process_packet",
+          "callee": "parse_packet",
+          "lineNumber": 133
+        },
+        {
+          "caller": "process_packet",
+          "callee": "len",
+          "lineNumber": 134
+        },
+        {
+          "caller": "process_packet",
+          "callee": "print",
+          "lineNumber": 136
+        },
+        {
+          "caller": "process_packet",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 138
+        },
+        {
+          "caller": "process_packet",
+          "callee": "self.callbacks.values",
+          "lineNumber": 139
+        },
+        {
+          "caller": "process_packet",
+          "callee": "loop.create_task",
+          "lineNumber": 140
+        },
+        {
+          "caller": "process_packet",
+          "callee": "callback.callback",
+          "lineNumber": 140
+        },
+        {
+          "caller": "process_packet",
+          "callee": "self.remove_if_present",
+          "lineNumber": 142
+        },
+        {
+          "caller": "process_packet",
+          "callee": "loop.create_task",
+          "lineNumber": 144
+        },
+        {
+          "caller": "process_packet",
+          "callee": "self.remove_if_check",
+          "lineNumber": 144
+        },
+        {
+          "caller": "remove_if_check",
+          "callee": "callback.remove_if",
+          "lineNumber": 147
+        },
+        {
+          "caller": "remove_if_check",
+          "callee": "self.remove_if_present",
+          "lineNumber": 148
+        },
+        {
+          "caller": "remove_if_present",
+          "callee": "self.remove_id",
+          "lineNumber": 151
+        },
+        {
+          "caller": "remove_id",
+          "callee": "self.dprint",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove_id",
+          "callee": "\"Removing callback with id {}\".format",
+          "lineNumber": 156
+        },
+        {
+          "caller": "remove_id",
+          "callee": "len",
+          "lineNumber": 160
+        },
+        {
+          "caller": "remove_id",
+          "callee": "self.dprint",
+          "lineNumber": 161
+        },
+        {
+          "caller": "remove_id",
+          "callee": "self.stop",
+          "lineNumber": 162
+        },
+        {
+          "caller": "send_question",
+          "callee": "DNSQuestionWrapper",
+          "lineNumber": 167
+        },
+        {
+          "caller": "send_question",
+          "callee": "self._send_bytes",
+          "lineNumber": 168
+        },
+        {
+          "caller": "send_question",
+          "callee": "question_wrapper.to_bytes",
+          "lineNumber": 168
+        },
+        {
+          "caller": "send_response",
+          "callee": "self._send_bytes",
+          "lineNumber": 171
+        },
+        {
+          "caller": "send_response",
+          "callee": "response.to_bytes",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_send_bytes",
+          "callee": "self._init_socket",
+          "lineNumber": 175
+        },
+        {
+          "caller": "_send_bytes",
+          "callee": "range",
+          "lineNumber": 176
+        },
+        {
+          "caller": "_send_bytes",
+          "callee": "self.socket.sendto",
+          "lineNumber": 178
+        },
+        {
+          "caller": "_send_bytes",
+          "callee": "self.dprint",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_send_bytes",
+          "callee": "self._init_socket",
+          "lineNumber": 185
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "hostcheck.endswith",
+          "lineNumber": 197
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "hostcheck.endswith",
+          "lineNumber": 199
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "self.mdns_getaddr",
+          "lineNumber": 200
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "self.dprint",
+          "lineNumber": 203
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "\"Resolving dns request host {} and port {}\".format",
+          "lineNumber": 203
+        },
+        {
+          "caller": "getaddrinfo",
+          "callee": "socket.getaddrinfo",
+          "lineNumber": 204
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "host.lower",
+          "lineNumber": 207
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "self.dprint",
+          "lineNumber": 208
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "\"Resolving mdns request host {}\".format",
+          "lineNumber": 208
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "self.scan_for_response",
+          "lineNumber": 209
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "self.send_question",
+          "lineNumber": 210
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "DNSQuestion",
+          "lineNumber": 210
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "OSError",
+          "lineNumber": 214
+        },
+        {
+          "caller": "mdns_getaddr",
+          "callee": "a_record_rdata_to_string",
+          "lineNumber": 216
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "uasyncio.Event",
+          "lineNumber": 224
+        },
+        {
+          "caller": "scan_response",
+          "callee": "matching_record",
+          "lineNumber": 227
+        },
+        {
+          "caller": "scan_response",
+          "callee": "result[\"event\"].set",
+          "lineNumber": 231
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 233
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "loop.create_task",
+          "lineNumber": 234
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "set_after_timeout",
+          "lineNumber": 234
+        },
+        {
+          "caller": "is_match",
+          "callee": "matching_record",
+          "lineNumber": 237
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "self.add_callback",
+          "lineNumber": 239
+        },
+        {
+          "caller": "scan_for_response",
+          "callee": "result[\"event\"].wait",
+          "lineNumber": 240
+        },
+        {
+          "caller": "dprint",
+          "callee": "print",
+          "lineNumber": 245
+        },
+        {
+          "caller": "dprint",
+          "callee": "\"MDNS: {}\".format",
+          "lineNumber": 245
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "lib/mdns_client/constants.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 28,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "lib/mdns_client/parser.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 171,
+      "nonEmptyLines": 145,
+      "functions": [
+        {
+          "name": "parse_packet",
+          "startLine": 14,
+          "endLine": 16,
+          "params": [
+            "buffer"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PacketParser",
+          "startLine": 19,
+          "endLine": 171,
+          "methods": [
+            "__init__",
+            "parse",
+            "parse_questions",
+            "parse_question",
+            "parse_records",
+            "parse_record",
+            "_parse_srv_entry",
+            "_parse_soa_entry",
+            "_parse_mx_entry",
+            "_expand_name",
+            "parse_answers",
+            "parse_authorities",
+            "parse_additionals",
+            "_parse_record_name",
+            "_parse_name",
+            "_parse_repeat_name",
+            "_parse_bytes",
+            "_parse_record_entry",
+            "_parse_bytes_of",
+            "_unpack"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "parse_packet",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "PacketParser",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parse_packet",
+          "callee": "PacketParser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "parse_packet",
+          "callee": "packet_parser.parse",
+          "lineNumber": 16
+        },
+        {
+          "caller": "__init__",
+          "callee": "MDNSPacketHeader",
+          "lineNumber": 23
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._unpack",
+          "lineNumber": 23
+        },
+        {
+          "caller": "parse",
+          "callee": "self.parse_questions",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parse",
+          "callee": "self.parse_answers",
+          "lineNumber": 28
+        },
+        {
+          "caller": "parse",
+          "callee": "self.parse_authorities",
+          "lineNumber": 29
+        },
+        {
+          "caller": "parse",
+          "callee": "self.parse_additionals",
+          "lineNumber": 30
+        },
+        {
+          "caller": "parse",
+          "callee": "DNSResponse",
+          "lineNumber": 31
+        },
+        {
+          "caller": "parse_questions",
+          "callee": "self.parse_question",
+          "lineNumber": 41
+        },
+        {
+          "caller": "parse_questions",
+          "callee": "range",
+          "lineNumber": 41
+        },
+        {
+          "caller": "parse_question",
+          "callee": "self._parse_record_name().lower",
+          "lineNumber": 44
+        },
+        {
+          "caller": "parse_question",
+          "callee": "self._parse_record_name",
+          "lineNumber": 44
+        },
+        {
+          "caller": "parse_question",
+          "callee": "self._unpack",
+          "lineNumber": 45
+        },
+        {
+          "caller": "parse_question",
+          "callee": "DNSQuestion",
+          "lineNumber": 46
+        },
+        {
+          "caller": "parse_records",
+          "callee": "self.parse_record",
+          "lineNumber": 49
+        },
+        {
+          "caller": "parse_records",
+          "callee": "range",
+          "lineNumber": 49
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._parse_record_name",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._unpack",
+          "lineNumber": 53
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._parse_record_entry",
+          "lineNumber": 54
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._expand_name",
+          "lineNumber": 57
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._parse_srv_entry",
+          "lineNumber": 59
+        },
+        {
+          "caller": "parse_record",
+          "callee": "self._parse_soa_entry",
+          "lineNumber": 61
+        },
+        {
+          "caller": "parse_record",
+          "callee": "DNSRecord",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_parse_srv_entry",
+          "callee": "self._expand_name",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_parse_soa_entry",
+          "callee": "end_index_of_name",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_parse_soa_entry",
+          "callee": "self._expand_name",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_parse_soa_entry",
+          "callee": "end_index_of_name",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_parse_soa_entry",
+          "callee": "self._expand_name",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_parse_mx_entry",
+          "callee": "self._expand_name",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_expand_name",
+          "callee": "len",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_expand_name",
+          "callee": "struct.unpack_from",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_expand_name",
+          "callee": "self._parse_name",
+          "lineNumber": 93
+        },
+        {
+          "caller": "_expand_name",
+          "callee": "struct.pack",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_expand_name",
+          "callee": "len",
+          "lineNumber": 100
+        },
+        {
+          "caller": "parse_answers",
+          "callee": "self.parse_records",
+          "lineNumber": 108
+        },
+        {
+          "caller": "parse_authorities",
+          "callee": "self.parse_records",
+          "lineNumber": 111
+        },
+        {
+          "caller": "parse_additionals",
+          "callee": "self.parse_records",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_parse_record_name",
+          "callee": "self._parse_name",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_parse_record_name",
+          "callee": "fqdn_name.append",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_parse_record_name",
+          "callee": "name_bytes[index:end_index].decode",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_parse_record_name",
+          "callee": "\".\".join",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_parse_name",
+          "callee": "bytes",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_parse_name",
+          "callee": "self._parse_repeat_name",
+          "lineNumber": 137
+        },
+        {
+          "caller": "_parse_name",
+          "callee": "self._parse_bytes",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_parse_repeat_name",
+          "callee": "self._unpack",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_parse_repeat_name",
+          "callee": "self._parse_name",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_parse_bytes",
+          "callee": "bytes",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_parse_bytes",
+          "callee": "self._parse_bytes_of",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_parse_bytes",
+          "callee": "int",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_parse_record_entry",
+          "callee": "self._unpack",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_parse_record_entry",
+          "callee": "self._parse_bytes_of",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_unpack",
+          "callee": "struct.unpack_from",
+          "lineNumber": 169
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/mdns_client/responder.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 265,
+      "nonEmptyLines": 213,
+      "functions": [
+        {
+          "name": "generate_random_postfix",
+          "startLine": 24,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Responder",
+          "startLine": 28,
+          "endLine": 265,
+          "methods": [
+            "__init__",
+            "stopped",
+            "own_ip",
+            "host",
+            "generate_random_postfix",
+            "host_fqdn",
+            "advertise",
+            "withdraw",
+            "start",
+            "stop",
+            "_on_response",
+            "_on_question",
+            "_on_ptr_question",
+            "_send_service_discovery_ptrs",
+            "_on_srv_question",
+            "_on_a_question",
+            "_on_txt_question",
+            "_get_service_of",
+            "_ptr_record_for",
+            "_srv_record_for",
+            "_txt_record_for",
+            "_service_name_of",
+            "_a_record",
+            "_send_response",
+            "_dprint"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "generate_random_postfix",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "Responder",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generate_random_postfix",
+          "callee": "str",
+          "lineNumber": 25
+        },
+        {
+          "caller": "generate_random_postfix",
+          "callee": "random.randint",
+          "lineNumber": 25
+        },
+        {
+          "caller": "own_ip",
+          "callee": "callable",
+          "lineNumber": 49
+        },
+        {
+          "caller": "own_ip",
+          "callee": "self.own_ip_resolver",
+          "lineNumber": 50
+        },
+        {
+          "caller": "host",
+          "callee": "callable",
+          "lineNumber": 56
+        },
+        {
+          "caller": "host",
+          "callee": "host_resolver",
+          "lineNumber": 57
+        },
+        {
+          "caller": "host",
+          "callee": "self.generate_random_postfix",
+          "lineNumber": 61
+        },
+        {
+          "caller": "host",
+          "callee": "\"micropython-{}\".format",
+          "lineNumber": 62
+        },
+        {
+          "caller": "generate_random_postfix",
+          "callee": "generate_random_postfix",
+          "lineNumber": 67
+        },
+        {
+          "caller": "host_fqdn",
+          "callee": "\".\".join((host, \"local\")).lower",
+          "lineNumber": 75
+        },
+        {
+          "caller": "host_fqdn",
+          "callee": "\".\".join",
+          "lineNumber": 75
+        },
+        {
+          "caller": "advertise",
+          "callee": "ServiceProtocol",
+          "lineNumber": 85
+        },
+        {
+          "caller": "advertise",
+          "callee": "service_protocol.to_name",
+          "lineNumber": 86
+        },
+        {
+          "caller": "advertise",
+          "callee": "Advertisement",
+          "lineNumber": 86
+        },
+        {
+          "caller": "advertise",
+          "callee": "self.start",
+          "lineNumber": 88
+        },
+        {
+          "caller": "withdraw",
+          "callee": "ServiceProtocol",
+          "lineNumber": 91
+        },
+        {
+          "caller": "withdraw",
+          "callee": "service_protocol.to_name",
+          "lineNumber": 92
+        },
+        {
+          "caller": "start",
+          "callee": "self._client.add_callback",
+          "lineNumber": 100
+        },
+        {
+          "caller": "stop",
+          "callee": "self._client.remove_id",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_on_response",
+          "callee": "self._on_question",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_on_question",
+          "callee": "self._on_ptr_question",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_on_question",
+          "callee": "self._on_srv_question",
+          "lineNumber": 121
+        },
+        {
+          "caller": "_on_question",
+          "callee": "self._on_a_question",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_on_question",
+          "callee": "self._on_txt_question",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._send_service_discovery_ptrs",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._dprint",
+          "lineNumber": 136
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "\"Responding to DNS PTR question for {}\".format",
+          "lineNumber": 136
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._ptr_record_for",
+          "lineNumber": 137
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._srv_record_for",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._txt_record_for",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._a_record",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_on_ptr_question",
+          "callee": "self._send_response",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "self._advertisements.keys",
+          "lineNumber": 146
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "answers.append",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "DNSRecord",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "name_to_bytes",
+          "lineNumber": 147
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "self._dprint",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "\"Answering service record query with services {}\".format",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "\",\".join",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "self._advertisements.keys",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_send_service_discovery_ptrs",
+          "callee": "self._send_response",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._get_service_of",
+          "lineNumber": 153
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._dprint",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "\"Responding to DNS SRV question for {}\".format",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._srv_record_for",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._a_record",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._txt_record_for",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_on_srv_question",
+          "callee": "self._send_response",
+          "lineNumber": 160
+        },
+        {
+          "caller": "_on_a_question",
+          "callee": "self._a_record",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_on_a_question",
+          "callee": "self._dprint",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_on_a_question",
+          "callee": "\"Responding to DNS A question for {}\".format",
+          "lineNumber": 170
+        },
+        {
+          "caller": "_on_a_question",
+          "callee": "self._send_response",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_on_txt_question",
+          "callee": "self._get_service_of",
+          "lineNumber": 175
+        },
+        {
+          "caller": "_on_txt_question",
+          "callee": "self._txt_record_for",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_on_txt_question",
+          "callee": "self._dprint",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_on_txt_question",
+          "callee": "\"Responding to DNS TXT question for {}\".format",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_on_txt_question",
+          "callee": "self._send_response",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_get_service_of",
+          "callee": "query.split",
+          "lineNumber": 188
+        },
+        {
+          "caller": "_get_service_of",
+          "callee": "len",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_get_service_of",
+          "callee": "\".\".join",
+          "lineNumber": 192
+        },
+        {
+          "caller": "_ptr_record_for",
+          "callee": "self._service_name_of",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_ptr_record_for",
+          "callee": "name_to_bytes",
+          "lineNumber": 206
+        },
+        {
+          "caller": "_ptr_record_for",
+          "callee": "DNSRecord",
+          "lineNumber": 207
+        },
+        {
+          "caller": "_srv_record_for",
+          "callee": "self._advertisements.get",
+          "lineNumber": 210
+        },
+        {
+          "caller": "_srv_record_for",
+          "callee": "self._service_name_of",
+          "lineNumber": 214
+        },
+        {
+          "caller": "_srv_record_for",
+          "callee": "SRVRecord",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_srv_record_for",
+          "callee": "DNSRecord",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_srv_record_for",
+          "callee": "srv_record.to_bytes",
+          "lineNumber": 218
+        },
+        {
+          "caller": "_txt_record_for",
+          "callee": "self._advertisements.get",
+          "lineNumber": 221
+        },
+        {
+          "caller": "_txt_record_for",
+          "callee": "self._service_name_of",
+          "lineNumber": 228
+        },
+        {
+          "caller": "_txt_record_for",
+          "callee": "txt_data_to_bytes",
+          "lineNumber": 230
+        },
+        {
+          "caller": "_txt_record_for",
+          "callee": "DNSRecord",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_service_name_of",
+          "callee": "self._advertisements.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "_service_name_of",
+          "callee": "\".\".join",
+          "lineNumber": 240
+        },
+        {
+          "caller": "_service_name_of",
+          "callee": "fqdn_name.lower",
+          "lineNumber": 241
+        },
+        {
+          "caller": "_a_record",
+          "callee": "DNSRecord",
+          "lineNumber": 249
+        },
+        {
+          "caller": "_a_record",
+          "callee": "dotted_ip_to_bytes",
+          "lineNumber": 249
+        },
+        {
+          "caller": "_send_response",
+          "callee": "DNSResponse",
+          "lineNumber": 259
+        },
+        {
+          "caller": "_send_response",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 260
+        },
+        {
+          "caller": "_send_response",
+          "callee": "loop.create_task",
+          "lineNumber": 261
+        },
+        {
+          "caller": "_send_response",
+          "callee": "self._client.send_response",
+          "lineNumber": 261
+        },
+        {
+          "caller": "_dprint",
+          "callee": "print",
+          "lineNumber": 265
+        },
+        {
+          "caller": "_dprint",
+          "callee": "\"MDNS Responder: {}\".format",
+          "lineNumber": 265
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/mdns_client/service_discovery/discovery.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 338,
+      "nonEmptyLines": 274,
+      "classes": [
+        {
+          "name": "ServiceChange",
+          "startLine": 17,
+          "endLine": 25,
+          "methods": [
+            "__init__",
+            "has_update"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ServiceDiscovery",
+          "startLine": 28,
+          "endLine": 338,
+          "methods": [
+            "__init__",
+            "start_if_necessary",
+            "add_service_monitor",
+            "remove_service_monitor",
+            "start",
+            "_change_loop",
+            "_tick",
+            "_propagate_current_change",
+            "stop",
+            "query",
+            "stop_watching",
+            "current",
+            "query_once",
+            "_register_monitored_service",
+            "_remove_from_monitor",
+            "_remove_item",
+            "_remove_item_from_target",
+            "_request_once",
+            "_run_service_discovery_request",
+            "_on_response",
+            "_records_of",
+            "_on_record",
+            "_on_ptr_record",
+            "_enqueue_srv_for",
+            "_on_srv_record",
+            "_on_a_record",
+            "dprint",
+            "_add_to_a_record_buffer",
+            "_clean_up_buffer",
+            "_ensure_no_buffer_overflow"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServiceChange",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "ServiceDiscovery",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 19
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 20
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 21
+        },
+        {
+          "caller": "has_update",
+          "callee": "len",
+          "lineNumber": 25
+        },
+        {
+          "caller": "has_update",
+          "callee": "len",
+          "lineNumber": 25
+        },
+        {
+          "caller": "has_update",
+          "callee": "len",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 41
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 45
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 46
+        },
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 47
+        },
+        {
+          "caller": "__init__",
+          "callee": "ServiceChange",
+          "lineNumber": 48
+        },
+        {
+          "caller": "start_if_necessary",
+          "callee": "self.start",
+          "lineNumber": 57
+        },
+        {
+          "caller": "add_service_monitor",
+          "callee": "self._service_monitors.add",
+          "lineNumber": 60
+        },
+        {
+          "caller": "remove_service_monitor",
+          "callee": "self._service_monitors.remove",
+          "lineNumber": 63
+        },
+        {
+          "caller": "start",
+          "callee": "RuntimeError",
+          "lineNumber": 67
+        },
+        {
+          "caller": "start",
+          "callee": "self.dprint",
+          "lineNumber": 69
+        },
+        {
+          "caller": "start",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 71
+        },
+        {
+          "caller": "start",
+          "callee": "loop.create_task",
+          "lineNumber": 72
+        },
+        {
+          "caller": "start",
+          "callee": "self._change_loop",
+          "lineNumber": 72
+        },
+        {
+          "caller": "start",
+          "callee": "self.client.add_callback",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_change_loop",
+          "callee": "self._tick",
+          "lineNumber": 78
+        },
+        {
+          "caller": "_change_loop",
+          "callee": "uasyncio.sleep",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_tick",
+          "callee": "time.ticks_ms",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_tick",
+          "callee": "self.monitored_services.values",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_tick",
+          "callee": "set",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_tick",
+          "callee": "services.values",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_tick",
+          "callee": "service.expired_at",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_tick",
+          "callee": "self.dprint",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_tick",
+          "callee": "\"Service {} expired at {} ticks (Current: {} ticks)\".format",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_tick",
+          "callee": "to_remove.add",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_tick",
+          "callee": "service.should_refresh_at",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_tick",
+          "callee": "self.dprint",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_tick",
+          "callee": "(\n                            \"Service {} will be refreshed via MDNS with expiry at {} ticks \"\n                            \"and TTL {} (Current: {} ticks)\"\n                        ).format",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_tick",
+          "callee": "service.refresh_with",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_tick",
+          "callee": "self._remove_item",
+          "lineNumber": 106
+        },
+        {
+          "caller": "_tick",
+          "callee": "self._propagate_current_change",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_tick",
+          "callee": "ServiceChange",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_tick",
+          "callee": "self._clean_up_buffer",
+          "lineNumber": 112
+        },
+        {
+          "caller": "_tick",
+          "callee": "gc.collect",
+          "lineNumber": 113
+        },
+        {
+          "caller": "_propagate_current_change",
+          "callee": "service_monitor.service_added",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_propagate_current_change",
+          "callee": "service_monitor.service_updated",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_propagate_current_change",
+          "callee": "service_monitor.service_removed",
+          "lineNumber": 122
+        },
+        {
+          "caller": "stop",
+          "callee": "self.client.remove_id",
+          "lineNumber": 128
+        },
+        {
+          "caller": "stop",
+          "callee": "self.monitored_services.clear",
+          "lineNumber": 129
+        },
+        {
+          "caller": "stop",
+          "callee": "self._records_by_target.clear",
+          "lineNumber": 130
+        },
+        {
+          "caller": "stop",
+          "callee": "self._a_records_by_target_buffer.clear",
+          "lineNumber": 131
+        },
+        {
+          "caller": "stop",
+          "callee": "self._service_monitors.clear",
+          "lineNumber": 132
+        },
+        {
+          "caller": "stop",
+          "callee": "self._enqueued_service_records.clear",
+          "lineNumber": 133
+        },
+        {
+          "caller": "stop",
+          "callee": "self._enqueued_target_records.clear",
+          "lineNumber": 134
+        },
+        {
+          "caller": "stop",
+          "callee": "ServiceChange",
+          "lineNumber": 135
+        },
+        {
+          "caller": "query",
+          "callee": "self.start_if_necessary",
+          "lineNumber": 139
+        },
+        {
+          "caller": "query",
+          "callee": "ServiceProtocol",
+          "lineNumber": 140
+        },
+        {
+          "caller": "query",
+          "callee": "self._register_monitored_service",
+          "lineNumber": 141
+        },
+        {
+          "caller": "query",
+          "callee": "uasyncio.get_event_loop",
+          "lineNumber": 142
+        },
+        {
+          "caller": "query",
+          "callee": "loop.create_task",
+          "lineNumber": 143
+        },
+        {
+          "caller": "query",
+          "callee": "self._request_once",
+          "lineNumber": 143
+        },
+        {
+          "caller": "stop_watching",
+          "callee": "self._remove_from_monitor",
+          "lineNumber": 146
+        },
+        {
+          "caller": "stop_watching",
+          "callee": "ServiceProtocol",
+          "lineNumber": 146
+        },
+        {
+          "caller": "current",
+          "callee": "ServiceProtocol",
+          "lineNumber": 149
+        },
+        {
+          "caller": "current",
+          "callee": "tuple",
+          "lineNumber": 150
+        },
+        {
+          "caller": "current",
+          "callee": "self.monitored_services.get(service_protocol, {}).values",
+          "lineNumber": 150
+        },
+        {
+          "caller": "current",
+          "callee": "self.monitored_services.get",
+          "lineNumber": 150
+        },
+        {
+          "caller": "query_once",
+          "callee": "self.start_if_necessary",
+          "lineNumber": 156
+        },
+        {
+          "caller": "query_once",
+          "callee": "ServiceProtocol",
+          "lineNumber": 157
+        },
+        {
+          "caller": "query_once",
+          "callee": "self._register_monitored_service",
+          "lineNumber": 159
+        },
+        {
+          "caller": "query_once",
+          "callee": "self.query",
+          "lineNumber": 160
+        },
+        {
+          "caller": "query_once",
+          "callee": "uasyncio.sleep",
+          "lineNumber": 162
+        },
+        {
+          "caller": "query_once",
+          "callee": "tuple",
+          "lineNumber": 163
+        },
+        {
+          "caller": "query_once",
+          "callee": "self._remove_from_monitor",
+          "lineNumber": 165
+        },
+        {
+          "caller": "query_once",
+          "callee": "self.stop",
+          "lineNumber": 168
+        },
+        {
+          "caller": "query_once",
+          "callee": "self.client.stop",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_register_monitored_service",
+          "callee": "self.dprint",
+          "lineNumber": 176
+        },
+        {
+          "caller": "_register_monitored_service",
+          "callee": "\"Monitoring service protocol: {}\".format",
+          "lineNumber": 176
+        },
+        {
+          "caller": "_register_monitored_service",
+          "callee": "self.monitored_services.setdefault",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_register_monitored_service",
+          "callee": "dict",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_remove_from_monitor",
+          "callee": "self.dprint",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_remove_from_monitor",
+          "callee": "\"Removing service protocol from monitoring: {}\".format",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_remove_from_monitor",
+          "callee": "self._remove_item",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_remove_item",
+          "callee": "self._remove_item_from_target",
+          "lineNumber": 188
+        },
+        {
+          "caller": "_remove_item",
+          "callee": "self._remove_item_from_target",
+          "lineNumber": 189
+        },
+        {
+          "caller": "_remove_item",
+          "callee": "self.monitored_services.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_remove_item",
+          "callee": "self._current_change.removed.add",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_remove_item_from_target",
+          "callee": "target.lower",
+          "lineNumber": 197
+        },
+        {
+          "caller": "_remove_item_from_target",
+          "callee": "self._records_by_target.get",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_remove_item_from_target",
+          "callee": "res.remove",
+          "lineNumber": 201
+        },
+        {
+          "caller": "_remove_item_from_target",
+          "callee": "len",
+          "lineNumber": 202
+        },
+        {
+          "caller": "_request_once",
+          "callee": "self._run_service_discovery_request",
+          "lineNumber": 207
+        },
+        {
+          "caller": "_request_once",
+          "callee": "self.client.send_question",
+          "lineNumber": 208
+        },
+        {
+          "caller": "_request_once",
+          "callee": "DNSQuestion",
+          "lineNumber": 208
+        },
+        {
+          "caller": "_request_once",
+          "callee": "service_protocol.to_name",
+          "lineNumber": 208
+        },
+        {
+          "caller": "_run_service_discovery_request",
+          "callee": "self.client.send_question",
+          "lineNumber": 211
+        },
+        {
+          "caller": "_run_service_discovery_request",
+          "callee": "DNSQuestion",
+          "lineNumber": 211
+        },
+        {
+          "caller": "_on_response",
+          "callee": "self._records_of",
+          "lineNumber": 214
+        },
+        {
+          "caller": "_on_response",
+          "callee": "self._on_record",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_on_response",
+          "callee": "questions.append",
+          "lineNumber": 219
+        },
+        {
+          "caller": "_on_response",
+          "callee": "DNSQuestion",
+          "lineNumber": 219
+        },
+        {
+          "caller": "_on_response",
+          "callee": "questions.append",
+          "lineNumber": 221
+        },
+        {
+          "caller": "_on_response",
+          "callee": "DNSQuestion",
+          "lineNumber": 221
+        },
+        {
+          "caller": "_on_response",
+          "callee": "len",
+          "lineNumber": 222
+        },
+        {
+          "caller": "_on_response",
+          "callee": "self.client.send_question",
+          "lineNumber": 223
+        },
+        {
+          "caller": "_on_response",
+          "callee": "gc.collect",
+          "lineNumber": 225
+        },
+        {
+          "caller": "_on_record",
+          "callee": "self._on_ptr_record",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_on_record",
+          "callee": "self._on_srv_record",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_on_record",
+          "callee": "self._on_a_record",
+          "lineNumber": 236
+        },
+        {
+          "caller": "_on_ptr_record",
+          "callee": "bytes_to_name_list",
+          "lineNumber": 239
+        },
+        {
+          "caller": "_on_ptr_record",
+          "callee": "len",
+          "lineNumber": 240
+        },
+        {
+          "caller": "_on_ptr_record",
+          "callee": "ServiceProtocol",
+          "lineNumber": 243
+        },
+        {
+          "caller": "_on_ptr_record",
+          "callee": "self._enqueue_srv_for",
+          "lineNumber": 245
+        },
+        {
+          "caller": "_on_ptr_record",
+          "callee": "name_list_to_name",
+          "lineNumber": 245
+        },
+        {
+          "caller": "_enqueue_srv_for",
+          "callee": "self._enqueued_service_records.add",
+          "lineNumber": 248
+        },
+        {
+          "caller": "_enqueue_srv_for",
+          "callee": "srv_name.lower",
+          "lineNumber": 248
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._enqueued_service_records.remove",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "record.name.lower",
+          "lineNumber": 252
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "record.name.split",
+          "lineNumber": 254
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "len",
+          "lineNumber": 255
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "ServiceProtocol",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "SRVRecord.from_dns_record",
+          "lineNumber": 262
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "ServiceResponse",
+          "lineNumber": 263
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self.dprint",
+          "lineNumber": 269
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "\"Found new service {}\".format",
+          "lineNumber": 269
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._current_change.added.add",
+          "lineNumber": 271
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self.dprint",
+          "lineNumber": 273
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "\"Got SRV message for existing service {}\".format",
+          "lineNumber": 273
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "setattr",
+          "lineNumber": 278
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "getattr",
+          "lineNumber": 278
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self.dprint",
+          "lineNumber": 279
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "\"Updating changed service {}\".format",
+          "lineNumber": 279
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "old_response.ips.clear",
+          "lineNumber": 280
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._current_change.updated.add",
+          "lineNumber": 281
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._records_by_target.setdefault(response.name.lower(), set()).add",
+          "lineNumber": 285
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._records_by_target.setdefault",
+          "lineNumber": 285
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "response.name.lower",
+          "lineNumber": 285
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "set",
+          "lineNumber": 285
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._records_by_target.setdefault(response.target.lower(), set()).add",
+          "lineNumber": 286
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._records_by_target.setdefault",
+          "lineNumber": 286
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "response.target.lower",
+          "lineNumber": 286
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "set",
+          "lineNumber": 286
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._enqueued_target_records.add",
+          "lineNumber": 287
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "item.record.name.lower",
+          "lineNumber": 290
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._on_a_record",
+          "lineNumber": 291
+        },
+        {
+          "caller": "_on_srv_record",
+          "callee": "self._a_records_by_target_buffer.remove",
+          "lineNumber": 292
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "record.name.lower",
+          "lineNumber": 295
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "self._enqueued_target_records.remove",
+          "lineNumber": 298
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "self._add_to_a_record_buffer",
+          "lineNumber": 301
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "a_record_rdata_to_string",
+          "lineNumber": 305
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "self.dprint",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "\"Updating ip addresses for service {} by adding {}\".format",
+          "lineNumber": 307
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "item.ips.add",
+          "lineNumber": 308
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "a_record_rdata_to_string",
+          "lineNumber": 308
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "self._current_change.updated.add",
+          "lineNumber": 310
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "min",
+          "lineNumber": 313
+        },
+        {
+          "caller": "_on_a_record",
+          "callee": "min",
+          "lineNumber": 314
+        },
+        {
+          "caller": "dprint",
+          "callee": "print",
+          "lineNumber": 318
+        },
+        {
+          "caller": "dprint",
+          "callee": "\"MDNS Discovery: {}\".format",
+          "lineNumber": 318
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "self.dprint",
+          "lineNumber": 321
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "\"Adding A record which was not in active discovery to buffer {}\".format",
+          "lineNumber": 321
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "self._a_records_by_target_buffer.add",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "record_buffer",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "time.ticks_ms",
+          "lineNumber": 322
+        },
+        {
+          "caller": "_add_to_a_record_buffer",
+          "callee": "self._ensure_no_buffer_overflow",
+          "lineNumber": 323
+        },
+        {
+          "caller": "_clean_up_buffer",
+          "callee": "len",
+          "lineNumber": 326
+        },
+        {
+          "caller": "_clean_up_buffer",
+          "callee": "set",
+          "lineNumber": 328
+        },
+        {
+          "caller": "_clean_up_buffer",
+          "callee": "filter",
+          "lineNumber": 329
+        },
+        {
+          "caller": "_clean_up_buffer",
+          "callee": "time.ticks_ms",
+          "lineNumber": 329
+        },
+        {
+          "caller": "_ensure_no_buffer_overflow",
+          "callee": "len",
+          "lineNumber": 333
+        },
+        {
+          "caller": "_ensure_no_buffer_overflow",
+          "callee": "sorted",
+          "lineNumber": 334
+        },
+        {
+          "caller": "_ensure_no_buffer_overflow",
+          "callee": "set",
+          "lineNumber": 338
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "lib/mdns_client/service_discovery/service_monitor.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ServiceMonitor",
+          "startLine": 4,
+          "endLine": 12,
+          "methods": [
+            "service_added",
+            "service_updated",
+            "service_removed"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServiceMonitor",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "service_added",
+          "callee": "NotImplementedError",
+          "lineNumber": 6
+        },
+        {
+          "caller": "service_updated",
+          "callee": "NotImplementedError",
+          "lineNumber": 9
+        },
+        {
+          "caller": "service_removed",
+          "callee": "NotImplementedError",
+          "lineNumber": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/mdns_client/service_discovery/service_response.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 61,
+      "classes": [
+        {
+          "name": "ServiceResponse",
+          "startLine": 7,
+          "endLine": 79,
+          "methods": [
+            "__init__",
+            "__repr__",
+            "__hash__",
+            "__eq__",
+            "ttl_ms",
+            "should_refresh_at",
+            "expired_at",
+            "refresh_with"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ServiceResponse",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "set",
+          "lineNumber": 14
+        },
+        {
+          "caller": "__repr__",
+          "callee": "\" txt={}\".format",
+          "lineNumber": 24
+        },
+        {
+          "caller": "__repr__",
+          "callee": "\"<ServiceResponse name={} priority={} weight={} target={} port={} ips={}{}>\".format",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__hash__",
+          "callee": "hash",
+          "lineNumber": 32
+        },
+        {
+          "caller": "__hash__",
+          "callee": "getattr",
+          "lineNumber": 32
+        },
+        {
+          "caller": "__eq__",
+          "callee": "isinstance",
+          "lineNumber": 36
+        },
+        {
+          "caller": "__eq__",
+          "callee": "getattr",
+          "lineNumber": 40
+        },
+        {
+          "caller": "__eq__",
+          "callee": "getattr",
+          "lineNumber": 40
+        },
+        {
+          "caller": "should_refresh_at",
+          "callee": "self.expired_at",
+          "lineNumber": 67
+        },
+        {
+          "caller": "refresh_with",
+          "callee": "time.ticks_ms",
+          "lineNumber": 76
+        },
+        {
+          "caller": "refresh_with",
+          "callee": "client.send_question",
+          "lineNumber": 79
+        },
+        {
+          "caller": "refresh_with",
+          "callee": "DNSQuestion",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/mdns_client/service_discovery/txt_discovery.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "sort_record_by_type",
+          "startLine": 9,
+          "endLine": 12,
+          "params": [
+            "response"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TXTServiceDiscovery",
+          "startLine": 15,
+          "endLine": 38,
+          "methods": [
+            "_on_record",
+            "_records_of",
+            "_on_txt_record"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sort_record_by_type",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "TXTServiceDiscovery",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sort_record_by_type",
+          "callee": "TYPE_KEYS.index",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_on_record",
+          "callee": "super()._on_record",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_on_record",
+          "callee": "super",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_on_record",
+          "callee": "self._on_txt_record",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_records_of",
+          "callee": "sorted",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_records_of",
+          "callee": "super()._records_of",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_records_of",
+          "callee": "super",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_on_txt_record",
+          "callee": "record.name.lower",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_on_txt_record",
+          "callee": "bytes_to_name_list",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_on_txt_record",
+          "callee": "txt_record.split",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_on_txt_record",
+          "callee": "txt_entries.setdefault(key, []).append",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_on_txt_record",
+          "callee": "txt_entries.setdefault",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "lib/mdns_client/structs.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 166,
+      "nonEmptyLines": 137,
+      "classes": [
+        {
+          "name": "DNSQuestion",
+          "startLine": 17,
+          "endLine": 28,
+          "methods": [
+            "checked_query",
+            "to_bytes"
+          ],
+          "properties": []
+        },
+        {
+          "name": "DNSQuestionWrapper",
+          "startLine": 31,
+          "endLine": 44,
+          "methods": [
+            "to_bytes"
+          ],
+          "properties": [
+            "questions"
+          ]
+        },
+        {
+          "name": "DNSRecord",
+          "startLine": 47,
+          "endLine": 75,
+          "methods": [
+            "checked_name",
+            "to_bytes",
+            "invalid_at"
+          ],
+          "properties": [
+            "name",
+            "record_type",
+            "query_class",
+            "time_to_live",
+            "rdata"
+          ]
+        },
+        {
+          "name": "DNSResponse",
+          "startLine": 78,
+          "endLine": 129,
+          "methods": [
+            "is_response",
+            "is_request",
+            "records",
+            "to_bytes"
+          ],
+          "properties": [
+            "transaction_id",
+            "message_type",
+            "questions",
+            "answers",
+            "authorities",
+            "additional"
+          ]
+        },
+        {
+          "name": "ServiceProtocol",
+          "startLine": 132,
+          "endLine": 138,
+          "methods": [
+            "domain",
+            "to_name"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SRVMixin",
+          "startLine": 144,
+          "endLine": 150,
+          "methods": [
+            "protocol"
+          ],
+          "properties": [
+            "name"
+          ]
+        },
+        {
+          "name": "SRVRecord",
+          "startLine": 153,
+          "endLine": 166,
+          "methods": [
+            "from_dns_record",
+            "to_bytes"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DNSQuestion",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "DNSQuestionWrapper",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "DNSRecord",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "DNSResponse",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "ServiceProtocol",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "SRVMixin",
+          "line": 144,
+          "isDefault": false
+        },
+        {
+          "name": "SRVRecord",
+          "line": 153,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checked_query",
+          "callee": "check_name",
+          "lineNumber": 20
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "string_packed_len",
+          "lineNumber": 24
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 25
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_name",
+          "lineNumber": 26
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_into",
+          "lineNumber": 27
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "question.to_bytes",
+          "lineNumber": 35
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 36
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "sum",
+          "lineNumber": 36
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 36
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "FLAGS_QR_QUERY.to_bytes",
+          "lineNumber": 37
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len(self.questions).to_bytes",
+          "lineNumber": 38
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 41
+        },
+        {
+          "caller": "checked_name",
+          "callee": "check_name",
+          "lineNumber": 56
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "string_packed_len",
+          "lineNumber": 61
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 64
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_name",
+          "lineNumber": 65
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_into",
+          "lineNumber": 67
+        },
+        {
+          "caller": "invalid_at",
+          "callee": "time.ticks_ms",
+          "lineNumber": 75
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "question.to_bytes",
+          "lineNumber": 103
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "answer.to_bytes",
+          "lineNumber": 104
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "authority.to_bytes",
+          "lineNumber": 105
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "additional.to_bytes",
+          "lineNumber": 106
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "byte_count_of_lists",
+          "lineNumber": 107
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 108
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_into",
+          "lineNumber": 109
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 115
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 116
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 117
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 118
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "fill_buffer",
+          "lineNumber": 122
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "fill_buffer",
+          "lineNumber": 124
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "fill_buffer",
+          "lineNumber": 126
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "fill_buffer",
+          "lineNumber": 128
+        },
+        {
+          "caller": "to_name",
+          "callee": "\"{}.{}.{}\".format(self.protocol, self.service, self.domain).lower",
+          "lineNumber": 138
+        },
+        {
+          "caller": "to_name",
+          "callee": "\"{}.{}.{}\".format",
+          "lineNumber": 138
+        },
+        {
+          "caller": "protocol",
+          "callee": "self.name.split",
+          "lineNumber": 149
+        },
+        {
+          "caller": "protocol",
+          "callee": "ServiceProtocol",
+          "lineNumber": 150
+        },
+        {
+          "caller": "from_dns_record",
+          "callee": "unpack_from",
+          "lineNumber": 157
+        },
+        {
+          "caller": "from_dns_record",
+          "callee": "bytes_to_name(dns_record.rdata[6:]).lower",
+          "lineNumber": 158
+        },
+        {
+          "caller": "from_dns_record",
+          "callee": "bytes_to_name",
+          "lineNumber": 158
+        },
+        {
+          "caller": "from_dns_record",
+          "callee": "SRVRecord",
+          "lineNumber": 159
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "name_to_bytes",
+          "lineNumber": 162
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 163
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "len",
+          "lineNumber": 163
+        },
+        {
+          "caller": "to_bytes",
+          "callee": "pack_into",
+          "lineNumber": 164
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 0,
+        "classCount": 7
+      }
+    },
+    {
+      "path": "lib/mdns_client/util.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 152,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "dotted_ip_to_bytes",
+          "startLine": 8,
+          "endLine": 16,
+          "params": [
+            "ip"
+          ]
+        },
+        {
+          "name": "bytes_to_dotted_ip",
+          "startLine": 19,
+          "endLine": 24,
+          "params": [
+            "a"
+          ]
+        },
+        {
+          "name": "check_name",
+          "startLine": 27,
+          "endLine": 37,
+          "params": [
+            "n"
+          ]
+        },
+        {
+          "name": "string_packed_len",
+          "startLine": 40,
+          "endLine": 41,
+          "params": [
+            "byte_list"
+          ]
+        },
+        {
+          "name": "name_to_bytes",
+          "startLine": 44,
+          "endLine": 48,
+          "params": [
+            "name"
+          ]
+        },
+        {
+          "name": "pack_name",
+          "startLine": 51,
+          "endLine": 64,
+          "params": [
+            "buffer",
+            "string"
+          ]
+        },
+        {
+          "name": "string_to_bytes",
+          "startLine": 67,
+          "endLine": 71,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "might_have_repeatable_payload",
+          "startLine": 74,
+          "endLine": 75,
+          "params": [
+            "record_type"
+          ]
+        },
+        {
+          "name": "byte_count_of_lists",
+          "startLine": 78,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "fill_buffer",
+          "startLine": 82,
+          "endLine": 85,
+          "params": [
+            "buffer",
+            "item",
+            "offset"
+          ]
+        },
+        {
+          "name": "end_index_of_name",
+          "startLine": 88,
+          "endLine": 104,
+          "params": [
+            "buffer",
+            "offset"
+          ]
+        },
+        {
+          "name": "bytes_to_name",
+          "startLine": 107,
+          "endLine": 109,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "name_list_to_name",
+          "startLine": 112,
+          "endLine": 113,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "bytes_to_name_list",
+          "startLine": 116,
+          "endLine": 130,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "a_record_rdata_to_string",
+          "startLine": 133,
+          "endLine": 135,
+          "params": [
+            "rdata"
+          ]
+        },
+        {
+          "name": "set_after_timeout",
+          "startLine": 138,
+          "endLine": 140,
+          "params": [
+            "event",
+            "timeout"
+          ]
+        },
+        {
+          "name": "txt_data_to_bytes",
+          "startLine": 143,
+          "endLine": 152,
+          "params": [
+            "txt_data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "dotted_ip_to_bytes",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "bytes_to_dotted_ip",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "check_name",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "string_packed_len",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "name_to_bytes",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "pack_name",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "string_to_bytes",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "might_have_repeatable_payload",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "byte_count_of_lists",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "fill_buffer",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "end_index_of_name",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "bytes_to_name",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "name_list_to_name",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "bytes_to_name_list",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "a_record_rdata_to_string",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "set_after_timeout",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "txt_data_to_bytes",
+          "line": 143,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dotted_ip_to_bytes",
+          "callee": "int",
+          "lineNumber": 13
+        },
+        {
+          "caller": "dotted_ip_to_bytes",
+          "callee": "ip.split",
+          "lineNumber": 13
+        },
+        {
+          "caller": "dotted_ip_to_bytes",
+          "callee": "len",
+          "lineNumber": 14
+        },
+        {
+          "caller": "dotted_ip_to_bytes",
+          "callee": "any",
+          "lineNumber": 14
+        },
+        {
+          "caller": "dotted_ip_to_bytes",
+          "callee": "bytes",
+          "lineNumber": 16
+        },
+        {
+          "caller": "bytes_to_dotted_ip",
+          "callee": "\".\".join",
+          "lineNumber": 24
+        },
+        {
+          "caller": "bytes_to_dotted_ip",
+          "callee": "str",
+          "lineNumber": 24
+        },
+        {
+          "caller": "check_name",
+          "callee": "isinstance",
+          "lineNumber": 32
+        },
+        {
+          "caller": "check_name",
+          "callee": "n.split",
+          "lineNumber": 33
+        },
+        {
+          "caller": "check_name",
+          "callee": "i.encode",
+          "lineNumber": 36
+        },
+        {
+          "caller": "check_name",
+          "callee": "isinstance",
+          "lineNumber": 36
+        },
+        {
+          "caller": "string_packed_len",
+          "callee": "sum",
+          "lineNumber": 41
+        },
+        {
+          "caller": "string_packed_len",
+          "callee": "len",
+          "lineNumber": 41
+        },
+        {
+          "caller": "name_to_bytes",
+          "callee": "check_name",
+          "lineNumber": 45
+        },
+        {
+          "caller": "name_to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "name_to_bytes",
+          "callee": "string_packed_len",
+          "lineNumber": 46
+        },
+        {
+          "caller": "name_to_bytes",
+          "callee": "pack_name",
+          "lineNumber": 47
+        },
+        {
+          "caller": "pack_name",
+          "callee": "len",
+          "lineNumber": 58
+        },
+        {
+          "caller": "string_to_bytes",
+          "callee": "bytearray",
+          "lineNumber": 68
+        },
+        {
+          "caller": "string_to_bytes",
+          "callee": "len",
+          "lineNumber": 68
+        },
+        {
+          "caller": "string_to_bytes",
+          "callee": "len",
+          "lineNumber": 69
+        },
+        {
+          "caller": "string_to_bytes",
+          "callee": "item.encode",
+          "lineNumber": 70
+        },
+        {
+          "caller": "byte_count_of_lists",
+          "callee": "sum",
+          "lineNumber": 79
+        },
+        {
+          "caller": "byte_count_of_lists",
+          "callee": "sum",
+          "lineNumber": 79
+        },
+        {
+          "caller": "byte_count_of_lists",
+          "callee": "len",
+          "lineNumber": 79
+        },
+        {
+          "caller": "fill_buffer",
+          "callee": "len",
+          "lineNumber": 83
+        },
+        {
+          "caller": "end_index_of_name",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "end_index_of_name",
+          "callee": "IndexError",
+          "lineNumber": 104
+        },
+        {
+          "caller": "bytes_to_name",
+          "callee": "bytes_to_name_list",
+          "lineNumber": 108
+        },
+        {
+          "caller": "bytes_to_name",
+          "callee": "name_list_to_name",
+          "lineNumber": 109
+        },
+        {
+          "caller": "name_list_to_name",
+          "callee": "\".\".join",
+          "lineNumber": 113
+        },
+        {
+          "caller": "bytes_to_name_list",
+          "callee": "len",
+          "lineNumber": 119
+        },
+        {
+          "caller": "bytes_to_name_list",
+          "callee": "item.append",
+          "lineNumber": 128
+        },
+        {
+          "caller": "bytes_to_name_list",
+          "callee": "data_item.decode",
+          "lineNumber": 128
+        },
+        {
+          "caller": "a_record_rdata_to_string",
+          "callee": "struct.unpack",
+          "lineNumber": 134
+        },
+        {
+          "caller": "a_record_rdata_to_string",
+          "callee": "\".\".join",
+          "lineNumber": 135
+        },
+        {
+          "caller": "a_record_rdata_to_string",
+          "callee": "str",
+          "lineNumber": 135
+        },
+        {
+          "caller": "set_after_timeout",
+          "callee": "uasyncio.sleep",
+          "lineNumber": 139
+        },
+        {
+          "caller": "set_after_timeout",
+          "callee": "event.set",
+          "lineNumber": 140
+        },
+        {
+          "caller": "txt_data_to_bytes",
+          "callee": "txt_data.items",
+          "lineNumber": 145
+        },
+        {
+          "caller": "txt_data_to_bytes",
+          "callee": "isinstance",
+          "lineNumber": 146
+        },
+        {
+          "caller": "txt_data_to_bytes",
+          "callee": "string_to_bytes",
+          "lineNumber": 151
+        },
+        {
+          "caller": "txt_data_to_bytes",
+          "callee": "\"{}={}\".format",
+          "lineNumber": 151
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 17,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "mdns.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 211,
+      "nonEmptyLines": 189,
+      "functions": [
+        {
+          "name": "_patch_bind_to_any",
+          "startLine": 29,
+          "endLine": 39,
+          "params": [
+            "client"
+          ]
+        },
+        {
+          "name": "_builtin_mdns_holds_port",
+          "startLine": 42,
+          "endLine": 62,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "MDNSResponder",
+          "startLine": 65,
+          "endLine": 211,
+          "methods": [
+            "__init__",
+            "_consume_wrapper",
+            "available",
+            "start",
+            "restart",
+            "stop",
+            "_spawn",
+            "_teardown"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_patch_bind_to_any",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "_builtin_mdns_holds_port",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "MDNSResponder",
+          "line": 65,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_patched",
+          "callee": "client._close_socket",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_patched",
+          "callee": "client._make_socket",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_patched",
+          "callee": "client.socket.bind",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_builtin_mdns_holds_port",
+          "callee": "socket.socket",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_builtin_mdns_holds_port",
+          "callee": "s.setsockopt",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_builtin_mdns_holds_port",
+          "callee": "s.bind",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_builtin_mdns_holds_port",
+          "callee": "s.close",
+          "lineNumber": 57
+        },
+        {
+          "caller": "_consume_wrapper",
+          "callee": "self._client.consume",
+          "lineNumber": 79
+        },
+        {
+          "caller": "start",
+          "callee": "self._teardown",
+          "lineNumber": 93
+        },
+        {
+          "caller": "start",
+          "callee": "self._spawn",
+          "lineNumber": 96
+        },
+        {
+          "caller": "restart",
+          "callee": "self._teardown",
+          "lineNumber": 106
+        },
+        {
+          "caller": "restart",
+          "callee": "self._spawn",
+          "lineNumber": 107
+        },
+        {
+          "caller": "stop",
+          "callee": "self._teardown",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_spawn",
+          "callee": "_builtin_mdns_holds_port",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_spawn",
+          "callee": "print",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_spawn",
+          "callee": "\"LWIP 內建 mDNS responder 已 active，跳過 vendored client \"\n                  \"(epaper.local 由韌體廣播 @ {})\".format",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_spawn",
+          "callee": "range",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_spawn",
+          "callee": "_MDNSClient",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_spawn",
+          "callee": "_patch_bind_to_any",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_spawn",
+          "callee": "asyncio.create_task",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_spawn",
+          "callee": "self._consume_wrapper",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_spawn",
+          "callee": "asyncio.sleep_ms",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_spawn",
+          "callee": "self._consume_task.done",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_spawn",
+          "callee": "OSError",
+          "lineNumber": 135
+        },
+        {
+          "caller": "_spawn",
+          "callee": "_Responder",
+          "lineNumber": 138
+        },
+        {
+          "caller": "_spawn",
+          "callee": "self._resp.start",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_spawn",
+          "callee": "print",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_spawn",
+          "callee": "\"mDNS 已註冊 {}.local @ {}\".format",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_spawn",
+          "callee": "print",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_spawn",
+          "callee": "\"mDNS bind 失敗 (attempt {}/3, errno={}): {}\".format",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_spawn",
+          "callee": "self._teardown",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_spawn",
+          "callee": "asyncio.sleep_ms",
+          "lineNumber": 152
+        },
+        {
+          "caller": "_spawn",
+          "callee": "print",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_spawn",
+          "callee": "\"mDNS 啟動異常 (attempt {}/3): {}: {}\".format",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_spawn",
+          "callee": "type",
+          "lineNumber": 156
+        },
+        {
+          "caller": "_spawn",
+          "callee": "self._teardown",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_spawn",
+          "callee": "asyncio.sleep_ms",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_spawn",
+          "callee": "print",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_spawn",
+          "callee": "\"mDNS 啟動失敗，放棄: {}\".format",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_teardown",
+          "callee": "self._resp.stop",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_teardown",
+          "callee": "dotted_ip_to_bytes",
+          "lineNumber": 184
+        },
+        {
+          "caller": "_teardown",
+          "callee": "dotted_ip_to_bytes",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_teardown",
+          "callee": "sock.setsockopt",
+          "lineNumber": 186
+        },
+        {
+          "caller": "_teardown",
+          "callee": "sock.close",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_teardown",
+          "callee": "asyncio.wait_for",
+          "lineNumber": 204
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

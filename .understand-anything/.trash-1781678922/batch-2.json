@@ -1,0 +1,745 @@
+{
+  "nodes": [
+    {
+      "id": "file:lib/mdns_client/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "lib/mdns_client/__init__.py",
+      "summary": "mDNS 客戶端套件的 Python package entry point，內容極簡，僅作為套件識別標記。",
+      "tags": ["entry-point", "barrel", "mdns"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/mdns_client/client.py",
+      "type": "file",
+      "name": "client.py",
+      "filePath": "lib/mdns_client/client.py",
+      "summary": "實作 mDNS 核心客戶端邏輯，包含非同步 UDP socket 管理、callback 生命週期控制，以及主機名稱解析（A record 查詢）功能。",
+      "tags": ["service", "mdns", "非同步", "網路"],
+      "complexity": "complex",
+      "languageNotes": "使用 uasyncio 事件迴圈管理網路封包接收與 callback 調度，專為 MicroPython 受限環境設計，包含 gc.collect 手動垃圾回收。"
+    },
+    {
+      "id": "class:lib/mdns_client/client.py:Callback",
+      "type": "class",
+      "name": "Callback",
+      "filePath": "lib/mdns_client/client.py",
+      "lineRange": [15, 27],
+      "summary": "封裝 mDNS 回應 callback 的資料結構，記錄 callback ID、逾時設定與建立時間，並提供逾時判斷方法。",
+      "tags": ["資料模型", "callback", "逾時"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/mdns_client/client.py:Client",
+      "type": "class",
+      "name": "Client",
+      "filePath": "lib/mdns_client/client.py",
+      "lineRange": [30, 245],
+      "summary": "mDNS 客戶端主類別，負責 UDP multicast socket 生命週期、封包接收與分派、DNS 問題傳送，以及 mDNS 主機名稱解析。",
+      "tags": ["service", "mdns", "非同步", "dns"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/mdns_client/constants.py",
+      "type": "file",
+      "name": "constants.py",
+      "filePath": "lib/mdns_client/constants.py",
+      "summary": "定義 mDNS/DNS 協定常數，包含 DNS record 類型（A、PTR、SRV、TXT）、查詢類別、multicast 群組位址與旗標值。",
+      "tags": ["configuration", "dns", "常數", "type-definition"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/mdns_client/parser.py",
+      "type": "file",
+      "name": "parser.py",
+      "filePath": "lib/mdns_client/parser.py",
+      "summary": "提供 DNS/mDNS 封包解析功能，將原始 UDP 位元組緩衝區解析為結構化的 DNS 問題、答案、授權與附加記錄。",
+      "tags": ["utility", "dns", "解析器", "序列化"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/mdns_client/parser.py:PacketParser",
+      "type": "class",
+      "name": "PacketParser",
+      "filePath": "lib/mdns_client/parser.py",
+      "lineRange": [19, 171],
+      "summary": "DNS 封包解析器，處理 DNS 名稱壓縮展開、多種 record 類型解析（SRV、SOA、MX），並組裝完整的 DNSResponse 物件。",
+      "tags": ["解析器", "dns", "序列化"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/mdns_client/responder.py",
+      "type": "file",
+      "name": "responder.py",
+      "filePath": "lib/mdns_client/responder.py",
+      "summary": "實作 mDNS Responder，負責回應本機 DNS 查詢（A、PTR、SRV、TXT），並管理服務廣播（advertise/withdraw）邏輯。",
+      "tags": ["service", "mdns", "dns", "網路"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/mdns_client/responder.py:Responder",
+      "type": "class",
+      "name": "Responder",
+      "filePath": "lib/mdns_client/responder.py",
+      "lineRange": [28, 265],
+      "summary": "mDNS 回應者主類別，監聽 DNS 問題並依問題類型（PTR/SRV/A/TXT）組裝對應 DNS record 回應，支援動態主機名稱與隨機後綴。",
+      "tags": ["service", "mdns", "dns", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/discovery.py",
+      "type": "file",
+      "name": "discovery.py",
+      "filePath": "lib/mdns_client/service_discovery/discovery.py",
+      "summary": "實作 mDNS 服務探索核心邏輯，透過非同步迴圈持續監控 PTR/SRV/A record 變化，並通知已訂閱的服務監視器。",
+      "tags": ["service", "mdns", "服務探索", "非同步"],
+      "complexity": "complex",
+      "languageNotes": "使用 TTL 計算服務過期時間，並實作 A record 緩衝機制以處理跨封包的 SRV/A 配對，體現 MicroPython 下的記憶體管理策略。"
+    },
+    {
+      "id": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
+      "type": "class",
+      "name": "ServiceChange",
+      "filePath": "lib/mdns_client/service_discovery/discovery.py",
+      "lineRange": [17, 25],
+      "summary": "追蹤服務探索期間新增、更新、移除的服務集合，提供 has_update 方法判斷是否有待通知的變更。",
+      "tags": ["資料模型", "服務探索", "事件"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "type": "class",
+      "name": "ServiceDiscovery",
+      "filePath": "lib/mdns_client/service_discovery/discovery.py",
+      "lineRange": [28, 338],
+      "summary": "mDNS 服務探索主類別，管理多個服務協定的訂閱與查詢、處理 DNS record 分派，並維護已探索服務的生命週期。",
+      "tags": ["service", "服務探索", "mdns", "非同步"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "type": "file",
+      "name": "service_monitor.py",
+      "filePath": "lib/mdns_client/service_discovery/service_monitor.py",
+      "summary": "定義 ServiceMonitor 抽象基底類別，要求實作者提供服務新增、更新、移除三個回呼方法。",
+      "tags": ["type-definition", "服務探索", "抽象介面"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
+      "type": "class",
+      "name": "ServiceMonitor",
+      "filePath": "lib/mdns_client/service_discovery/service_monitor.py",
+      "lineRange": [4, 12],
+      "summary": "服務監視器抽象基底類別，定義 service_added、service_updated、service_removed 三個 callback 介面。",
+      "tags": ["抽象介面", "callback", "服務探索"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/service_response.py",
+      "type": "file",
+      "name": "service_response.py",
+      "filePath": "lib/mdns_client/service_discovery/service_response.py",
+      "summary": "定義 ServiceResponse 資料類別，代表一個已探索的 mDNS 服務實例，包含 SRV record 資訊、IP 集合與 TTL 計算邏輯。",
+      "tags": ["資料模型", "服務探索", "dns"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
+      "type": "class",
+      "name": "ServiceResponse",
+      "filePath": "lib/mdns_client/service_discovery/service_response.py",
+      "lineRange": [7, 79],
+      "summary": "封裝已探索 mDNS 服務的完整資訊（名稱、port、target、IP 集合），並計算 TTL 到期時間與排程刷新時機。",
+      "tags": ["資料模型", "服務探索", "ttl"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/txt_discovery.py",
+      "type": "file",
+      "name": "txt_discovery.py",
+      "filePath": "lib/mdns_client/service_discovery/txt_discovery.py",
+      "summary": "擴展服務探索功能以支援 TXT record 解析，提供 TXTServiceDiscovery 子類別，可將 TXT 欄位附加至已探索的服務上。",
+      "tags": ["服務探索", "dns", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/mdns_client/structs.py",
+      "type": "file",
+      "name": "structs.py",
+      "filePath": "lib/mdns_client/structs.py",
+      "summary": "定義 mDNS/DNS 協定的核心資料結構，包含 DNSQuestion、DNSRecord、DNSResponse、ServiceProtocol、SRVRecord 等，均提供序列化方法。",
+      "tags": ["資料模型", "dns", "type-definition", "序列化"],
+      "complexity": "complex",
+      "languageNotes": "使用 struct.pack/unpack 進行二進位序列化，適應 MicroPython 中無 dataclass 的環境，以具名屬性手動實作 __hash__ 與 __eq__。"
+    },
+    {
+      "id": "class:lib/mdns_client/structs.py:DNSQuestion",
+      "type": "class",
+      "name": "DNSQuestion",
+      "filePath": "lib/mdns_client/structs.py",
+      "lineRange": [17, 28],
+      "summary": "代表單一 DNS 問題記錄，包含查詢名稱與類型，並提供位元組序列化方法。",
+      "tags": ["資料模型", "dns", "序列化"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/mdns_client/structs.py:DNSRecord",
+      "type": "class",
+      "name": "DNSRecord",
+      "filePath": "lib/mdns_client/structs.py",
+      "lineRange": [47, 75],
+      "summary": "代表 DNS resource record，儲存名稱、類型、TTL 與 rdata，並計算到期時間戳記。",
+      "tags": ["資料模型", "dns", "序列化"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/mdns_client/structs.py:DNSResponse",
+      "type": "class",
+      "name": "DNSResponse",
+      "filePath": "lib/mdns_client/structs.py",
+      "lineRange": [78, 129],
+      "summary": "代表完整的 DNS 封包回應，包含 transaction ID、問題、答案、授權及附加區段，並支援整包序列化。",
+      "tags": ["資料模型", "dns", "序列化"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/mdns_client/structs.py:SRVRecord",
+      "type": "class",
+      "name": "SRVRecord",
+      "filePath": "lib/mdns_client/structs.py",
+      "lineRange": [153, 166],
+      "summary": "代表 DNS SRV record，提供從 DNSRecord 反序列化的 factory method 及二進位序列化方法。",
+      "tags": ["資料模型", "dns", "序列化"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/mdns_client/util.py",
+      "type": "file",
+      "name": "util.py",
+      "filePath": "lib/mdns_client/util.py",
+      "summary": "提供 mDNS 協定相關的低層次工具函式，涵蓋 IP 地址轉換、DNS 名稱編解碼、位元組緩衝區操作及非同步計時器。",
+      "tags": ["utility", "dns", "序列化", "工具函式"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
+      "type": "function",
+      "name": "dotted_ip_to_bytes",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [8, 16],
+      "summary": "將點分十進制 IP 字串（如 192.168.1.1）轉換為 4 byte 的位元組物件，供 DNS A record 使用。",
+      "tags": ["utility", "ip", "轉換"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:bytes_to_name_list",
+      "type": "function",
+      "name": "bytes_to_name_list",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [116, 130],
+      "summary": "將 DNS wire format 的名稱位元組解析為字串列表，處理長度前置字節格式的標籤序列。",
+      "tags": ["utility", "dns", "解析器"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:end_index_of_name",
+      "type": "function",
+      "name": "end_index_of_name",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [88, 104],
+      "summary": "在 DNS 封包緩衝區中計算名稱欄位的結束索引，正確處理壓縮指標（0xC0 前置位元組）。",
+      "tags": ["utility", "dns", "解析器"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:pack_name",
+      "type": "function",
+      "name": "pack_name",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [51, 64],
+      "summary": "將 DNS 名稱字串以 wire format 寫入指定的位元組緩衝區，每個標籤前加上長度位元組。",
+      "tags": ["utility", "dns", "序列化"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:txt_data_to_bytes",
+      "type": "function",
+      "name": "txt_data_to_bytes",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [143, 152],
+      "summary": "將 key-value 字典序列化為 DNS TXT record 格式的位元組，每個條目以 key=value 形式編碼。",
+      "tags": ["utility", "dns", "序列化"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:mdns.py",
+      "type": "file",
+      "name": "mdns.py",
+      "filePath": "mdns.py",
+      "summary": "為 Pico W 專案提供高層次 mDNS 管理器（MDNSResponder），整合底層客戶端與 responder，處理 LWIP 內建 mDNS 衝突偵測與重試啟動邏輯。",
+      "tags": ["service", "mdns", "entry-point", "網路"],
+      "complexity": "complex",
+      "languageNotes": "包含繁體中文列印訊息，針對 Pico W LWIP firmware 的 mDNS port 佔用問題實作了特殊的 socket bind 探測與修補邏輯。"
+    },
+    {
+      "id": "class:mdns.py:MDNSResponder",
+      "type": "class",
+      "name": "MDNSResponder",
+      "filePath": "mdns.py",
+      "lineRange": [65, 211],
+      "summary": "mDNS 高層次管理類別，負責偵測 LWIP 韌體 mDNS 衝突、帶重試的啟動序列，以及 client/responder 生命週期管理。",
+      "tags": ["service", "mdns", "生命週期管理"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:mdns.py:_builtin_mdns_holds_port",
+      "type": "function",
+      "name": "_builtin_mdns_holds_port",
+      "filePath": "mdns.py",
+      "lineRange": [42, 62],
+      "summary": "探測 Pico W LWIP 韌體是否已佔用 mDNS UDP port 5353，透過嘗試 socket bind 來判斷衝突。",
+      "tags": ["utility", "mdns", "診斷"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:mdns.py:_patch_bind_to_any",
+      "type": "function",
+      "name": "_patch_bind_to_any",
+      "filePath": "mdns.py",
+      "lineRange": [29, 39],
+      "summary": "對 mDNS Client 物件進行 monkey-patch，將 socket bind 位址改為 0.0.0.0 以繞過 LWIP 的 port 佔用問題。",
+      "tags": ["utility", "mdns", "修補"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:lib/mdns_client/__init__.py",
+      "target": "file:lib/mdns_client/__init__.py",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Callback",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Client",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Callback",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Client",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "file:lib/mdns_client/constants.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "file:lib/mdns_client/parser.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "file:lib/mdns_client/structs.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "file:lib/mdns_client/util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
+      "target": "class:lib/mdns_client/parser.py:PacketParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
+      "target": "class:lib/mdns_client/parser.py:PacketParser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
+      "target": "file:lib/mdns_client/structs.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
+      "target": "file:lib/mdns_client/constants.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
+      "target": "class:lib/mdns_client/responder.py:Responder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
+      "target": "class:lib/mdns_client/responder.py:Responder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
+      "target": "file:lib/mdns_client/structs.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
+      "target": "file:lib/mdns_client/util.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "file:lib/mdns_client/client.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "file:lib/mdns_client/structs.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "file:lib/mdns_client/service_discovery/service_response.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "file:lib/mdns_client/service_discovery/txt_discovery.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "target": "file:lib/mdns_client/service_discovery/discovery.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_response.py",
+      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_response.py",
+      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_response.py",
+      "target": "file:lib/mdns_client/structs.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:SRVRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:SRVRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "file:lib/mdns_client/constants.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:end_index_of_name",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:pack_name",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:end_index_of_name",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:pack_name",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "class:mdns.py:MDNSResponder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "function:mdns.py:_builtin_mdns_holds_port",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "function:mdns.py:_patch_bind_to_any",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "class:mdns.py:MDNSResponder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "file:lib/mdns_client/__init__.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "file:lib/mdns_client/client.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "file:lib/mdns_client/responder.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "file:lib/mdns_client/service_discovery/discovery.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "class:mdns.py:MDNSResponder",
+      "target": "class:lib/mdns_client/client.py:Client",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:mdns.py:MDNSResponder",
+      "target": "class:lib/mdns_client/responder.py:Responder",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "target": "class:lib/mdns_client/client.py:Client",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

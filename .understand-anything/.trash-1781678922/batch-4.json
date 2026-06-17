@@ -1,0 +1,239 @@
+{
+  "nodes": [
+    {
+      "id": "file:config.py",
+      "type": "file",
+      "name": "config.py",
+      "filePath": "config.py",
+      "summary": "提供持久化設定管理功能，透過 ConfigManager 類別以 JSON 檔案儲存並讀取 WiFi、天氣、時間等應用程式設定，並支援批次寫入以減少 Flash 寫入次數。",
+      "tags": ["設定管理", "singleton", "utility", "資料模型"],
+      "complexity": "moderate",
+      "languageNotes": "使用 context manager（_Batch）實作批次寫入模式，針對 MicroPython 嵌入式環境優化 Flash 寫入操作。"
+    },
+    {
+      "id": "class:config.py:ConfigManager",
+      "type": "class",
+      "name": "ConfigManager",
+      "filePath": "config.py",
+      "lineRange": [27, 102],
+      "summary": "核心設定管理器，提供 get/set 介面以分節（section）方式存取 JSON 設定檔，並包含 WiFi 與天氣是否已設定的便利查詢方法。",
+      "tags": ["設定管理", "singleton", "資料模型"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:web_server.py",
+      "type": "file",
+      "name": "web_server.py",
+      "filePath": "web_server.py",
+      "summary": "實作基於 asyncio 的 HTTP 網頁設定伺服器，提供 WiFi、時間、天氣等設定頁面，讓使用者透過瀏覽器對 Pico W 進行初始化設定。",
+      "tags": ["api-handler", "service", "網頁介面", "middleware"],
+      "complexity": "complex",
+      "languageNotes": "使用 MicroPython 的 asyncio 實作非同步 HTTP 伺服器，HTML 頁面以字串拼接方式直接內嵌於 Python 程式碼中，適合記憶體受限的嵌入式環境。"
+    },
+    {
+      "id": "function:web_server.py:_wifi_page",
+      "type": "function",
+      "name": "_wifi_page",
+      "filePath": "web_server.py",
+      "lineRange": [110, 153],
+      "summary": "產生 WiFi 設定 HTML 頁面，列出掃描到的網路清單（含 RSSI 訊號強度），並以已儲存的 SSID 優先排列，支援前端 AJAX 重新掃描功能。",
+      "tags": ["網頁介面", "utility", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:web_server.py:_time_page",
+      "type": "function",
+      "name": "_time_page",
+      "filePath": "web_server.py",
+      "lineRange": [171, 211],
+      "summary": "產生時間與日曆設定 HTML 頁面，支援 12/24 小時制切換、一週起始日及時區（UTC 偏移）的選擇。",
+      "tags": ["網頁介面", "utility", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:web_server.py:_weather_page",
+      "type": "function",
+      "name": "_weather_page",
+      "filePath": "web_server.py",
+      "lineRange": [214, 258],
+      "summary": "產生天氣設定 HTML 頁面，提供 OpenWeather API Key 輸入、城市下拉選單（來自台灣城市資料）及溫度單位（攝氏／華氏）選項。",
+      "tags": ["網頁介面", "utility", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:web_server.py:WebConfigServer",
+      "type": "class",
+      "name": "WebConfigServer",
+      "filePath": "web_server.py",
+      "lineRange": [272, 457],
+      "summary": "非同步 HTTP 設定伺服器主體，處理所有路由（/wifi、/time、/weather、/scan、/done 等），整合 ConfigManager 與 WiFiManager 完成設定存取與網路連線流程。",
+      "tags": ["api-handler", "service", "middleware"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "type": "file",
+      "name": "wifi_manager.py",
+      "filePath": "wifi_manager.py",
+      "summary": "封裝 Pico W 的 WiFi 功能，提供 AP 模式（設定熱點）與 STA 模式（連線至路由器）的管理介面，包含掃描網路、連線狀態查詢及訊號強度轉換等功能。",
+      "tags": ["service", "utility", "網路管理", "middleware"],
+      "complexity": "moderate",
+      "languageNotes": "直接操作 MicroPython 的 network 模組，同時管理 AP 與 STA 兩個 WLAN 介面，實作嵌入式裝置常見的雙模 WiFi 架構。"
+    },
+    {
+      "id": "function:wifi_manager.py:rssi_to_level",
+      "type": "function",
+      "name": "rssi_to_level",
+      "filePath": "wifi_manager.py",
+      "lineRange": [15, 27],
+      "summary": "將 WiFi RSSI 數值（dBm）轉換為 0–4 的訊號強度等級，供 UI 顯示訊號格數使用。",
+      "tags": ["utility", "訊號強度"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:wifi_manager.py:WiFiManager",
+      "type": "class",
+      "name": "WiFiManager",
+      "filePath": "wifi_manager.py",
+      "lineRange": [30, 157],
+      "summary": "WiFi 管理器，封裝 AP 模式啟停、STA 模式連線斷線、目前連線狀態與 IP 查詢，以及附近網路掃描（去重並依訊號強度排序）等完整功能。",
+      "tags": ["service", "網路管理", "middleware"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:ConfigManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:ConfigManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:taiwan_cities.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:wifi_manager.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_wifi_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_time_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "function:web_server.py:_weather_page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "class:web_server.py:WebConfigServer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "class:web_server.py:WebConfigServer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:web_server.py:WebConfigServer",
+      "target": "class:config.py:ConfigManager",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:web_server.py:WebConfigServer",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "file:config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:wifi_manager.py:WiFiManager",
+      "target": "function:wifi_manager.py:rssi_to_level",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "file:app.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

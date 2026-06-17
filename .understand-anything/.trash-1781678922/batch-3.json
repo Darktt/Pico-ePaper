@@ -1,0 +1,440 @@
+{
+  "nodes": [
+    {
+      "id": "file:writer/ssd1306_setup.py",
+      "type": "file",
+      "name": "ssd1306_setup.py",
+      "filePath": "writer/ssd1306_setup.py",
+      "summary": "為 SSD1306 OLED 顯示器提供硬體初始化工具，支援 SPI 與 I2C 兩種介面，並提供軟體/硬體模式切換，供 writer 模組的範例與測試使用。",
+      "tags": ["utility", "硬體初始化", "spi", "i2c", "MicroPython"],
+      "complexity": "moderate",
+      "languageNotes": "使用 MicroPython 的 machine 模組操作 GPIO 腳位，條件式地建立 SPI 或 I2C 匯流排物件，屬於典型嵌入式硬體抽象模式。"
+    },
+    {
+      "id": "function:writer/ssd1306_setup.py:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "writer/ssd1306_setup.py",
+      "lineRange": [38, 69],
+      "summary": "根據 use_spi 與 soft 參數初始化 SSD1306 顯示器，回傳對應的 SSD1306_SPI 或 SSD1306_I2C 物件供上層呼叫使用。",
+      "tags": ["utility", "硬體初始化", "工廠函式"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:writer/writer.py",
+      "type": "file",
+      "name": "writer.py",
+      "filePath": "writer/writer.py",
+      "summary": "實作 Writer 與 CWriter 兩個核心類別，提供字型渲染、文字位置控制、自動換行與捲動功能，是整個 writer 子系統的基礎模組。",
+      "tags": ["utility", "文字渲染", "顯示器驅動", "MicroPython"],
+      "complexity": "complex",
+      "languageNotes": "CWriter 繼承自 Writer，並針對彩色顯示器覆寫 _printchar 與 setcolor，利用 MicroPython uctypes 的 bytearray_at 與 addressof 直接操作記憶體以提升渲染效能。"
+    },
+    {
+      "id": "class:writer/writer.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/writer.py",
+      "lineRange": [44, 278],
+      "summary": "單色顯示器的文字渲染器，支援字型切換、裁剪區域設定、字串長度量測、Tab 與換行處理，以及逐字元 blit 至 framebuffer。",
+      "tags": ["文字渲染", "顯示器驅動", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:writer/writer.py:CWriter",
+      "type": "class",
+      "name": "CWriter",
+      "filePath": "writer/writer.py",
+      "lineRange": [282, 331],
+      "summary": "Writer 的彩色擴充子類別，新增 create_color 靜態方法與覆寫後的 _printchar，透過調色盤機制支援前景／背景色的彩色文字渲染。",
+      "tags": ["文字渲染", "彩色顯示", "顯示器驅動"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer.py:DisplayState",
+      "type": "class",
+      "name": "DisplayState",
+      "filePath": "writer/writer.py",
+      "lineRange": [31, 34],
+      "summary": "輕量的顯示器狀態容器，儲存每個顯示裝置的文字游標列與欄位置，供 Writer 的多裝置狀態管理使用。",
+      "tags": ["資料模型", "狀態管理"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/writer_demo.py",
+      "type": "file",
+      "name": "writer_demo.py",
+      "filePath": "writer/writer_demo.py",
+      "summary": "展示 Writer 類別基本文字輸出功能的範例腳本，初始化 SSD1306 顯示器後繪製分隔線並列印多行文字。",
+      "tags": ["範例", "utility", "顯示器驅動"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/writer_demo.py:test",
+      "type": "function",
+      "name": "test",
+      "filePath": "writer/writer_demo.py",
+      "lineRange": [40, 52],
+      "summary": "初始化顯示器並使用 Writer 列印三行字串，驗證基本的文字渲染流程。",
+      "tags": ["範例", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/writer_gui.py",
+      "type": "file",
+      "name": "writer_gui.py",
+      "filePath": "writer/writer_gui.py",
+      "summary": "基於 Writer 建立圖形 UI 元件庫，包含 Label、Meter、LED 等顯示元件及圓形繪製工具函式，適用於 MicroPython 嵌入式 GUI 場景。",
+      "tags": ["gui", "元件庫", "顯示器驅動", "utility"],
+      "complexity": "complex",
+      "languageNotes": "採用物件導向的繼承架構（DObject 為基底類別），各元件透過 show() 方法觸發重繪，遵循嵌入式 GUI 的最小化重繪模式。"
+    },
+    {
+      "id": "class:writer/writer_gui.py:DObject",
+      "type": "class",
+      "name": "DObject",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [76, 135],
+      "summary": "所有 GUI 顯示元件的抽象基底類別，負責邊界檢查、警告輸出及通用的 show 繪製框架，其他元件皆繼承自此。",
+      "tags": ["gui", "基底類別", "抽象類別"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:Label",
+      "type": "class",
+      "name": "Label",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [138, 175],
+      "summary": "繼承自 DObject 的文字標籤元件，依據字型寬度自動計算顯示區域，並支援彩色前景/背景渲染。",
+      "tags": ["gui", "標籤元件", "文字渲染"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:Meter",
+      "type": "class",
+      "name": "Meter",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [177, 221],
+      "summary": "繼承自 DObject 的儀表板元件，以水平線段呈現數值範圍，並附帶 Label 顯示當前數值。",
+      "tags": ["gui", "儀表板", "視覺化"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer_gui.py:LED",
+      "type": "class",
+      "name": "LED",
+      "filePath": "writer/writer_gui.py",
+      "lineRange": [224, 242],
+      "summary": "繼承自 DObject 的 LED 指示燈元件，以填滿圓形模擬 LED 燈號，並可附加文字標籤顯示狀態說明。",
+      "tags": ["gui", "指示燈元件", "視覺化"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/writer_tests.py",
+      "type": "file",
+      "name": "writer_tests.py",
+      "filePath": "writer/writer_tests.py",
+      "summary": "針對 Writer 與 CWriter 的功能測試腳本，涵蓋反白、捲動、上下顛倒、右對齊、多字型、Tab、換行及雙顯示器等情境。",
+      "tags": ["test", "文字渲染", "顯示器驅動"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/writer_tests.py:dual",
+      "type": "function",
+      "name": "dual",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [179, 209],
+      "summary": "測試雙顯示器場景，同時操作兩個 Writer 實例與多個 Label 元件，以亂數持續更新顯示內容。",
+      "tags": ["test", "雙顯示器", "壓力測試"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/writer_tests.py:scroll",
+      "type": "function",
+      "name": "scroll",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [59, 79],
+      "summary": "測試 Writer 的捲動功能，透過迴圈持續列印計數字串並呼叫 show()，驗證顯示器捲動行為。",
+      "tags": ["test", "捲動"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_tests.py:rjust",
+      "type": "function",
+      "name": "rjust",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [115, 135],
+      "summary": "測試文字右對齊排版，利用 stringlen 測量字串寬度後手動設定文字位置，驗證對齊計算的正確性。",
+      "tags": ["test", "文字對齊"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:writer/ssd1306_setup.py",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/ssd1306_setup.py",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:DisplayState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:DisplayState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:CWriter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/writer.py:CWriter",
+      "target": "class:writer/writer.py:Writer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "file:writer/ssd1306_setup.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "function:writer/writer_demo.py:test",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_demo.py",
+      "target": "function:writer/writer_demo.py:test",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_demo.py:test",
+      "target": "function:writer/ssd1306_setup.py:setup",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_demo.py:test",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Meter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:LED",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:Meter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_gui.py",
+      "target": "class:writer/writer_gui.py:LED",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/writer_gui.py:Label",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:Meter",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:LED",
+      "target": "class:writer/writer_gui.py:DObject",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "class:writer/writer_gui.py:Label",
+      "target": "class:writer/writer.py:Writer",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "file:writer/writer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "file:writer/writer.py",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:dual",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:scroll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:rjust",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:dual",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:scroll",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer_tests.py",
+      "target": "function:writer/writer_tests.py:rjust",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:dual",
+      "target": "class:writer/writer.py:Writer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:writer/writer_tests.py:dual",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

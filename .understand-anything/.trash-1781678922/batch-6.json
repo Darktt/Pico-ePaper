@@ -1,0 +1,462 @@
+{
+  "nodes": [
+    {
+      "id": "file:display/screens/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "display/screens/__init__.py",
+      "summary": "display/screens 套件的初始化模組，提供 log_display 日誌輔助函式與 make_writer 工廠函式，用於建立帶有字型的 Writer 實例並支援像素精確位置設定。",
+      "tags": ["entry-point", "factory", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:display/screens/__init__.py:make_writer",
+      "type": "function",
+      "name": "make_writer",
+      "filePath": "display/screens/__init__.py",
+      "lineRange": [10, 33],
+      "summary": "工廠函式，接受畫布（canvas）與字型（font）參數，建立 Writer 實例並設定初始文字位置，供各畫面元件使用。",
+      "tags": ["factory", "utility", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/mdns_client/service_discovery/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "lib/mdns_client/service_discovery/__init__.py",
+      "summary": "mDNS 服務探索子套件的空白初始化檔案，標記 service_discovery 為 Python 套件，本身不包含實作邏輯。",
+      "tags": ["entry-point", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Pico_ePaper_3_7.py",
+      "type": "file",
+      "name": "Pico_ePaper_3_7.py",
+      "filePath": "Pico_ePaper_3_7.py",
+      "summary": "3.7 吋電子紙顯示器的核心驅動程式，封裝 EPD_3in7 類別，透過 SPI 介面提供 4 灰階與 1 灰階的初始化、清除、全畫面顯示及局部刷新功能。",
+      "tags": ["service", "hardware-driver", "display"],
+      "complexity": "complex",
+      "languageNotes": "直接操作 MicroPython 的 machine.SPI、machine.Pin 與 framebuf，是典型的嵌入式硬體抽象層寫法。"
+    },
+    {
+      "id": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "class",
+      "name": "EPD_3in7",
+      "filePath": "Pico_ePaper_3_7.py",
+      "lineRange": [99, 572],
+      "summary": "電子紙顯示模組的完整驅動類別，包含 SPI 通訊、LUT 載入、4 灰階與 1 灰階的初始化與顯示方法，以及低功耗 Sleep 模式。",
+      "tags": ["hardware-driver", "display", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:writer/clock_big.py",
+      "type": "file",
+      "name": "clock_big.py",
+      "filePath": "writer/clock_big.py",
+      "summary": "大型時鐘字型的點陣資料模組，以 MicroPython Writer 相容介面提供 height、max_width、get_ch 等字型 metadata 函式，用於在電子紙上顯示大尺寸數字與符號。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "complex",
+      "languageNotes": "字型資料以大型 bytes literal 儲存，get_ch 以二進位搜尋或索引方式查找字元位圖，是 MicroPython Writer 字型模組的標準格式。"
+    },
+    {
+      "id": "function:writer/clock_big.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/clock_big.py",
+      "lineRange": [513, 520],
+      "summary": "根據輸入字元的 Unicode 碼點，從字型資料中查找並回傳對應字元的點陣資料、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/courier20.py",
+      "type": "file",
+      "name": "courier20.py",
+      "filePath": "writer/courier20.py",
+      "summary": "Courier 20pt 等寬字型的點陣資料模組，提供 Writer 相容的字型 metadata 函式與 get_ch 字元查找功能，適用於電子紙文字顯示。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/courier20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/courier20.py",
+      "lineRange": [301, 307],
+      "summary": "根據字元碼點查詢 Courier 20pt 字型資料，回傳字元的點陣 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/font10.py",
+      "type": "file",
+      "name": "font10.py",
+      "filePath": "writer/font10.py",
+      "summary": "10pt 通用字型的點陣資料模組，提供 Writer 相容介面的字型 metadata 函式與字元查找功能，用於小號文字顯示。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/font10.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/font10.py",
+      "lineRange": [222, 228],
+      "summary": "根據字元碼點從 10pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/font6.py",
+      "type": "file",
+      "name": "font6.py",
+      "filePath": "writer/font6.py",
+      "summary": "6pt 最小字型的點陣資料模組，提供 Writer 相容介面的字型 metadata 與字元查找，適用於電子紙上的小字顯示需求。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/font6.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/font6.py",
+      "lineRange": [169, 175],
+      "summary": "根據字元碼點從 6pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/freesans20.py",
+      "type": "file",
+      "name": "freesans20.py",
+      "filePath": "writer/freesans20.py",
+      "summary": "FreeSans 20pt 無襯線字型的點陣資料模組，提供 Writer 相容介面，常用於天氣、日曆等中等尺寸文字顯示。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/freesans20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/freesans20.py",
+      "lineRange": [280, 287],
+      "summary": "根據字元碼點從 FreeSans 20pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/noto12.py",
+      "type": "file",
+      "name": "noto12.py",
+      "filePath": "writer/noto12.py",
+      "summary": "Noto 12pt 字型的點陣資料模組，支援較廣泛的 Unicode 字元範圍，使用二進位搜尋（bs）加速字元查找，適合國際化文字顯示。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "complex",
+      "languageNotes": "內含自訂二進位搜尋函式 bs，用於在稀疏字元索引表中高效定位字元，比線性查找更節省 MicroPython 有限的運算資源。"
+    },
+    {
+      "id": "function:writer/noto12.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/noto12.py",
+      "lineRange": [451, 456],
+      "summary": "使用二進位搜尋在 Noto 12pt 字型索引中定位字元，回傳對應點陣 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/noto12.py:bs",
+      "type": "function",
+      "name": "bs",
+      "filePath": "writer/noto12.py",
+      "lineRange": [441, 449],
+      "summary": "針對字型索引陣列的二進位搜尋實作，在 MicroPython 中以低記憶體消耗快速定位目標值的位置。",
+      "tags": ["utility", "algorithm"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/noto20.py",
+      "type": "file",
+      "name": "noto20.py",
+      "filePath": "writer/noto20.py",
+      "summary": "Noto 20pt 字型的點陣資料模組，為專案中最大的字型檔，支援廣泛 Unicode 字元，含二進位搜尋查找機制，用於主要內容的中大尺寸顯示。",
+      "tags": ["font-data", "utility", "display"],
+      "complexity": "complex",
+      "languageNotes": "843 行的大型字型資料檔，核心邏輯與 noto12.py 結構相同，體積反映支援的字元集更廣。"
+    },
+    {
+      "id": "function:writer/noto20.py:get_ch",
+      "type": "function",
+      "name": "get_ch",
+      "filePath": "writer/noto20.py",
+      "lineRange": [837, 842],
+      "summary": "使用二進位搜尋在 Noto 20pt 字型索引中定位字元，回傳對應點陣 buffer、高度與寬度。",
+      "tags": ["font-data", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/noto20.py:bs",
+      "type": "function",
+      "name": "bs",
+      "filePath": "writer/noto20.py",
+      "lineRange": [827, 835],
+      "summary": "針對字型索引陣列的二進位搜尋實作，功能與 noto12.py 的 bs 相同，用於在大型字元集中高效查找。",
+      "tags": ["utility", "algorithm"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:writer/old_versions/writer_fw_compatible.py",
+      "type": "file",
+      "name": "writer_fw_compatible.py",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "summary": "Writer 文字渲染器的舊版韌體相容實作，包含 Writer（framebuf blit 渲染）、CWriter（彩色/快速模式）與 DisplayState 三個類別，以及韌體版本檢查函式。",
+      "tags": ["utility", "display", "legacy"],
+      "complexity": "complex",
+      "languageNotes": "相較於主版本，此版本加入了 buildcheck 函式用於驗證 MicroPython 韌體版本，並提供 CWriter 的快慢兩種渲染路徑以兼容不同硬體。"
+    },
+    {
+      "id": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "lineRange": [60, 268],
+      "summary": "核心文字渲染類別，管理字型、畫布裝置與文字游標狀態，支援字串列印、自動換行、文字裁切與長度計算。",
+      "tags": ["utility", "display", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "class",
+      "name": "CWriter",
+      "filePath": "writer/old_versions/writer_fw_compatible.py",
+      "lineRange": [271, 342],
+      "summary": "Writer 的彩色延伸版本，提供快速（bytearray_at 直接記憶體存取）與慢速（pixel 逐點）兩種字元渲染路徑，適配不同韌體能力。",
+      "tags": ["utility", "display", "legacy"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:writer/old_versions/writer_minimal.py",
+      "type": "file",
+      "name": "writer_minimal.py",
+      "filePath": "writer/old_versions/writer_minimal.py",
+      "summary": "Writer 文字渲染器的最小化實作，僅保留核心的字元逐點繪製與換行邏輯，去除多餘功能以節省記憶體，適合資源極度受限的環境。",
+      "tags": ["utility", "display", "legacy"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "class",
+      "name": "Writer",
+      "filePath": "writer/old_versions/writer_minimal.py",
+      "lineRange": [33, 98],
+      "summary": "精簡版 Writer 類別，提供基本的文字游標管理、字元渲染與自動換行，為 MicroPython 低記憶體環境優化。",
+      "tags": ["utility", "display"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:make_writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:display/screens/__init__.py",
+      "target": "function:display/screens/__init__.py:make_writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Pico_ePaper_3_7.py",
+      "target": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Pico_ePaper_3_7.py",
+      "target": "class:Pico_ePaper_3_7.py:EPD_3in7",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/clock_big.py",
+      "target": "function:writer/clock_big.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/clock_big.py",
+      "target": "function:writer/clock_big.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/courier20.py",
+      "target": "function:writer/courier20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/courier20.py",
+      "target": "function:writer/courier20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/font10.py",
+      "target": "function:writer/font10.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/font10.py",
+      "target": "function:writer/font10.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/font6.py",
+      "target": "function:writer/font6.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/font6.py",
+      "target": "function:writer/font6.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/freesans20.py",
+      "target": "function:writer/freesans20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/freesans20.py",
+      "target": "function:writer/freesans20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:bs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:bs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:bs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:bs",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/old_versions/writer_fw_compatible.py",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
+      "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
+      "type": "inherits",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "file:writer/old_versions/writer_minimal.py",
+      "target": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:writer/old_versions/writer_minimal.py",
+      "target": "class:writer/old_versions/writer_minimal.py:Writer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

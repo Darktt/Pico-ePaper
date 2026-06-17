@@ -1,0 +1,30 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'config:.gitignore' has no edges (orphan)",
+    "Node 'config:.micropico' has no edges (orphan)",
+    "Node 'config:E-Paper.code-workspace' has no edges (orphan)",
+    "Node 'file:lib/mdns_client/service_discovery/__init__.py' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 114,
+    "totalEdges": 200,
+    "totalLayers": 7,
+    "tourSteps": 15,
+    "nodeTypes": {
+      "file": 45,
+      "class": 30,
+      "function": 35,
+      "config": 4
+    },
+    "edgeTypes": {
+      "imports": 47,
+      "calls": 17,
+      "contains": 65,
+      "exports": 60,
+      "depends_on": 5,
+      "inherits": 5,
+      "configures": 1
+    }
+  }
+}

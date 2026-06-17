@@ -1,0 +1,829 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 49,
+  "totalBatches": 6,
+  "exportsByPath": {
+    "Pico_ePaper_3_7.py": [
+      "EPD_3in7"
+    ],
+    "app.py": [
+      "_print_disk_usage",
+      "App"
+    ],
+    "config.py": [
+      "ConfigManager",
+      "_Batch"
+    ],
+    "display/__init__.py": [],
+    "display/canvas.py": [
+      "LandscapeCanvas"
+    ],
+    "display/fonts.py": [
+      "_try_import"
+    ],
+    "display/icons.py": [
+      "_read_pbm_header",
+      "load_pbm",
+      "exists"
+    ],
+    "display/screens/__init__.py": [
+      "log_display",
+      "make_writer"
+    ],
+    "display/screens/calendar.py": [
+      "_days_in_month",
+      "_first_weekday",
+      "_strwidth",
+      "render"
+    ],
+    "display/screens/guide.py": [
+      "_text_width",
+      "show"
+    ],
+    "display/screens/main_screen.py": [
+      "_fmt_time",
+      "_wifi_icon_path",
+      "_weather_icon_path",
+      "_draw_wifi",
+      "_draw_time",
+      "_draw_weather",
+      "_draw_calendar",
+      "render_full",
+      "render_time",
+      "render_wifi",
+      "render_calendar"
+    ],
+    "display/screens/message.py": [
+      "_text_width",
+      "show"
+    ],
+    "lib/mdns_client/__init__.py": [],
+    "lib/mdns_client/client.py": [
+      "Callback",
+      "Client"
+    ],
+    "lib/mdns_client/constants.py": [],
+    "lib/mdns_client/parser.py": [
+      "parse_packet",
+      "PacketParser"
+    ],
+    "lib/mdns_client/responder.py": [
+      "generate_random_postfix",
+      "Responder"
+    ],
+    "lib/mdns_client/service_discovery/__init__.py": [],
+    "lib/mdns_client/service_discovery/discovery.py": [
+      "ServiceChange",
+      "ServiceDiscovery"
+    ],
+    "lib/mdns_client/service_discovery/service_monitor.py": [
+      "ServiceMonitor"
+    ],
+    "lib/mdns_client/service_discovery/service_response.py": [
+      "ServiceResponse"
+    ],
+    "lib/mdns_client/service_discovery/txt_discovery.py": [
+      "sort_record_by_type",
+      "TXTServiceDiscovery"
+    ],
+    "lib/mdns_client/structs.py": [
+      "DNSQuestion",
+      "DNSQuestionWrapper",
+      "DNSRecord",
+      "DNSResponse",
+      "ServiceProtocol",
+      "SRVMixin",
+      "SRVRecord"
+    ],
+    "lib/mdns_client/util.py": [
+      "dotted_ip_to_bytes",
+      "bytes_to_dotted_ip",
+      "check_name",
+      "string_packed_len",
+      "name_to_bytes",
+      "pack_name",
+      "string_to_bytes",
+      "might_have_repeatable_payload",
+      "byte_count_of_lists",
+      "fill_buffer",
+      "end_index_of_name",
+      "bytes_to_name",
+      "name_list_to_name",
+      "bytes_to_name_list",
+      "a_record_rdata_to_string",
+      "set_after_timeout",
+      "txt_data_to_bytes"
+    ],
+    "main.py": [
+      "main"
+    ],
+    "mdns.py": [
+      "_patch_bind_to_any",
+      "_builtin_mdns_holds_port",
+      "MDNSResponder"
+    ],
+    "ntp.py": [
+      "sync"
+    ],
+    "scheduler.py": [
+      "Scheduler"
+    ],
+    "weather.py": [
+      "_datetime_now",
+      "_fmt_timestamp",
+      "_append_log",
+      "fetch",
+      "_log_result",
+      "rotate_if_needed",
+      "log_exists",
+      "read_log"
+    ],
+    "web_server.py": [
+      "_load_cities",
+      "_url_decode",
+      "_parse_form",
+      "_parse_query",
+      "_page",
+      "_wifi_page",
+      "_time_page",
+      "_weather_page",
+      "_done_page",
+      "WebConfigServer"
+    ],
+    "wifi_manager.py": [
+      "rssi_to_level",
+      "WiFiManager"
+    ],
+    "writer/clock_big.py": [
+      "height",
+      "baseline",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "get_ch"
+    ],
+    "writer/courier20.py": [
+      "height",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "_chr_addr",
+      "get_ch"
+    ],
+    "writer/font10.py": [
+      "height",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "_chr_addr",
+      "get_ch"
+    ],
+    "writer/font6.py": [
+      "height",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "_chr_addr",
+      "get_ch"
+    ],
+    "writer/freesans20.py": [
+      "height",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "get_ch"
+    ],
+    "writer/noto12.py": [
+      "height",
+      "baseline",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "bs",
+      "get_ch"
+    ],
+    "writer/noto20.py": [
+      "height",
+      "baseline",
+      "max_width",
+      "hmap",
+      "reverse",
+      "monospaced",
+      "min_ch",
+      "max_ch",
+      "bs",
+      "get_ch"
+    ],
+    "writer/old_versions/writer_fw_compatible.py": [
+      "buildcheck",
+      "DisplayState",
+      "_get_id",
+      "Writer",
+      "CWriter"
+    ],
+    "writer/old_versions/writer_minimal.py": [
+      "Writer"
+    ],
+    "writer/ssd1306_setup.py": [
+      "setup"
+    ],
+    "writer/writer.py": [
+      "DisplayState",
+      "_get_id",
+      "Writer",
+      "CWriter"
+    ],
+    "writer/writer_demo.py": [
+      "test"
+    ],
+    "writer/writer_gui.py": [
+      "_circle",
+      "circle",
+      "fillcircle",
+      "DObject",
+      "Label",
+      "Meter",
+      "LED"
+    ],
+    "writer/writer_tests.py": [
+      "inverse",
+      "scroll",
+      "usd_scroll",
+      "usd",
+      "rjust",
+      "fonts",
+      "tabs",
+      "usd_tabs",
+      "wrap",
+      "dual"
+    ]
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "app.py",
+          "language": "python",
+          "sizeLines": 305,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/__init__.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/canvas.py",
+          "language": "python",
+          "sizeLines": 230,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/fonts.py",
+          "language": "python",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/icons.py",
+          "language": "python",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/screens/calendar.py",
+          "language": "python",
+          "sizeLines": 104,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/screens/guide.py",
+          "language": "python",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/screens/main_screen.py",
+          "language": "python",
+          "sizeLines": 241,
+          "fileCategory": "code"
+        },
+        {
+          "path": "display/screens/message.py",
+          "language": "python",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "main.py",
+          "language": "python",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ntp.py",
+          "language": "python",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scheduler.py",
+          "language": "python",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "weather.py",
+          "language": "python",
+          "sizeLines": 126,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "app.py": [
+          "config.py",
+          "display/__init__.py",
+          "display/canvas.py",
+          "display/screens/main_screen.py",
+          "display/screens/calendar.py",
+          "display/screens/guide.py",
+          "display/screens/message.py",
+          "ntp.py",
+          "scheduler.py",
+          "weather.py",
+          "wifi_manager.py"
+        ],
+        "display/__init__.py": [],
+        "display/canvas.py": [
+          "display/fonts.py"
+        ],
+        "display/fonts.py": [],
+        "display/icons.py": [],
+        "display/screens/calendar.py": [
+          "display/canvas.py"
+        ],
+        "display/screens/guide.py": [
+          "display/canvas.py"
+        ],
+        "display/screens/main_screen.py": [
+          "display/canvas.py",
+          "display/icons.py",
+          "weather.py"
+        ],
+        "display/screens/message.py": [
+          "display/canvas.py"
+        ],
+        "main.py": [
+          "app.py"
+        ],
+        "ntp.py": [],
+        "scheduler.py": [],
+        "weather.py": [
+          "config.py"
+        ]
+      },
+      "neighborMap": {
+        "app.py": [
+          {
+            "path": "config.py",
+            "batchIndex": 4,
+            "symbols": [
+              "ConfigManager",
+              "_Batch"
+            ]
+          },
+          {
+            "path": "wifi_manager.py",
+            "batchIndex": 4,
+            "symbols": [
+              "rssi_to_level",
+              "WiFiManager"
+            ]
+          }
+        ],
+        "weather.py": [
+          {
+            "path": "config.py",
+            "batchIndex": 4,
+            "symbols": [
+              "ConfigManager",
+              "_Batch"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "lib/mdns_client/__init__.py",
+          "language": "python",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/client.py",
+          "language": "python",
+          "sizeLines": 245,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/constants.py",
+          "language": "python",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/parser.py",
+          "language": "python",
+          "sizeLines": 171,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/responder.py",
+          "language": "python",
+          "sizeLines": 265,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/service_discovery/discovery.py",
+          "language": "python",
+          "sizeLines": 338,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/service_discovery/service_monitor.py",
+          "language": "python",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/service_discovery/service_response.py",
+          "language": "python",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/service_discovery/txt_discovery.py",
+          "language": "python",
+          "sizeLines": 38,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/structs.py",
+          "language": "python",
+          "sizeLines": 166,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/util.py",
+          "language": "python",
+          "sizeLines": 152,
+          "fileCategory": "code"
+        },
+        {
+          "path": "mdns.py",
+          "language": "python",
+          "sizeLines": 211,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "lib/mdns_client/__init__.py": [],
+        "lib/mdns_client/client.py": [
+          "lib/mdns_client/constants.py",
+          "lib/mdns_client/parser.py",
+          "lib/mdns_client/structs.py",
+          "lib/mdns_client/util.py"
+        ],
+        "lib/mdns_client/constants.py": [],
+        "lib/mdns_client/parser.py": [
+          "lib/mdns_client/structs.py",
+          "lib/mdns_client/constants.py"
+        ],
+        "lib/mdns_client/responder.py": [
+          "lib/mdns_client/structs.py",
+          "lib/mdns_client/util.py"
+        ],
+        "lib/mdns_client/service_discovery/discovery.py": [
+          "lib/mdns_client/client.py",
+          "lib/mdns_client/structs.py",
+          "lib/mdns_client/service_discovery/service_response.py",
+          "lib/mdns_client/service_discovery/txt_discovery.py"
+        ],
+        "lib/mdns_client/service_discovery/service_monitor.py": [
+          "lib/mdns_client/service_discovery/discovery.py"
+        ],
+        "lib/mdns_client/service_discovery/service_response.py": [
+          "lib/mdns_client/structs.py"
+        ],
+        "lib/mdns_client/service_discovery/txt_discovery.py": [],
+        "lib/mdns_client/structs.py": [
+          "lib/mdns_client/constants.py"
+        ],
+        "lib/mdns_client/util.py": [],
+        "mdns.py": [
+          "lib/mdns_client/__init__.py",
+          "lib/mdns_client/client.py",
+          "lib/mdns_client/responder.py",
+          "lib/mdns_client/service_discovery/discovery.py"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "writer/ssd1306_setup.py",
+          "language": "python",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/writer.py",
+          "language": "python",
+          "sizeLines": 331,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/writer_demo.py",
+          "language": "python",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/writer_gui.py",
+          "language": "python",
+          "sizeLines": 242,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/writer_tests.py",
+          "language": "python",
+          "sizeLines": 230,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "writer/ssd1306_setup.py": [],
+        "writer/writer.py": [],
+        "writer/writer_demo.py": [
+          "writer/writer.py",
+          "writer/ssd1306_setup.py"
+        ],
+        "writer/writer_gui.py": [
+          "writer/writer.py"
+        ],
+        "writer/writer_tests.py": [
+          "writer/writer.py"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "config.py",
+          "language": "python",
+          "sizeLines": 115,
+          "fileCategory": "code"
+        },
+        {
+          "path": "web_server.py",
+          "language": "python",
+          "sizeLines": 457,
+          "fileCategory": "code"
+        },
+        {
+          "path": "wifi_manager.py",
+          "language": "python",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "config.py": [],
+        "web_server.py": [
+          "config.py",
+          "taiwan_cities.json",
+          "wifi_manager.py"
+        ],
+        "wifi_manager.py": [
+          "config.py"
+        ]
+      },
+      "neighborMap": {
+        "config.py": [
+          {
+            "path": "app.py",
+            "batchIndex": 1,
+            "symbols": [
+              "_print_disk_usage",
+              "App"
+            ]
+          },
+          {
+            "path": "weather.py",
+            "batchIndex": 1,
+            "symbols": [
+              "_datetime_now",
+              "_fmt_timestamp",
+              "_append_log",
+              "fetch",
+              "_log_result",
+              "rotate_if_needed",
+              "log_exists",
+              "read_log"
+            ]
+          }
+        ],
+        "web_server.py": [
+          {
+            "path": "taiwan_cities.json",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "wifi_manager.py": [
+          {
+            "path": "app.py",
+            "batchIndex": 1,
+            "symbols": [
+              "_print_disk_usage",
+              "App"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": ".gitignore",
+          "language": "gitignore",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".micropico",
+          "language": "unknown",
+          "sizeLines": 2,
+          "fileCategory": "config"
+        },
+        {
+          "path": "E-Paper.code-workspace",
+          "language": "json",
+          "sizeLines": 13,
+          "fileCategory": "config"
+        },
+        {
+          "path": "taiwan_cities.json",
+          "language": "json",
+          "sizeLines": 111,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        ".gitignore": [],
+        ".micropico": [],
+        "E-Paper.code-workspace": [],
+        "taiwan_cities.json": []
+      },
+      "neighborMap": {
+        "taiwan_cities.json": [
+          {
+            "path": "web_server.py",
+            "batchIndex": 4,
+            "symbols": [
+              "_load_cities",
+              "_url_decode",
+              "_parse_form",
+              "_parse_query",
+              "_page",
+              "_wifi_page",
+              "_time_page",
+              "_weather_page",
+              "_done_page",
+              "WebConfigServer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "display/screens/__init__.py",
+          "language": "python",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "lib/mdns_client/service_discovery/__init__.py",
+          "language": "python",
+          "sizeLines": 4,
+          "fileCategory": "code"
+        },
+        {
+          "path": "Pico_ePaper_3_7.py",
+          "language": "python",
+          "sizeLines": 621,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/clock_big.py",
+          "language": "python",
+          "sizeLines": 521,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/courier20.py",
+          "language": "python",
+          "sizeLines": 308,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/font10.py",
+          "language": "python",
+          "sizeLines": 229,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/font6.py",
+          "language": "python",
+          "sizeLines": 176,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/freesans20.py",
+          "language": "python",
+          "sizeLines": 288,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/noto12.py",
+          "language": "python",
+          "sizeLines": 457,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/noto20.py",
+          "language": "python",
+          "sizeLines": 843,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/old_versions/writer_fw_compatible.py",
+          "language": "python",
+          "sizeLines": 342,
+          "fileCategory": "code"
+        },
+        {
+          "path": "writer/old_versions/writer_minimal.py",
+          "language": "python",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "display/screens/__init__.py": [],
+        "lib/mdns_client/service_discovery/__init__.py": [],
+        "Pico_ePaper_3_7.py": [],
+        "writer/clock_big.py": [],
+        "writer/courier20.py": [],
+        "writer/font10.py": [],
+        "writer/font6.py": [],
+        "writer/freesans20.py": [],
+        "writer/noto12.py": [],
+        "writer/noto20.py": [],
+        "writer/old_versions/writer_fw_compatible.py": [],
+        "writer/old_versions/writer_minimal.py": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "order": 1,
+    "title": "韌體啟動入口",
+    "description": "main.py 是整個韌體的起點，負責建立 App 實例並呼叫 asyncio.run() 啟動非同步事件循環。這個檔案極為精簡，體現了 MicroPython 嵌入式開發的慣例：入口點只做最少的初始化，把所有複雜邏輯委派給 App 類別。理解這裡是進入整個系統的第一步。",
+    "nodeIds": ["file:main.py"],
+    "languageLesson": "MicroPython 的 asyncio.run() 與標準 CPython 相同，接受一個 coroutine 作為主任務入口。在 Pico W 的嵌入式環境中，asyncio 讓多個任務（如網路請求、螢幕刷新、排程器）能以協作式多工的方式並行執行，而不需要作業系統或執行緒。"
+  },
+  {
+    "order": 2,
+    "title": "應用程式核心協調器",
+    "description": "app.py 是整個韌體的神經中樞，定義的 App 類別以狀態機模式管理 Wi-Fi 連線流程，並在連線成功後協調 NTP 同步、天氣資料更新、排程觸發與各畫面渲染。它的 fan-out 達到 7，直接依賴 config、canvas、main_screen、weather、wifi_manager、ntp、scheduler 等所有核心模組，是理解系統全貌的最關鍵檔案。",
+    "nodeIds": ["file:app.py"],
+    "languageLesson": "狀態機（State Machine）是嵌入式系統的常見設計模式。Wi-Fi 連線有多種狀態（未設定、連線中、已連線、連線失敗），用狀態機可清楚地描述每個狀態下應執行什麼動作、以及如何轉移到下一個狀態，避免複雜的巢狀 if/else 判斷。"
+  },
+  {
+    "order": 3,
+    "title": "配置管理基礎",
+    "description": "config.py 是 fan-in 最高（4）的模組，被 app、weather、wifi_manager、web_server 共同依賴，是整個系統的設定中樞。它實作 ConfigManager 類別以 JSON 檔案為後端儲存設定，並設計了 _Batch context manager 允許批次寫入，以減少對 Flash 記憶體的寫入次數——這是嵌入式開發中保護 Flash 壽命的重要考量。",
+    "nodeIds": ["file:config.py"],
+    "languageLesson": "Flash 記憶體有寫入次數限制（通常 10 萬次左右），因此嵌入式系統中應盡量減少不必要的寫入。_Batch context manager（即 Python 的 with 語句）讓多筆設定變更可以累積後一次性寫入，而不是每改一個值就觸發一次 Flash 寫入。"
+  },
+  {
+    "order": 4,
+    "title": "靜態地理資料",
+    "description": "taiwan_cities.json 儲存台灣 22 縣市的地理座標，是天氣 API 查詢的靜態資料來源。使用者在網頁介面選擇城市後，系統從這份資料取得對應的經緯度，再傳送給 Open-Meteo API。這個設計讓地理資料完全離線可用，不需要額外的地理編碼 API 呼叫，也降低了嵌入式裝置的網路負擔。",
+    "nodeIds": ["config:taiwan_cities.json"]
+  },
+  {
+    "order": 5,
+    "title": "WiFi 雙模管理",
+    "description": "wifi_manager.py 處理 Pico W 的 AP 模式（熱點）與 STA 模式（連接到既有 Wi-Fi）雙模切換。首次設定時裝置以 AP 模式啟動，使用者連入後透過網頁介面輸入 Wi-Fi 憑證；完成設定後切換為 STA 模式連上家用網路。模組還負責網路掃描與 RSSI 訊號強度的數值轉換，讓主畫面能顯示 Wi-Fi 訊號圖示。",
+    "nodeIds": ["file:wifi_manager.py"],
+    "languageLesson": "RSSI（Received Signal Strength Indicator）是無線訊號強度指標，通常是一個負數（如 -50 dBm 表示訊號強，-90 dBm 表示訊號弱）。將 RSSI 轉換為 0-4 的格數圖示需要定義幾個閾值區間，這讓顯示邏輯與硬體測量值解耦。"
+  },
+  {
+    "order": 6,
+    "title": "網頁設定伺服器",
+    "description": "web_server.py 在 Pico W 的 AP 模式下啟動一個 asyncio HTTP 伺服器，讓使用者透過手機瀏覽器設定 Wi-Fi 憑證、時區與天氣城市。伺服器在 MicroPython 環境中直接生成 HTML 字串回傳，不依賴任何模板引擎，展示了嵌入式環境下極度精簡的 Web 服務實作方式。它依賴 config.py 讀寫設定、wifi_manager.py 觸發網路掃描。",
+    "nodeIds": ["file:web_server.py"],
+    "languageLesson": "asyncio 的協作式多工讓 HTTP 伺服器與其他任務（如螢幕刷新）可以共用同一個事件循環，而不需要執行緒。當伺服器等待 socket 資料時（await），事件循環可以切換去執行其他 coroutine，使裝置在提供設定介面的同時仍能繼續更新顯示。"
+  },
+  {
+    "order": 7,
+    "title": "NTP 時間同步",
+    "description": "ntp.py 負責在 Wi-Fi 連線後透過 ntptime 函式庫校正 Pico W 的 RTC（即時時鐘）。由於 Pico W 沒有獨立的計時電池，每次開機後時鐘都會重設，因此 NTP 同步是顯示正確時間與觸發排程的必要前置步驟。模組實作了重試機制，以應對網路不穩定的情況。",
+    "nodeIds": ["file:ntp.py"]
+  },
+  {
+    "order": 8,
+    "title": "非同步排程器",
+    "description": "scheduler.py 提供 Scheduler 類別，讓 app.py 能以宣告式的方式定義週期性任務，例如「每小時更新天氣」、「每分鐘刷新時鐘顯示」。排程器基於 asyncio 實作，任務到期時透過 coroutine 機制觸發，避免了傳統的阻塞式 time.sleep()。這個設計讓多個定時任務能在單一事件循環中優雅共存。",
+    "nodeIds": ["file:scheduler.py"],
+    "languageLesson": "嵌入式系統中的排程有兩種常見方式：硬體計時器中斷（精準但複雜）和軟體排程（以 asyncio 的 asyncio.sleep() 實作）。MicroPython 的 asyncio 排程精度通常在毫秒等級，對於天氣更新和時鐘顯示等任務已經足夠。"
+  },
+  {
+    "order": 9,
+    "title": "天氣資料擷取",
+    "description": "weather.py 向 Open-Meteo 免費天氣 API 發出 HTTP 請求，取得指定座標的天氣預報資料（氣溫、天氣代碼等），解析 JSON 回應後寫入日誌供主畫面渲染使用。它依賴 config.py 讀取使用者選擇的城市座標，形成「設定 → 天氣擷取 → 畫面渲染」的完整資料流。",
+    "nodeIds": ["file:weather.py"]
+  },
+  {
+    "order": 10,
+    "title": "ePaper 底層硬體驅動",
+    "description": "Pico_ePaper_3_7.py 實作 EPD_3in7 類別，透過 SPI 協定直接操控 3.7 吋電子紙面板的暫存器，處理初始化序列、全螢幕刷新（需要數秒的電子墨水切換過程）與局部更新（僅刷新指定區域以加速顯示）。這是整個顯示系統的最底層，上層的 canvas 和 screens 模組都最終透過這個類別寫入像素資料。",
+    "nodeIds": ["file:Pico_ePaper_3_7.py"],
+    "languageLesson": "電子紙（ePaper / e-Ink）的顯示原理與 LCD 不同：它透過電場驅動帶電微膠囊中的黑白粒子移動來改變畫面，因此全螢幕刷新需要數秒、且刷新時會出現黑白閃爍。局部更新（partial update）跳過完整的粒子復位步驟，可在數百毫秒內更新小區域，但長期只做局部更新會導致殘影累積。"
+  },
+  {
+    "order": 11,
+    "title": "畫布抽象層",
+    "description": "display/canvas.py 的 LandscapeCanvas 類別在底層 EPD_3in7 驅動之上提供橫向（landscape）繪圖座標系，處理像素轉置——因為電子紙驅動原生是直向的，而本裝置以橫向使用。它封裝了 PBM 格式圖示繪製、局部與全螢幕刷新的呼叫，讓上層畫面模組能以邏輯座標（x, y 從左上角計算）而不是原生驅動座標來繪製內容。",
+    "nodeIds": ["file:display/canvas.py"]
+  },
+  {
+    "order": 12,
+    "title": "字型引擎與字型資料",
+    "description": "writer/writer.py 實作 Writer 與 CWriter 類別，負責將點陣字型資料渲染為 ePaper 像素，支援 Unicode 字元集的二進位搜尋查表。搭配三份字型資料模組：clock_big.py（大字時鐘）、noto20.py（20pt 中文與符號）、noto12.py（12pt 標籤文字），讓主畫面能以不同字體大小呈現時間、天氣資訊和日曆。display/fonts.py 則透過安全動態匯入，將這些字型常數暴露給繪圖層使用。",
+    "nodeIds": ["file:writer/writer.py", "file:writer/clock_big.py", "file:writer/noto20.py", "file:writer/noto12.py", "file:display/fonts.py"],
+    "languageLesson": "點陣字型（bitmap font）將每個字符儲存為像素矩陣的二進位資料，MicroPython Writer 使用 bytes literal 儲存這些資料。支援大型 Unicode 字元集（如中文）需要對字符索引做二進位搜尋（binary search）而非直接陣列索引，以節省記憶體——這是在 256KB RAM 的微控制器上支援中文顯示的關鍵優化。"
+  },
+  {
+    "order": 13,
+    "title": "圖示資源管理",
+    "description": "display/icons.py 負責從 Flash 讀取 PBM 格式的點陣圖示檔（如天氣圖示），並實作 LRU（Least Recently Used）快取機制，避免每次繪圖都重新讀取 Flash。PBM（Portable Bitmap）是純文字格式的點陣圖，易於在嵌入式工具鏈中生成與解析。LRU 快取在 RAM 有限的 Pico W 上平衡了讀取速度與記憶體佔用。",
+    "nodeIds": ["file:display/icons.py"],
+    "languageLesson": "LRU 快取保留最近使用的 N 個項目，淘汰最久未使用的。在嵌入式系統中，Flash 讀取速度遠低於 RAM 存取，因此快取常用資源（如天氣圖示）能顯著減少畫面渲染時間。Python 標準庫的 functools.lru_cache 在 MicroPython 中不可用，需要手動實作。"
+  },
+  {
+    "order": 14,
+    "title": "主畫面與輔助畫面",
+    "description": "display/screens/main_screen.py 是使用者最常看到的畫面，整合時間、天氣圖示與數值、Wi-Fi 訊號強度、月曆四個區塊，提供 render_full（全螢幕刷新）、render_time（局部更新時鐘）等函式。搭配 calendar.py（月份日曆格）、guide.py（AP 模式引導畫面，顯示 SSID 與設定 URL）和 message.py（過渡提示文字），形成完整的畫面系統，對應裝置在不同狀態下的顯示需求。",
+    "nodeIds": ["file:display/screens/main_screen.py", "file:display/screens/calendar.py", "file:display/screens/guide.py", "file:display/screens/message.py"]
+  },
+  {
+    "order": 15,
+    "title": "mDNS 網路服務發現",
+    "description": "mdns.py 整合 lib/mdns_client 函式庫，讓 Pico W 在連上區域網路後以 mDNS 協定廣播自身服務，使用者可直接用 pico.local 等主機名稱存取設定頁面，而不需要知道裝置的動態 IP 位址。lib/mdns_client 是完整的 mDNS 協定棧實作，包含 client.py（UDP socket 與封包解析）、responder.py（回應多播查詢）和 structs.py（DNS 資料結構）三個子模組。",
+    "nodeIds": ["file:mdns.py", "file:lib/mdns_client/client.py", "file:lib/mdns_client/responder.py", "file:lib/mdns_client/structs.py"],
+    "languageLesson": "mDNS（multicast DNS，RFC 6762）讓裝置在無需 DNS 伺服器的情況下，透過 224.0.0.251 多播地址廣播並解析 .local 網域名稱。它使用標準的 DNS 封包格式（UDP port 5353），因此只需實作 UDP socket 收發與 DNS 封包解析，即可讓裝置在區域網路自動被發現，大幅改善零設定（zero-configuration）的使用者體驗。"
+  }
+]

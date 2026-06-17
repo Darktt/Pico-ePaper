@@ -1,0 +1,31 @@
+{
+  "projectRoot": "/Users/eden/Documents/Xcode/Pico-ePaper",
+  "batchFiles": [
+    {"path": "lib/mdns_client/__init__.py", "language": "python", "sizeLines": 3, "fileCategory": "code"},
+    {"path": "lib/mdns_client/client.py", "language": "python", "sizeLines": 245, "fileCategory": "code"},
+    {"path": "lib/mdns_client/constants.py", "language": "python", "sizeLines": 36, "fileCategory": "code"},
+    {"path": "lib/mdns_client/parser.py", "language": "python", "sizeLines": 171, "fileCategory": "code"},
+    {"path": "lib/mdns_client/responder.py", "language": "python", "sizeLines": 265, "fileCategory": "code"},
+    {"path": "lib/mdns_client/service_discovery/discovery.py", "language": "python", "sizeLines": 338, "fileCategory": "code"},
+    {"path": "lib/mdns_client/service_discovery/service_monitor.py", "language": "python", "sizeLines": 12, "fileCategory": "code"},
+    {"path": "lib/mdns_client/service_discovery/service_response.py", "language": "python", "sizeLines": 79, "fileCategory": "code"},
+    {"path": "lib/mdns_client/service_discovery/txt_discovery.py", "language": "python", "sizeLines": 38, "fileCategory": "code"},
+    {"path": "lib/mdns_client/structs.py", "language": "python", "sizeLines": 166, "fileCategory": "code"},
+    {"path": "lib/mdns_client/util.py", "language": "python", "sizeLines": 152, "fileCategory": "code"},
+    {"path": "mdns.py", "language": "python", "sizeLines": 211, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "lib/mdns_client/__init__.py": [],
+    "lib/mdns_client/client.py": ["lib/mdns_client/constants.py","lib/mdns_client/parser.py","lib/mdns_client/structs.py","lib/mdns_client/util.py"],
+    "lib/mdns_client/constants.py": [],
+    "lib/mdns_client/parser.py": ["lib/mdns_client/structs.py","lib/mdns_client/constants.py"],
+    "lib/mdns_client/responder.py": ["lib/mdns_client/structs.py","lib/mdns_client/util.py"],
+    "lib/mdns_client/service_discovery/discovery.py": ["lib/mdns_client/client.py","lib/mdns_client/structs.py","lib/mdns_client/service_discovery/service_response.py","lib/mdns_client/service_discovery/txt_discovery.py"],
+    "lib/mdns_client/service_discovery/service_monitor.py": ["lib/mdns_client/service_discovery/discovery.py"],
+    "lib/mdns_client/service_discovery/service_response.py": ["lib/mdns_client/structs.py"],
+    "lib/mdns_client/service_discovery/txt_discovery.py": [],
+    "lib/mdns_client/structs.py": ["lib/mdns_client/constants.py"],
+    "lib/mdns_client/util.py": [],
+    "mdns.py": ["lib/mdns_client/__init__.py","lib/mdns_client/client.py","lib/mdns_client/responder.py","lib/mdns_client/service_discovery/discovery.py"]
+  }
+}

@@ -1,0 +1,3032 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 13,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "app.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 305,
+      "nonEmptyLines": 265,
+      "functions": [
+        {
+          "name": "_print_disk_usage",
+          "startLine": 18,
+          "endLine": 73,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "App",
+          "startLine": 84,
+          "endLine": 303,
+          "methods": [
+            "__init__",
+            "state_name",
+            "_bench_canvas",
+            "run",
+            "_main_loop",
+            "_enter_ap",
+            "_enter_sta_try",
+            "_enter_init",
+            "_enter_run",
+            "try_connect_wifi",
+            "request_reinit",
+            "_on_minute",
+            "_on_day",
+            "_on_weather_tick",
+            "_on_ntp_tick",
+            "_on_log_rotate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_print_disk_usage",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "App",
+          "line": 84,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_print_disk_usage",
+          "callee": "os.statvfs",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS] total {:>4} KB  used {:>4} KB  free {:>4} KB\".format",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS] statvfs 失敗: {}\".format",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_dir_size",
+          "callee": "os.listdir",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_dir_size",
+          "callee": "\"{}/{}\".format",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_dir_size",
+          "callee": "os.stat",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_dir_size",
+          "callee": "_dir_size",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "os.listdir",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "os.stat",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "entries.append",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "_dir_size",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "entries.append",
+          "lineNumber": 58
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "entries.sort",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS]   {:>6} KB  {}\".format",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS] 掃描根目錄失敗: {}\".format",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "len",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "os.listdir",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS] {}/ 含 {} 個檔案\".format",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "print",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_print_disk_usage",
+          "callee": "\"[FS] !! {}/ 不存在，icon 將 fallback 成文字\".format",
+          "lineNumber": 73
+        },
+        {
+          "caller": "__init__",
+          "callee": "ConfigManager",
+          "lineNumber": 86
+        },
+        {
+          "caller": "__init__",
+          "callee": "WiFiManager",
+          "lineNumber": 87
+        },
+        {
+          "caller": "__init__",
+          "callee": "EPD_3in7",
+          "lineNumber": 88
+        },
+        {
+          "caller": "__init__",
+          "callee": "LandscapeCanvas",
+          "lineNumber": 89
+        },
+        {
+          "caller": "__init__",
+          "callee": "Scheduler",
+          "lineNumber": 90
+        },
+        {
+          "caller": "__init__",
+          "callee": "WebConfigServer",
+          "lineNumber": 91
+        },
+        {
+          "caller": "__init__",
+          "callee": "MDNSResponder",
+          "lineNumber": 93
+        },
+        {
+          "caller": "__init__",
+          "callee": "asyncio.Event",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "print",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "\"[BENCH] canvas accel: {}\".format",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "print",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "\"[BENCH] accel 狀態檢查失敗: {}\".format",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_ms",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "self.canvas._transpose_into",
+          "lineNumber": 121
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_ms",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "print",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "\"[BENCH] transpose full (480x280): {} ms\".format",
+          "lineNumber": 123
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_diff",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_ms",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "self.canvas._transpose_into",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_ms",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "print",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "\"[BENCH] transpose TIME_RECT (360x250): {} ms\".format",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "time.ticks_diff",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "print",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_bench_canvas",
+          "callee": "\"[BENCH] transpose 量測失敗: {}\".format",
+          "lineNumber": 131
+        },
+        {
+          "caller": "run",
+          "callee": "_print_disk_usage",
+          "lineNumber": 136
+        },
+        {
+          "caller": "run",
+          "callee": "self._bench_canvas",
+          "lineNumber": 137
+        },
+        {
+          "caller": "run",
+          "callee": "self.web.start",
+          "lineNumber": 138
+        },
+        {
+          "caller": "run",
+          "callee": "asyncio.create_task",
+          "lineNumber": 139
+        },
+        {
+          "caller": "run",
+          "callee": "self._main_loop",
+          "lineNumber": 139
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.on",
+          "lineNumber": 141
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.on",
+          "lineNumber": 142
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.on",
+          "lineNumber": 143
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.on",
+          "lineNumber": 144
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.on",
+          "lineNumber": 145
+        },
+        {
+          "caller": "run",
+          "callee": "asyncio.create_task",
+          "lineNumber": 146
+        },
+        {
+          "caller": "run",
+          "callee": "self.scheduler.run",
+          "lineNumber": 146
+        },
+        {
+          "caller": "run",
+          "callee": "asyncio.sleep",
+          "lineNumber": 150
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self.config.is_wifi_configured",
+          "lineNumber": 154
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self._enter_sta_try",
+          "lineNumber": 155
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self._enter_ap",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self._reinit_event.wait",
+          "lineNumber": 161
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self._reinit_event.clear",
+          "lineNumber": 162
+        },
+        {
+          "caller": "_main_loop",
+          "callee": "self._enter_init",
+          "lineNumber": 163
+        },
+        {
+          "caller": "_enter_ap",
+          "callee": "self.wifi.start_ap",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_enter_ap",
+          "callee": "self.mdns.start",
+          "lineNumber": 171
+        },
+        {
+          "caller": "_enter_ap",
+          "callee": "guide.show",
+          "lineNumber": 172
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self.config.get",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self.config.get",
+          "lineNumber": 178
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self._enter_ap",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "message.show",
+          "lineNumber": 182
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self.wifi.connect_sta",
+          "lineNumber": 183
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "message.show",
+          "lineNumber": 185
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "asyncio.sleep",
+          "lineNumber": 186
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self._enter_ap",
+          "lineNumber": 187
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self.wifi.stop_ap",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self.mdns.start",
+          "lineNumber": 192
+        },
+        {
+          "caller": "_enter_sta_try",
+          "callee": "self._enter_init",
+          "lineNumber": 193
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 197
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "asyncio.sleep",
+          "lineNumber": 198
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "os.listdir",
+          "lineNumber": 204
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "print",
+          "lineNumber": 208
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 211
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "self.config.get",
+          "lineNumber": 212
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "ntp.sync",
+          "lineNumber": 215
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 217
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "self.config.is_weather_configured",
+          "lineNumber": 225
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "\"請完成天氣設定（http://{}）\".format",
+          "lineNumber": 227
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "self.wifi.sta_ip",
+          "lineNumber": 228
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 232
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "weather_mod.fetch",
+          "lineNumber": 233
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "self.weather_data.get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "message.show",
+          "lineNumber": 235
+        },
+        {
+          "caller": "_enter_init",
+          "callee": "self._enter_run",
+          "lineNumber": 239
+        },
+        {
+          "caller": "_enter_run",
+          "callee": "main_screen.render_full",
+          "lineNumber": 243
+        },
+        {
+          "caller": "_enter_run",
+          "callee": "self.wifi.current_level",
+          "lineNumber": 244
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "message.show",
+          "lineNumber": 250
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "self.wifi.connect_sta",
+          "lineNumber": 251
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "message.show",
+          "lineNumber": 253
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "self.mdns.restart",
+          "lineNumber": 256
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "message.show",
+          "lineNumber": 257
+        },
+        {
+          "caller": "try_connect_wifi",
+          "callee": "\"已連線：{}\".format",
+          "lineNumber": 257
+        },
+        {
+          "caller": "request_reinit",
+          "callee": "self._reinit_event.set",
+          "lineNumber": 262
+        },
+        {
+          "caller": "_on_minute",
+          "callee": "main_screen.render_time",
+          "lineNumber": 268
+        },
+        {
+          "caller": "_on_day",
+          "callee": "main_screen.render_calendar",
+          "lineNumber": 273
+        },
+        {
+          "caller": "_on_weather_tick",
+          "callee": "message.show",
+          "lineNumber": 278
+        },
+        {
+          "caller": "_on_weather_tick",
+          "callee": "weather_mod.fetch",
+          "lineNumber": 279
+        },
+        {
+          "caller": "_on_weather_tick",
+          "callee": "main_screen.render_full",
+          "lineNumber": 280
+        },
+        {
+          "caller": "_on_weather_tick",
+          "callee": "self.wifi.current_level",
+          "lineNumber": 281
+        },
+        {
+          "caller": "_on_ntp_tick",
+          "callee": "os.listdir",
+          "lineNumber": 287
+        },
+        {
+          "caller": "_on_ntp_tick",
+          "callee": "print",
+          "lineNumber": 291
+        },
+        {
+          "caller": "_on_ntp_tick",
+          "callee": "self.config.get",
+          "lineNumber": 294
+        },
+        {
+          "caller": "_on_ntp_tick",
+          "callee": "ntp.sync",
+          "lineNumber": 297
+        },
+        {
+          "caller": "_on_ntp_tick",
+          "callee": "main_screen.render_calendar",
+          "lineNumber": 300
+        },
+        {
+          "caller": "_on_log_rotate",
+          "callee": "weather_mod.rotate_if_needed",
+          "lineNumber": 303
+        }
+      ],
+      "metrics": {
+        "importCount": 11,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "display/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/canvas.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 230,
+      "nonEmptyLines": 204,
+      "classes": [
+        {
+          "name": "LandscapeCanvas",
+          "startLine": 100,
+          "endLine": 230,
+          "methods": [
+            "__init__",
+            "clear",
+            "blit_pbm",
+            "_transpose_pixel",
+            "_transpose_into",
+            "commit_full",
+            "_native_rect",
+            "commit_part",
+            "shutdown"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LandscapeCanvas",
+          "line": 100,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "bytearray",
+          "lineNumber": 126
+        },
+        {
+          "caller": "__init__",
+          "callee": "range",
+          "lineNumber": 128
+        },
+        {
+          "caller": "__init__",
+          "callee": "len",
+          "lineNumber": 128
+        },
+        {
+          "caller": "__init__",
+          "callee": "super().__init__",
+          "lineNumber": 130
+        },
+        {
+          "caller": "__init__",
+          "callee": "super",
+          "lineNumber": 130
+        },
+        {
+          "caller": "clear",
+          "callee": "range",
+          "lineNumber": 138
+        },
+        {
+          "caller": "clear",
+          "callee": "len",
+          "lineNumber": 138
+        },
+        {
+          "caller": "blit_pbm",
+          "callee": "range",
+          "lineNumber": 145
+        },
+        {
+          "caller": "blit_pbm",
+          "callee": "range",
+          "lineNumber": 146
+        },
+        {
+          "caller": "blit_pbm",
+          "callee": "self.pixel",
+          "lineNumber": 147
+        },
+        {
+          "caller": "blit_pbm",
+          "callee": "pbm_fb.pixel",
+          "lineNumber": 147
+        },
+        {
+          "caller": "blit_pbm",
+          "callee": "self.blit",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "_transpose_cw_viper",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "_transpose_cw_native",
+          "lineNumber": 173
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "range",
+          "lineNumber": 177
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "range",
+          "lineNumber": 178
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "self.pixel",
+          "lineNumber": 179
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "self._transpose_pixel",
+          "lineNumber": 180
+        },
+        {
+          "caller": "_transpose_into",
+          "callee": "native_fb.pixel",
+          "lineNumber": 181
+        },
+        {
+          "caller": "commit_full",
+          "callee": "self.epd.EPD_3IN7_1Gray_init",
+          "lineNumber": 191
+        },
+        {
+          "caller": "commit_full",
+          "callee": "self._transpose_into",
+          "lineNumber": 192
+        },
+        {
+          "caller": "commit_full",
+          "callee": "self.epd.EPD_3IN7_1Gray_Display",
+          "lineNumber": 193
+        },
+        {
+          "caller": "commit_part",
+          "callee": "self.commit_full",
+          "lineNumber": 221
+        },
+        {
+          "caller": "commit_part",
+          "callee": "self._transpose_into",
+          "lineNumber": 223
+        },
+        {
+          "caller": "commit_part",
+          "callee": "self.epd.EPD_3IN7_1Gray_Display_Part",
+          "lineNumber": 224
+        },
+        {
+          "caller": "shutdown",
+          "callee": "self.epd.Sleep",
+          "lineNumber": 229
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "display/fonts.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "_try_import",
+          "startLine": 18,
+          "endLine": 22,
+          "params": [
+            "modname"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_try_import",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_try_import",
+          "callee": "__import__",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/icons.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "_read_pbm_header",
+          "startLine": 9,
+          "endLine": 39,
+          "params": [
+            "f"
+          ]
+        },
+        {
+          "name": "load_pbm",
+          "startLine": 42,
+          "endLine": 74,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "exists",
+          "startLine": 77,
+          "endLine": 86,
+          "params": [
+            "path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_read_pbm_header",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "load_pbm",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "exists",
+          "line": 77,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_read_pbm_header",
+          "callee": "f.readline().strip",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "f.readline",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "ValueError",
+          "lineNumber": 15
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "repr",
+          "lineNumber": 15
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "f.readline",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "ValueError",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.strip",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.startswith",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.split",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "len",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "int",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "int",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "int",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "f.readline",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "ValueError",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.strip",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.startswith",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "int",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_read_pbm_header",
+          "callee": "line.split",
+          "lineNumber": 38
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "_cache.remove",
+          "lineNumber": 50
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "_cache.append",
+          "lineNumber": 51
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "open",
+          "lineNumber": 54
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "_read_pbm_header",
+          "lineNumber": 55
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "f.read",
+          "lineNumber": 56
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "len",
+          "lineNumber": 60
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "ValueError",
+          "lineNumber": 61
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "\"PBM data too short: {} < {}\".format",
+          "lineNumber": 61
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "len",
+          "lineNumber": 61
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "bytearray",
+          "lineNumber": 64
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "range",
+          "lineNumber": 65
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "framebuf.FrameBuffer",
+          "lineNumber": 68
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "_cache.append",
+          "lineNumber": 71
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "load_pbm",
+          "callee": "_cache.pop",
+          "lineNumber": 73
+        },
+        {
+          "caller": "exists",
+          "callee": "path.rsplit",
+          "lineNumber": 80
+        },
+        {
+          "caller": "exists",
+          "callee": "len",
+          "lineNumber": 81
+        },
+        {
+          "caller": "exists",
+          "callee": "os.listdir",
+          "lineNumber": 83
+        },
+        {
+          "caller": "exists",
+          "callee": "os.listdir",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/screens/calendar.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "_days_in_month",
+          "startLine": 11,
+          "endLine": 17,
+          "params": [
+            "year",
+            "month"
+          ]
+        },
+        {
+          "name": "_first_weekday",
+          "startLine": 20,
+          "endLine": 26,
+          "params": [
+            "year",
+            "month",
+            "week_start"
+          ]
+        },
+        {
+          "name": "_strwidth",
+          "startLine": 29,
+          "endLine": 33,
+          "params": [
+            "font",
+            "s"
+          ]
+        },
+        {
+          "name": "render",
+          "startLine": 36,
+          "endLine": 104,
+          "params": [
+            "canvas",
+            "year",
+            "month",
+            "today",
+            "week_start",
+            "x",
+            "y",
+            "w",
+            "h",
+            "font"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_days_in_month",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "_first_weekday",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "_strwidth",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "render",
+          "line": 36,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_days_in_month",
+          "callee": "utime.mktime",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_days_in_month",
+          "callee": "utime.mktime",
+          "lineNumber": 15
+        },
+        {
+          "caller": "_days_in_month",
+          "callee": "utime.mktime",
+          "lineNumber": 16
+        },
+        {
+          "caller": "_days_in_month",
+          "callee": "int",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_first_weekday",
+          "callee": "utime.localtime",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_first_weekday",
+          "callee": "utime.mktime",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "sum",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "font.get_ch",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "len",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "font.max_width",
+          "lineNumber": 33
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.fill_rect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "render",
+          "callee": "make_writer",
+          "lineNumber": 46
+        },
+        {
+          "caller": "render",
+          "callee": "font.height",
+          "lineNumber": 47
+        },
+        {
+          "caller": "render",
+          "callee": "\"{}月\".format",
+          "lineNumber": 50
+        },
+        {
+          "caller": "render",
+          "callee": "_strwidth",
+          "lineNumber": 51
+        },
+        {
+          "caller": "render",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 54
+        },
+        {
+          "caller": "render",
+          "callee": "wri.printstring",
+          "lineNumber": 56
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.text",
+          "lineNumber": 58
+        },
+        {
+          "caller": "render",
+          "callee": "\"{}-{:02d}\".format",
+          "lineNumber": 58
+        },
+        {
+          "caller": "render",
+          "callee": "enumerate",
+          "lineNumber": 66
+        },
+        {
+          "caller": "render",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 68
+        },
+        {
+          "caller": "render",
+          "callee": "wri.printstring",
+          "lineNumber": 70
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.text",
+          "lineNumber": 73
+        },
+        {
+          "caller": "render",
+          "callee": "max",
+          "lineNumber": 79
+        },
+        {
+          "caller": "render",
+          "callee": "_first_weekday",
+          "lineNumber": 81
+        },
+        {
+          "caller": "render",
+          "callee": "_days_in_month",
+          "lineNumber": 82
+        },
+        {
+          "caller": "render",
+          "callee": "range",
+          "lineNumber": 85
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.fill_rect",
+          "lineNumber": 89
+        },
+        {
+          "caller": "render",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 90
+        },
+        {
+          "caller": "render",
+          "callee": "wri.printstring",
+          "lineNumber": 92
+        },
+        {
+          "caller": "render",
+          "callee": "str",
+          "lineNumber": 92
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.text",
+          "lineNumber": 94
+        },
+        {
+          "caller": "render",
+          "callee": "str",
+          "lineNumber": 94
+        },
+        {
+          "caller": "render",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 96
+        },
+        {
+          "caller": "render",
+          "callee": "wri.printstring",
+          "lineNumber": 98
+        },
+        {
+          "caller": "render",
+          "callee": "str",
+          "lineNumber": 98
+        },
+        {
+          "caller": "render",
+          "callee": "canvas.text",
+          "lineNumber": 100
+        },
+        {
+          "caller": "render",
+          "callee": "str",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/screens/guide.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "_text_width",
+          "startLine": 6,
+          "endLine": 17,
+          "params": [
+            "font",
+            "s"
+          ]
+        },
+        {
+          "name": "show",
+          "startLine": 20,
+          "endLine": 46,
+          "params": [
+            "canvas",
+            "wifi_info"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_text_width",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "show",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_text_width",
+          "callee": "font.get_ch",
+          "lineNumber": 10
+        },
+        {
+          "caller": "_text_width",
+          "callee": "isinstance",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_text_width",
+          "callee": "len",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_text_width",
+          "callee": "font.max_width",
+          "lineNumber": 14
+        },
+        {
+          "caller": "_text_width",
+          "callee": "len",
+          "lineNumber": 16
+        },
+        {
+          "caller": "_text_width",
+          "callee": "font.max_width",
+          "lineNumber": 16
+        },
+        {
+          "caller": "show",
+          "callee": "canvas.clear",
+          "lineNumber": 22
+        },
+        {
+          "caller": "show",
+          "callee": "make_writer",
+          "lineNumber": 23
+        },
+        {
+          "caller": "show",
+          "callee": "\"連線 Wi-Fi：{}\".format",
+          "lineNumber": 25
+        },
+        {
+          "caller": "show",
+          "callee": "wifi_info.get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "show",
+          "callee": "\"密碼：{}\".format",
+          "lineNumber": 26
+        },
+        {
+          "caller": "show",
+          "callee": "wifi_info.get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "show",
+          "callee": "\"http://{}\".format",
+          "lineNumber": 28
+        },
+        {
+          "caller": "show",
+          "callee": "wifi_info.get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "show",
+          "callee": "\"http://{}\".format",
+          "lineNumber": 30
+        },
+        {
+          "caller": "show",
+          "callee": "wifi_info.get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "show",
+          "callee": "log_display",
+          "lineNumber": 32
+        },
+        {
+          "caller": "show",
+          "callee": "FONT_BODY.height",
+          "lineNumber": 34
+        },
+        {
+          "caller": "show",
+          "callee": "len",
+          "lineNumber": 35
+        },
+        {
+          "caller": "show",
+          "callee": "max",
+          "lineNumber": 36
+        },
+        {
+          "caller": "show",
+          "callee": "_text_width",
+          "lineNumber": 40
+        },
+        {
+          "caller": "show",
+          "callee": "max",
+          "lineNumber": 41
+        },
+        {
+          "caller": "show",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 42
+        },
+        {
+          "caller": "show",
+          "callee": "wri.printstring",
+          "lineNumber": 43
+        },
+        {
+          "caller": "show",
+          "callee": "canvas.commit_full",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/screens/main_screen.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 241,
+      "nonEmptyLines": 198,
+      "functions": [
+        {
+          "name": "_fmt_time",
+          "startLine": 16,
+          "endLine": 21,
+          "params": [
+            "hour",
+            "minute",
+            "is_24h"
+          ]
+        },
+        {
+          "name": "_wifi_icon_path",
+          "startLine": 24,
+          "endLine": 25,
+          "params": [
+            "level"
+          ]
+        },
+        {
+          "name": "_weather_icon_path",
+          "startLine": 28,
+          "endLine": 29,
+          "params": [
+            "code"
+          ]
+        },
+        {
+          "name": "_draw_wifi",
+          "startLine": 35,
+          "endLine": 54,
+          "params": [
+            "canvas",
+            "level"
+          ]
+        },
+        {
+          "name": "_draw_time",
+          "startLine": 57,
+          "endLine": 103,
+          "params": [
+            "canvas",
+            "hour",
+            "minute",
+            "is_24h"
+          ]
+        },
+        {
+          "name": "_draw_weather",
+          "startLine": 109,
+          "endLine": 169,
+          "params": [
+            "canvas",
+            "weather",
+            "is_celsius"
+          ]
+        },
+        {
+          "name": "_draw_calendar",
+          "startLine": 172,
+          "endLine": 174,
+          "params": [
+            "canvas",
+            "year",
+            "month",
+            "today",
+            "week_start"
+          ]
+        },
+        {
+          "name": "render_full",
+          "startLine": 177,
+          "endLine": 208,
+          "params": [
+            "canvas",
+            "config",
+            "weather",
+            "wifi_level"
+          ]
+        },
+        {
+          "name": "render_time",
+          "startLine": 211,
+          "endLine": 220,
+          "params": [
+            "canvas",
+            "config"
+          ]
+        },
+        {
+          "name": "render_wifi",
+          "startLine": 223,
+          "endLine": 227,
+          "params": [
+            "canvas",
+            "level"
+          ]
+        },
+        {
+          "name": "render_calendar",
+          "startLine": 230,
+          "endLine": 241,
+          "params": [
+            "canvas",
+            "config"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_fmt_time",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "_wifi_icon_path",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "_weather_icon_path",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "_draw_wifi",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "_draw_time",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "_draw_weather",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "_draw_calendar",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "render_full",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "render_time",
+          "line": 211,
+          "isDefault": false
+        },
+        {
+          "name": "render_wifi",
+          "line": 223,
+          "isDefault": false
+        },
+        {
+          "name": "render_calendar",
+          "line": 230,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_fmt_time",
+          "callee": "\"{:02d}:{:02d}\".format",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_fmt_time",
+          "callee": "\"{:02d}:{:02d}\".format",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_wifi_icon_path",
+          "callee": "\"wifi_icon/level{}.pbm\".format",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_wifi_icon_path",
+          "callee": "max",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_wifi_icon_path",
+          "callee": "min",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_weather_icon_path",
+          "callee": "\"weather_icon/{}.pbm\".format",
+          "lineNumber": 29
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "canvas.fill_rect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "_wifi_icon_path",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "icons.exists",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "icons.load_pbm",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "canvas.blit",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "print",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "\"[EPD] wifi icon 載入失敗 {}: {}\".format",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "print",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "\"[EPD] 找不到 {}（請確認 wifi_icon/ 已上傳到 Pico）\".format",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "canvas.text",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_draw_wifi",
+          "callee": "\"L{}\".format",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "canvas.fill_rect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "_fmt_time",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "make_writer",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "sum",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "f.get_ch",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "len",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_strwidth",
+          "callee": "f.max_width",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "_strwidth",
+          "lineNumber": 73
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "font.height",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "_strwidth",
+          "lineNumber": 78
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "max",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "min",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "max",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "min",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "wri.printstring",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "canvas.text",
+          "lineNumber": 92
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "make_writer",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "max",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "min",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "max",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "min",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "FONT_LABEL.height",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 99
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "small.printstring",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_draw_time",
+          "callee": "canvas.text",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.fill_rect",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "weather.get",
+          "lineNumber": 117
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "weather.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "_weather_icon_path",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "icons.exists",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "icons.load_pbm",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.blit",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "print",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "\"[EPD] weather icon 載入失敗 {}: {}\".format",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "print",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "\"[EPD] 找不到 {}（請確認 weather_icon/ 已上傳到 Pico）\".format",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "_weather_icon_warned.add",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "weather.get",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "\"{:.0f}{}\".format",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "weather.get",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "make_writer",
+          "lineNumber": 137
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 138
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "wri_body.printstring",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.text",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "FONT_BODY.height",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "make_writer",
+          "lineNumber": 145
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 146
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "wri_small.printstring",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.text",
+          "lineNumber": 150
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "icons.exists",
+          "lineNumber": 154
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "icons.load_pbm",
+          "lineNumber": 156
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.blit",
+          "lineNumber": 158
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "(weather or {}).get",
+          "lineNumber": 162
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "make_writer",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "wri_small.printstring",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_draw_weather",
+          "callee": "canvas.text",
+          "lineNumber": 169
+        },
+        {
+          "caller": "_draw_calendar",
+          "callee": "cal_screen.render",
+          "lineNumber": 174
+        },
+        {
+          "caller": "render_full",
+          "callee": "RTC",
+          "lineNumber": 179
+        },
+        {
+          "caller": "render_full",
+          "callee": "rtc.datetime",
+          "lineNumber": 180
+        },
+        {
+          "caller": "render_full",
+          "callee": "bool",
+          "lineNumber": 183
+        },
+        {
+          "caller": "render_full",
+          "callee": "config.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "render_full",
+          "callee": "config.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "render_full",
+          "callee": "bool",
+          "lineNumber": 185
+        },
+        {
+          "caller": "render_full",
+          "callee": "config.get",
+          "lineNumber": 185
+        },
+        {
+          "caller": "render_full",
+          "callee": "_fmt_time",
+          "lineNumber": 187
+        },
+        {
+          "caller": "render_full",
+          "callee": "weather.get",
+          "lineNumber": 188
+        },
+        {
+          "caller": "render_full",
+          "callee": "\"weather={:.0f}{} {}\".format",
+          "lineNumber": 189
+        },
+        {
+          "caller": "render_full",
+          "callee": "weather.get",
+          "lineNumber": 190
+        },
+        {
+          "caller": "render_full",
+          "callee": "weather.get",
+          "lineNumber": 192
+        },
+        {
+          "caller": "render_full",
+          "callee": "\"weather=FAIL ({})\".format",
+          "lineNumber": 194
+        },
+        {
+          "caller": "render_full",
+          "callee": "(weather or {}).get",
+          "lineNumber": 194
+        },
+        {
+          "caller": "render_full",
+          "callee": "log_display",
+          "lineNumber": 195
+        },
+        {
+          "caller": "render_full",
+          "callee": "\"time={}{}\".format",
+          "lineNumber": 197
+        },
+        {
+          "caller": "render_full",
+          "callee": "\"wifi=L{}\".format",
+          "lineNumber": 198
+        },
+        {
+          "caller": "render_full",
+          "callee": "\"cal={:04d}-{:02d}-{:02d} week_start={}\".format",
+          "lineNumber": 200
+        },
+        {
+          "caller": "render_full",
+          "callee": "canvas.clear",
+          "lineNumber": 203
+        },
+        {
+          "caller": "render_full",
+          "callee": "_draw_wifi",
+          "lineNumber": 204
+        },
+        {
+          "caller": "render_full",
+          "callee": "_draw_time",
+          "lineNumber": 205
+        },
+        {
+          "caller": "render_full",
+          "callee": "_draw_weather",
+          "lineNumber": 206
+        },
+        {
+          "caller": "render_full",
+          "callee": "_draw_calendar",
+          "lineNumber": 207
+        },
+        {
+          "caller": "render_full",
+          "callee": "canvas.commit_full",
+          "lineNumber": 208
+        },
+        {
+          "caller": "render_time",
+          "callee": "RTC",
+          "lineNumber": 213
+        },
+        {
+          "caller": "render_time",
+          "callee": "rtc.datetime",
+          "lineNumber": 214
+        },
+        {
+          "caller": "render_time",
+          "callee": "bool",
+          "lineNumber": 216
+        },
+        {
+          "caller": "render_time",
+          "callee": "config.get",
+          "lineNumber": 216
+        },
+        {
+          "caller": "render_time",
+          "callee": "_fmt_time",
+          "lineNumber": 217
+        },
+        {
+          "caller": "render_time",
+          "callee": "log_display",
+          "lineNumber": 218
+        },
+        {
+          "caller": "render_time",
+          "callee": "\"{}{}\".format",
+          "lineNumber": 218
+        },
+        {
+          "caller": "render_time",
+          "callee": "_draw_time",
+          "lineNumber": 219
+        },
+        {
+          "caller": "render_time",
+          "callee": "canvas.commit_part",
+          "lineNumber": 220
+        },
+        {
+          "caller": "render_wifi",
+          "callee": "log_display",
+          "lineNumber": 225
+        },
+        {
+          "caller": "render_wifi",
+          "callee": "\"L{}\".format",
+          "lineNumber": 225
+        },
+        {
+          "caller": "render_wifi",
+          "callee": "_draw_wifi",
+          "lineNumber": 226
+        },
+        {
+          "caller": "render_wifi",
+          "callee": "canvas.commit_part",
+          "lineNumber": 227
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "RTC",
+          "lineNumber": 232
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "rtc.datetime",
+          "lineNumber": 233
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "config.get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "log_display",
+          "lineNumber": 236
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "\"{:04d}-{:02d} today={} week_start={}\".format",
+          "lineNumber": 238
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "_draw_calendar",
+          "lineNumber": 240
+        },
+        {
+          "caller": "render_calendar",
+          "callee": "canvas.commit_part",
+          "lineNumber": 241
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 11,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "display/screens/message.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "_text_width",
+          "startLine": 6,
+          "endLine": 19,
+          "params": [
+            "font",
+            "s"
+          ]
+        },
+        {
+          "name": "show",
+          "startLine": 22,
+          "endLine": 35,
+          "params": [
+            "canvas",
+            "text",
+            "font"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_text_width",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "show",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_text_width",
+          "callee": "font.get_ch",
+          "lineNumber": 11
+        },
+        {
+          "caller": "_text_width",
+          "callee": "isinstance",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_text_width",
+          "callee": "len",
+          "lineNumber": 13
+        },
+        {
+          "caller": "_text_width",
+          "callee": "font.max_width",
+          "lineNumber": 16
+        },
+        {
+          "caller": "_text_width",
+          "callee": "len",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_text_width",
+          "callee": "font.max_width",
+          "lineNumber": 18
+        },
+        {
+          "caller": "show",
+          "callee": "log_display",
+          "lineNumber": 26
+        },
+        {
+          "caller": "show",
+          "callee": "canvas.clear",
+          "lineNumber": 27
+        },
+        {
+          "caller": "show",
+          "callee": "make_writer",
+          "lineNumber": 28
+        },
+        {
+          "caller": "show",
+          "callee": "_text_width",
+          "lineNumber": 29
+        },
+        {
+          "caller": "show",
+          "callee": "font.height",
+          "lineNumber": 30
+        },
+        {
+          "caller": "show",
+          "callee": "max",
+          "lineNumber": 31
+        },
+        {
+          "caller": "show",
+          "callee": "max",
+          "lineNumber": 32
+        },
+        {
+          "caller": "show",
+          "callee": "Writer.set_textpos",
+          "lineNumber": 33
+        },
+        {
+          "caller": "show",
+          "callee": "wri.printstring",
+          "lineNumber": 34
+        },
+        {
+          "caller": "show",
+          "callee": "canvas.commit_full",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "main.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 5,
+          "endLine": 10,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "App",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "asyncio.run",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "app.run",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "asyncio.new_event_loop",
+          "lineNumber": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ntp.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "sync",
+          "startLine": 10,
+          "endLine": 32,
+          "params": [
+            "timeout",
+            "host",
+            "tz_offset_minutes"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sync",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sync",
+          "callee": "utime.time",
+          "lineNumber": 18
+        },
+        {
+          "caller": "sync",
+          "callee": "ntptime.settime",
+          "lineNumber": 21
+        },
+        {
+          "caller": "sync",
+          "callee": "utime.time",
+          "lineNumber": 23
+        },
+        {
+          "caller": "sync",
+          "callee": "int",
+          "lineNumber": 23
+        },
+        {
+          "caller": "sync",
+          "callee": "utime.localtime",
+          "lineNumber": 24
+        },
+        {
+          "caller": "sync",
+          "callee": "RTC",
+          "lineNumber": 25
+        },
+        {
+          "caller": "sync",
+          "callee": "rtc.datetime",
+          "lineNumber": 26
+        },
+        {
+          "caller": "sync",
+          "callee": "utime.time",
+          "lineNumber": 30
+        },
+        {
+          "caller": "sync",
+          "callee": "utime.sleep",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scheduler.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 62,
+      "classes": [
+        {
+          "name": "Scheduler",
+          "startLine": 14,
+          "endLine": 77,
+          "methods": [
+            "__init__",
+            "on",
+            "_emit",
+            "run",
+            "stop"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Scheduler",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "on",
+          "callee": "self._handlers.setdefault(event, []).append",
+          "lineNumber": 27
+        },
+        {
+          "caller": "on",
+          "callee": "self._handlers.setdefault",
+          "lineNumber": 27
+        },
+        {
+          "caller": "_emit",
+          "callee": "self._last_dispatched.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_emit",
+          "callee": "self._handlers.get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_emit",
+          "callee": "h",
+          "lineNumber": 36
+        },
+        {
+          "caller": "_emit",
+          "callee": "print",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_emit",
+          "callee": "\"scheduler handler error ({}): {}\".format",
+          "lineNumber": 38
+        },
+        {
+          "caller": "run",
+          "callee": "RTC",
+          "lineNumber": 41
+        },
+        {
+          "caller": "run",
+          "callee": "rtc.datetime",
+          "lineNumber": 44
+        },
+        {
+          "caller": "run",
+          "callee": "self._emit",
+          "lineNumber": 55
+        },
+        {
+          "caller": "run",
+          "callee": "self._emit",
+          "lineNumber": 60
+        },
+        {
+          "caller": "run",
+          "callee": "self._emit",
+          "lineNumber": 64
+        },
+        {
+          "caller": "run",
+          "callee": "self._emit",
+          "lineNumber": 68
+        },
+        {
+          "caller": "run",
+          "callee": "self._emit",
+          "lineNumber": 72
+        },
+        {
+          "caller": "run",
+          "callee": "asyncio.sleep_ms",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "weather.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "_datetime_now",
+          "startLine": 14,
+          "endLine": 22,
+          "params": [
+            "have_ntp"
+          ]
+        },
+        {
+          "name": "_fmt_timestamp",
+          "startLine": 25,
+          "endLine": 26,
+          "params": [
+            "year",
+            "month",
+            "day",
+            "hour",
+            "minute"
+          ]
+        },
+        {
+          "name": "_append_log",
+          "startLine": 29,
+          "endLine": 34,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "fetch",
+          "startLine": 37,
+          "endLine": 87,
+          "params": [
+            "config",
+            "have_ntp"
+          ]
+        },
+        {
+          "name": "_log_result",
+          "startLine": 90,
+          "endLine": 95,
+          "params": [
+            "have_ntp",
+            "result_text"
+          ]
+        },
+        {
+          "name": "rotate_if_needed",
+          "startLine": 98,
+          "endLine": 111,
+          "params": [
+            "have_ntp"
+          ]
+        },
+        {
+          "name": "log_exists",
+          "startLine": 114,
+          "endLine": 118,
+          "params": []
+        },
+        {
+          "name": "read_log",
+          "startLine": 121,
+          "endLine": 126,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_datetime_now",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "_fmt_timestamp",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "_append_log",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "fetch",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "_log_result",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "rotate_if_needed",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "log_exists",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "read_log",
+          "line": 121,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_datetime_now",
+          "callee": "RTC",
+          "lineNumber": 16
+        },
+        {
+          "caller": "_datetime_now",
+          "callee": "rtc.datetime",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_fmt_timestamp",
+          "callee": "\"{:04d}-{:02d}-{:02d}-{:02d}:{:02d}\".format",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_append_log",
+          "callee": "open",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_append_log",
+          "callee": "f.write",
+          "lineNumber": 32
+        },
+        {
+          "caller": "fetch",
+          "callee": "config.get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "fetch",
+          "callee": "config.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetch",
+          "callee": "bool",
+          "lineNumber": 44
+        },
+        {
+          "caller": "fetch",
+          "callee": "config.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "fetch",
+          "callee": "city.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "fetch",
+          "callee": "city.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "fetch",
+          "callee": "(\n        \"{base}?lat={lat}&lon={lon}&appid={key}&units={units}&lang=zh_tw\"\n    ).format",
+          "lineNumber": 48
+        },
+        {
+          "caller": "fetch",
+          "callee": "range",
+          "lineNumber": 53
+        },
+        {
+          "caller": "fetch",
+          "callee": "urequests.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "fetch",
+          "callee": "resp.json",
+          "lineNumber": 59
+        },
+        {
+          "caller": "fetch",
+          "callee": "\"{}-{:.1f}{}-{}-{}\".format",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fetch",
+          "callee": "_log_result",
+          "lineNumber": 72
+        },
+        {
+          "caller": "fetch",
+          "callee": "\"HTTP {}\".format",
+          "lineNumber": 74
+        },
+        {
+          "caller": "fetch",
+          "callee": "str",
+          "lineNumber": 76
+        },
+        {
+          "caller": "fetch",
+          "callee": "resp.close",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fetch",
+          "callee": "utime.sleep",
+          "lineNumber": 84
+        },
+        {
+          "caller": "fetch",
+          "callee": "_log_result",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_log_result",
+          "callee": "_datetime_now",
+          "lineNumber": 91
+        },
+        {
+          "caller": "_log_result",
+          "callee": "_fmt_timestamp",
+          "lineNumber": 92
+        },
+        {
+          "caller": "_log_result",
+          "callee": "_append_log",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_log_result",
+          "callee": "\"{}-{}\".format",
+          "lineNumber": 95
+        },
+        {
+          "caller": "rotate_if_needed",
+          "callee": "_datetime_now",
+          "lineNumber": 100
+        },
+        {
+          "caller": "rotate_if_needed",
+          "callee": "os.listdir",
+          "lineNumber": 104
+        },
+        {
+          "caller": "rotate_if_needed",
+          "callee": "open",
+          "lineNumber": 106
+        },
+        {
+          "caller": "rotate_if_needed",
+          "callee": "f.write",
+          "lineNumber": 107
+        },
+        {
+          "caller": "log_exists",
+          "callee": "os.listdir",
+          "lineNumber": 116
+        },
+        {
+          "caller": "read_log",
+          "callee": "open",
+          "lineNumber": 123
+        },
+        {
+          "caller": "read_log",
+          "callee": "f.read",
+          "lineNumber": 124
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -7,9 +7,10 @@
       "json"
     ],
     "frameworks": [],
-    "description": "MicroPython firmware for Raspberry Pi Pico W with 3.7\" ePaper display, featuring weather display, WiFi connectivity, web-based configuration, NTP time sync, and mDNS service discovery.",
-    "analyzedAt": "2026-06-17T00:00:00Z",
-    "gitCommitHash": "b7c4994116f358c6d2f17d1ac3f3e6d2bf47d5c6"
+    "description": "MicroPython firmware for Raspberry Pi Pico W driving a 3.7-inch ePaper display with weather, calendar, and WiFi management",
+    "analyzedAt": "2026-06-17T06:47:36.761Z",
+    "gitCommitHash": "f636c80b535bb27369934d24e534b7eb71255f2d",
+    "outputLanguage": "zh-TW"
   },
   "nodes": [
     {
@@ -17,15 +18,14 @@
       "type": "file",
       "name": "app.py",
       "filePath": "app.py",
-      "summary": "Central application controller that manages device lifecycle states (AP mode, STA connection, init, run), wires up WiFi, NTP, weather, scheduler, and display subsystems, and drives the async event loop on the Pico W.",
+      "summary": "應用程式核心，定義 App 類別管理 Wi-Fi 連線狀態機、排程觸發、NTP 同步、天氣資料更新，以及各畫面的渲染協調邏輯。",
       "tags": [
         "entry-point",
         "service",
         "event-handler",
         "singleton"
       ],
-      "complexity": "complex",
-      "languageNotes": "Uses MicroPython asyncio for cooperative multitasking on RP2040 \u2014 no threading, all concurrency via async/await and an event loop."
+      "complexity": "complex"
     },
     {
       "id": "class:app.py:App",
@@ -36,11 +36,11 @@
         84,
         303
       ],
-      "summary": "Main application class that orchestrates device boot, WiFi negotiation, NTP sync, weather fetching, scheduler callbacks, and ePaper display rendering across its full lifecycle.",
+      "summary": "主要應用程式類別，以非同步狀態機實作 AP 熱點模式、STA 連線嘗試、初始化與執行四個狀態的切換，並協調排程器、天氣模組與畫面渲染。",
       "tags": [
-        "service",
         "singleton",
-        "event-handler"
+        "event-handler",
+        "service"
       ],
       "complexity": "complex"
     },
@@ -49,7 +49,7 @@
       "type": "file",
       "name": "__init__.py",
       "filePath": "display/__init__.py",
-      "summary": "Empty package initializer that marks the display directory as a MicroPython module package.",
+      "summary": "display 套件的 Python 初始化檔案，為空白檔案，僅用於標記此目錄為 Python 套件。",
       "tags": [
         "entry-point",
         "barrel"
@@ -61,14 +61,13 @@
       "type": "file",
       "name": "canvas.py",
       "filePath": "display/canvas.py",
-      "summary": "Provides the LandscapeCanvas class that wraps the 3.7\" ePaper framebuffer, handling coordinate transposition (portrait hardware rendered as landscape), partial and full display commits, and PBM image blitting.",
+      "summary": "提供 LandscapeCanvas 類別，封裝橫向 ePaper 畫布的繪圖操作，包含像素轉置、PBM 圖示繪製、局部與全螢幕刷新等低階 ePaper 驅動介面。",
       "tags": [
         "component",
-        "service",
-        "utility"
+        "utility",
+        "service"
       ],
-      "complexity": "complex",
-      "languageNotes": "Uses MicroPython's framebuf module and includes a viper-accelerated transposition path for performance on the RP2040."
+      "complexity": "complex"
     },
     {
       "id": "class:display/canvas.py:LandscapeCanvas",
@@ -79,19 +78,20 @@
         100,
         230
       ],
-      "summary": "Framebuffer subclass that presents a landscape coordinate system over the physically portrait 3.7\" ePaper panel, with full and partial refresh commit methods and PBM sprite blitting support.",
+      "summary": "橫向 ePaper 畫布類別，繼承 framebuf.FrameBuffer，實作像素 CW 旋轉轉置（支援 Viper 加速）、PBM blitting、全版或局部刷新至 EPD 硬體。",
       "tags": [
         "component",
         "utility"
       ],
-      "complexity": "complex"
+      "complexity": "complex",
+      "languageNotes": "MicroPython 特有的 @micropython.viper 裝飾器用於加速像素轉置運算，是嵌入式效能優化的慣用寫法。"
     },
     {
       "id": "file:display/fonts.py",
       "type": "file",
       "name": "fonts.py",
       "filePath": "display/fonts.py",
-      "summary": "Defines and lazy-loads bitmap font modules used across all display screens, with a graceful fallback helper for missing optional fonts.",
+      "summary": "字體載入模組，透過 _try_import 安全動態匯入字體模組，並對外暴露 FONT_TIME、FONT_BODY、FONT_LABEL 等字體常數供各畫面使用。",
       "tags": [
         "utility",
         "configuration"
@@ -103,13 +103,12 @@
       "type": "file",
       "name": "icons.py",
       "filePath": "display/icons.py",
-      "summary": "Loads PBM monochrome bitmap icons from the filesystem into framebuffer objects, with an LRU cache and a path-existence helper used by screen renderers for weather and WiFi icons.",
+      "summary": "PBM 點陣圖示載入模組，實作 LRU 快取機制從 Flash 讀取 PBM 格式圖示檔，供 ePaper 顯示使用，並提供 exists() 函式用於偵測圖示是否存在。",
       "tags": [
         "utility",
-        "component"
+        "service"
       ],
-      "complexity": "moderate",
-      "languageNotes": "Implements a small manual LRU cache (list-based) to limit RAM usage on the memory-constrained RP2040."
+      "complexity": "moderate"
     },
     {
       "id": "function:display/icons.py:load_pbm",
@@ -120,34 +119,19 @@
         42,
         74
       ],
-      "summary": "Reads a PBM file from the Pico filesystem, converts it into a MicroPython FrameBuffer object, and caches the result with LRU eviction.",
+      "summary": "從 Flash 讀取 PBM 圖示檔案並解碼為 framebuf.FrameBuffer，實作最近最少使用（LRU）快取以節省 MicroPython 的有限記憶體。",
       "tags": [
         "utility",
-        "component"
+        "service"
       ],
       "complexity": "moderate"
-    },
-    {
-      "id": "function:display/icons.py:exists",
-      "type": "function",
-      "name": "exists",
-      "filePath": "display/icons.py",
-      "lineRange": [
-        77,
-        86
-      ],
-      "summary": "Checks whether a PBM file path exists in the Pico filesystem by listing the parent directory, used as a guard before loading icons.",
-      "tags": [
-        "utility"
-      ],
-      "complexity": "simple"
     },
     {
       "id": "file:display/screens/calendar.py",
       "type": "file",
       "name": "calendar.py",
       "filePath": "display/screens/calendar.py",
-      "summary": "Renders a monthly calendar grid onto a canvas region, computing day-of-week layout and highlighting today's date, with support for configurable week-start day and proportional font rendering.",
+      "summary": "日曆渲染模組，提供 render() 函式在指定畫布區域繪製月份日曆格，支援可設定的一週起始日、今日標記與 Writer 字體渲染。",
       "tags": [
         "component",
         "utility"
@@ -163,7 +147,7 @@
         36,
         104
       ],
-      "summary": "Draws a full monthly calendar grid into a bounded canvas area, placing day-of-week headers and date cells with today's date highlighted via an inverse fill rectangle.",
+      "summary": "在畫布指定區域繪製完整的月份日曆，計算日期格線位置、標記今日日期，並支援 Writer 高解析度字體與 framebuf 回退兩種渲染路徑。",
       "tags": [
         "component",
         "utility"
@@ -175,7 +159,7 @@
       "type": "file",
       "name": "guide.py",
       "filePath": "display/screens/guide.py",
-      "summary": "Renders the WiFi setup guide screen that shows AP SSID, password, and configuration URL when the device is in access-point mode awaiting initial setup.",
+      "summary": "Wi-Fi AP 模式引導畫面模組，提供 show() 函式在 ePaper 上顯示熱點 SSID、密碼與設定頁 URL，引導使用者完成初始 Wi-Fi 設定。",
       "tags": [
         "component",
         "utility"
@@ -183,27 +167,11 @@
       "complexity": "simple"
     },
     {
-      "id": "function:display/screens/guide.py:show",
-      "type": "function",
-      "name": "show",
-      "filePath": "display/screens/guide.py",
-      "lineRange": [
-        20,
-        46
-      ],
-      "summary": "Clears the canvas and renders centered WiFi connection instructions (SSID, password, config URL) onto the ePaper display for the first-run AP setup flow.",
-      "tags": [
-        "component",
-        "event-handler"
-      ],
-      "complexity": "moderate"
-    },
-    {
       "id": "file:display/screens/main_screen.py",
       "type": "file",
       "name": "main_screen.py",
       "filePath": "display/screens/main_screen.py",
-      "summary": "Composites the main ePaper display layout showing time, weather data, WiFi signal strength, and a monthly calendar, with separate partial-refresh render functions for time-only and calendar-only updates.",
+      "summary": "主畫面渲染模組，整合時間、天氣、Wi-Fi 強度與日曆四個區塊的繪製函式，提供 render_full、render_time、render_calendar 等局部/全量刷新 API。",
       "tags": [
         "component",
         "api-handler"
@@ -219,10 +187,10 @@
         177,
         208
       ],
-      "summary": "Reads current RTC time and config settings, clears the canvas, draws all main-screen widgets (WiFi, time, weather, calendar), and commits a full ePaper refresh.",
+      "summary": "清空畫布並重繪完整主畫面，依序繪製 Wi-Fi 圖示、時間、天氣與日曆區塊，最後執行全版 ePaper 刷新。",
       "tags": [
         "component",
-        "event-handler"
+        "api-handler"
       ],
       "complexity": "moderate"
     },
@@ -235,7 +203,7 @@
         211,
         220
       ],
-      "summary": "Reads current RTC time and redraws only the time widget using a partial ePaper refresh, minimizing display wear.",
+      "summary": "每分鐘局部刷新時間區塊，讀取 RTC 時間後僅重繪時間區域並執行局部 ePaper 刷新，避免全版閃爍。",
       "tags": [
         "component",
         "utility"
@@ -251,7 +219,7 @@
         230,
         241
       ],
-      "summary": "Reads current date from RTC and redraws only the calendar widget using a partial ePaper refresh.",
+      "summary": "局部刷新日曆區塊，讀取 RTC 日期與週起始設定後，重繪日曆格並執行局部 ePaper 更新。",
       "tags": [
         "component",
         "utility"
@@ -267,23 +235,7 @@
         109,
         169
       ],
-      "summary": "Draws the weather panel including condition icon, temperature, description text, and humidity/wind data onto a canvas region, with fallback text rendering when icon files are missing.",
-      "tags": [
-        "component",
-        "utility"
-      ],
-      "complexity": "complex"
-    },
-    {
-      "id": "function:display/screens/main_screen.py:_draw_time",
-      "type": "function",
-      "name": "_draw_time",
-      "filePath": "display/screens/main_screen.py",
-      "lineRange": [
-        57,
-        103
-      ],
-      "summary": "Renders the large time display with configurable 12h/24h format and AM/PM label onto a canvas region, using proportional font sizing and centering.",
+      "summary": "在天氣區塊繪製天氣圖示、溫度、天氣描述文字及 AQI，支援攝氏/華氏切換，並在圖示不存在時以文字回退。",
       "tags": [
         "component",
         "utility"
@@ -295,23 +247,7 @@
       "type": "file",
       "name": "message.py",
       "filePath": "display/screens/message.py",
-      "summary": "Renders a single centered status message string to the full ePaper screen, used to display loading, error, and progress states during device boot and WiFi operations.",
-      "tags": [
-        "component",
-        "utility"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:display/screens/message.py:show",
-      "type": "function",
-      "name": "show",
-      "filePath": "display/screens/message.py",
-      "lineRange": [
-        22,
-        35
-      ],
-      "summary": "Clears the canvas, centers the given text string using font metrics, writes it via the font Writer, and commits a full ePaper refresh.",
+      "summary": "訊息畫面模組，提供 show() 函式在 ePaper 中央顯示單行提示文字，用於 Wi-Fi 連線狀態、NTP 同步等過渡畫面。",
       "tags": [
         "component",
         "utility"
@@ -323,23 +259,7 @@
       "type": "file",
       "name": "main.py",
       "filePath": "main.py",
-      "summary": "MicroPython entry point that instantiates the App and runs its async event loop; this is the file MicroPython auto-executes on boot.",
-      "tags": [
-        "entry-point"
-      ],
-      "complexity": "simple",
-      "languageNotes": "MicroPython automatically executes main.py on device boot after boot.py."
-    },
-    {
-      "id": "function:main.py:main",
-      "type": "function",
-      "name": "main",
-      "filePath": "main.py",
-      "lineRange": [
-        5,
-        10
-      ],
-      "summary": "Creates an App instance, runs it via asyncio, and resets the event loop \u2014 serves as the top-level boot entry point.",
+      "summary": "MicroPython 韌體入口點，初始化 App 實例並透過 asyncio.run 啟動非同步事件循環。",
       "tags": [
         "entry-point"
       ],
@@ -350,13 +270,12 @@
       "type": "file",
       "name": "ntp.py",
       "filePath": "ntp.py",
-      "summary": "Provides a sync() function that queries an NTP server, applies a timezone offset, and sets the hardware RTC on the Pico W.",
+      "summary": "NTP 時間同步模組，提供 sync() 函式透過網路對時並將結果寫入 MicroPython RTC，支援時區偏移與重試邏輯。",
       "tags": [
         "utility",
         "service"
       ],
-      "complexity": "simple",
-      "languageNotes": "Uses MicroPython's ntptime module and the machine.RTC class to write the corrected datetime directly to hardware."
+      "complexity": "simple"
     },
     {
       "id": "function:ntp.py:sync",
@@ -367,7 +286,7 @@
         10,
         32
       ],
-      "summary": "Fetches current time from an NTP host, adjusts for a configurable timezone offset in minutes, and programs the hardware RTC; returns True on success.",
+      "summary": "透過 ntptime.settime 同步網路時間，套用時區分鐘偏移後更新 RTC，並在 NTP 伺服器不可達時等待並重試。",
       "tags": [
         "utility",
         "service"
@@ -379,7 +298,7 @@
       "type": "file",
       "name": "scheduler.py",
       "filePath": "scheduler.py",
-      "summary": "Provides the Scheduler class, an async time-event dispatcher that fires minute, hour, day, weather-tick, and NTP-tick events based on RTC wall-clock time.",
+      "summary": "基於 RTC 的非同步排程器，提供 Scheduler 類別定期發出 minute、hour、day、weather_tick、ntp_tick 等事件，驅動應用程式的週期性任務。",
       "tags": [
         "service",
         "event-handler"
@@ -395,7 +314,7 @@
         14,
         77
       ],
-      "summary": "Async scheduler that polls the RTC at sub-second intervals, fires named time-based events (minute, hour, day, weather, ntp) to registered async handler callbacks, with deduplication to prevent double-firing.",
+      "summary": "非同步事件排程器類別，以 asyncio 迴圈每秒輪詢 RTC，依時間條件分發 minute/hour/day/weather_tick/ntp_tick 事件給已登錄的處理函式。",
       "tags": [
         "service",
         "event-handler"
@@ -407,7 +326,7 @@
       "type": "file",
       "name": "weather.py",
       "filePath": "weather.py",
-      "summary": "Fetches current weather data from the OpenWeatherMap API, persists results to a rotating log file on the Pico filesystem, and exposes helpers to read and rotate the log.",
+      "summary": "天氣資料擷取模組，呼叫 OpenWeatherMap API 取得即時天氣，並實作日誌記錄、日誌輪替，以及讀取快取天氣紀錄的功能。",
       "tags": [
         "service",
         "api-handler"
@@ -423,10 +342,10 @@
         37,
         87
       ],
-      "summary": "Builds an OpenWeatherMap API URL from config, makes an HTTP GET request with retry logic, parses the JSON response into a weather dict, logs the result, and returns the dict on success or None on failure.",
+      "summary": "向 OpenWeatherMap API 發送 HTTP 請求取得天氣 JSON，解析溫度、天氣代碼、描述及 AQI，並在失敗時進行有限次重試。",
       "tags": [
-        "api-handler",
-        "service"
+        "service",
+        "api-handler"
       ],
       "complexity": "complex"
     },
@@ -439,23 +358,22 @@
         98,
         111
       ],
-      "summary": "Checks whether the weather log file has grown beyond one day's worth of entries and rotates it by truncating if needed, preserving only recent data.",
+      "summary": "在每日首次執行時輪替天氣日誌檔，將當日新增記錄重置以避免 Flash 空間耗盡。",
       "tags": [
-        "utility",
-        "service"
+        "utility"
       ],
-      "complexity": "moderate"
+      "complexity": "simple"
     },
     {
       "id": "file:lib/mdns_client/__init__.py",
       "type": "file",
       "name": "__init__.py",
       "filePath": "lib/mdns_client/__init__.py",
-      "summary": "Package initializer for the third-party mdns_client library; marks the directory as a Python package with no re-exports.",
+      "summary": "mDNS 客戶端套件的 Python package entry point，內容極簡，僅作為套件識別標記。",
       "tags": [
         "entry-point",
         "barrel",
-        "third-party"
+        "mdns"
       ],
       "complexity": "simple"
     },
@@ -464,14 +382,15 @@
       "type": "file",
       "name": "client.py",
       "filePath": "lib/mdns_client/client.py",
-      "summary": "Core mDNS client implementation providing the async UDP socket loop, callback management, packet dispatch, address resolution, and question/response sending over the multicast group.",
+      "summary": "實作 mDNS 核心客戶端邏輯，包含非同步 UDP socket 管理、callback 生命週期控制，以及主機名稱解析（A record 查詢）功能。",
       "tags": [
         "service",
-        "middleware",
-        "event-handler"
+        "mdns",
+        "非同步",
+        "網路"
       ],
       "complexity": "complex",
-      "languageNotes": "Uses MicroPython's uasyncio event loop and gc.collect for memory management on the constrained Pico W hardware."
+      "languageNotes": "使用 uasyncio 事件迴圈管理網路封包接收與 callback 調度，專為 MicroPython 受限環境設計，包含 gc.collect 手動垃圾回收。"
     },
     {
       "id": "class:lib/mdns_client/client.py:Callback",
@@ -482,10 +401,11 @@
         15,
         27
       ],
-      "summary": "Value object representing a registered mDNS response callback with optional timeout and remove-if predicate.",
+      "summary": "封裝 mDNS 回應 callback 的資料結構，記錄 callback ID、逾時設定與建立時間，並提供逾時判斷方法。",
       "tags": [
-        "data-model",
-        "event-handler"
+        "資料模型",
+        "callback",
+        "逾時"
       ],
       "complexity": "simple"
     },
@@ -498,11 +418,12 @@
         30,
         245
       ],
-      "summary": "Async mDNS client managing a UDP multicast socket, routing incoming DNS packets to registered callbacks, and sending outgoing questions and responses.",
+      "summary": "mDNS 客戶端主類別，負責 UDP multicast socket 生命週期、封包接收與分派、DNS 問題傳送，以及 mDNS 主機名稱解析。",
       "tags": [
         "service",
-        "middleware",
-        "event-handler"
+        "mdns",
+        "非同步",
+        "dns"
       ],
       "complexity": "complex"
     },
@@ -511,10 +432,11 @@
       "type": "file",
       "name": "constants.py",
       "filePath": "lib/mdns_client/constants.py",
-      "summary": "DNS/mDNS protocol constants including record type codes (A, PTR, SRV, TXT), query class flags, and multicast group address used throughout the library.",
+      "summary": "定義 mDNS/DNS 協定常數，包含 DNS record 類型（A、PTR、SRV、TXT）、查詢類別、multicast 群組位址與旗標值。",
       "tags": [
         "configuration",
-        "utility",
+        "dns",
+        "常數",
         "type-definition"
       ],
       "complexity": "simple"
@@ -524,29 +446,14 @@
       "type": "file",
       "name": "parser.py",
       "filePath": "lib/mdns_client/parser.py",
-      "summary": "DNS packet parser that deserializes raw UDP bytes into structured DNSResponse objects including questions, answers, authorities, and additional records.",
+      "summary": "提供 DNS/mDNS 封包解析功能，將原始 UDP 位元組緩衝區解析為結構化的 DNS 問題、答案、授權與附加記錄。",
       "tags": [
-        "serialization",
         "utility",
-        "middleware"
+        "dns",
+        "解析器",
+        "序列化"
       ],
       "complexity": "complex"
-    },
-    {
-      "id": "function:lib/mdns_client/parser.py:parse_packet",
-      "type": "function",
-      "name": "parse_packet",
-      "filePath": "lib/mdns_client/parser.py",
-      "lineRange": [
-        14,
-        16
-      ],
-      "summary": "Public entry-point that wraps PacketParser instantiation and parsing, returning a DNSResponse from a raw byte buffer.",
-      "tags": [
-        "utility",
-        "serialization"
-      ],
-      "complexity": "simple"
     },
     {
       "id": "class:lib/mdns_client/parser.py:PacketParser",
@@ -557,10 +464,11 @@
         19,
         171
       ],
-      "summary": "Stateful parser that walks a DNS wire-format byte buffer, decoding compressed names and all record types including SRV, SOA, and MX entries.",
+      "summary": "DNS 封包解析器，處理 DNS 名稱壓縮展開、多種 record 類型解析（SRV、SOA、MX），並組裝完整的 DNSResponse 物件。",
       "tags": [
-        "serialization",
-        "utility"
+        "解析器",
+        "dns",
+        "序列化"
       ],
       "complexity": "complex"
     },
@@ -569,14 +477,14 @@
       "type": "file",
       "name": "responder.py",
       "filePath": "lib/mdns_client/responder.py",
-      "summary": "mDNS responder that handles incoming DNS questions (PTR, SRV, A, TXT) and sends appropriate resource record answers to advertise registered services on the local network.",
+      "summary": "實作 mDNS Responder，負責回應本機 DNS 查詢（A、PTR、SRV、TXT），並管理服務廣播（advertise/withdraw）邏輯。",
       "tags": [
         "service",
-        "middleware",
-        "event-handler"
+        "mdns",
+        "dns",
+        "網路"
       ],
-      "complexity": "complex",
-      "languageNotes": "Uses random host postfix generation to avoid name collisions when no explicit hostname is provided."
+      "complexity": "complex"
     },
     {
       "id": "class:lib/mdns_client/responder.py:Responder",
@@ -587,11 +495,12 @@
         28,
         265
       ],
-      "summary": "Full mDNS responder that answers PTR/SRV/A/TXT queries for advertised services and manages service advertisement lifecycle.",
+      "summary": "mDNS 回應者主類別，監聽 DNS 問題並依問題類型（PTR/SRV/A/TXT）組裝對應 DNS record 回應，支援動態主機名稱與隨機後綴。",
       "tags": [
         "service",
-        "event-handler",
-        "middleware"
+        "mdns",
+        "dns",
+        "event-handler"
       ],
       "complexity": "complex"
     },
@@ -600,14 +509,15 @@
       "type": "file",
       "name": "discovery.py",
       "filePath": "lib/mdns_client/service_discovery/discovery.py",
-      "summary": "mDNS service discovery engine that continuously watches for PTR/SRV/A records, tracks service lifecycles with TTL expiry and refresh, and notifies registered ServiceMonitor observers of additions, updates, and removals.",
+      "summary": "實作 mDNS 服務探索核心邏輯，透過非同步迴圈持續監控 PTR/SRV/A record 變化，並通知已訂閱的服務監視器。",
       "tags": [
         "service",
-        "event-handler",
-        "middleware"
+        "mdns",
+        "服務探索",
+        "非同步"
       ],
       "complexity": "complex",
-      "languageNotes": "Buffers out-of-order A records (IP address responses that arrive before SRV records) and uses gc.collect for memory management on resource-constrained hardware."
+      "languageNotes": "使用 TTL 計算服務過期時間，並實作 A record 緩衝機制以處理跨封包的 SRV/A 配對，體現 MicroPython 下的記憶體管理策略。"
     },
     {
       "id": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
@@ -618,10 +528,11 @@
         17,
         25
       ],
-      "summary": "Value object accumulating added, updated, and removed service sets representing the delta of changes in one discovery tick.",
+      "summary": "追蹤服務探索期間新增、更新、移除的服務集合，提供 has_update 方法判斷是否有待通知的變更。",
       "tags": [
-        "data-model",
-        "event-handler"
+        "資料模型",
+        "服務探索",
+        "事件"
       ],
       "complexity": "simple"
     },
@@ -634,11 +545,12 @@
         28,
         338
       ],
-      "summary": "Orchestrates continuous mDNS service discovery with TTL-aware expiry, buffered A-record resolution, and observer notification via the ServiceMonitor interface.",
+      "summary": "mDNS 服務探索主類別，管理多個服務協定的訂閱與查詢、處理 DNS record 分派，並維護已探索服務的生命週期。",
       "tags": [
         "service",
-        "event-handler",
-        "middleware"
+        "服務探索",
+        "mdns",
+        "非同步"
       ],
       "complexity": "complex"
     },
@@ -647,11 +559,11 @@
       "type": "file",
       "name": "service_monitor.py",
       "filePath": "lib/mdns_client/service_discovery/service_monitor.py",
-      "summary": "Abstract base class defining the ServiceMonitor observer interface with service_added, service_updated, and service_removed callback methods.",
+      "summary": "定義 ServiceMonitor 抽象基底類別，要求實作者提供服務新增、更新、移除三個回呼方法。",
       "tags": [
         "type-definition",
-        "service",
-        "event-handler"
+        "服務探索",
+        "抽象介面"
       ],
       "complexity": "simple"
     },
@@ -664,10 +576,11 @@
         4,
         12
       ],
-      "summary": "Abstract observer interface that consumers implement to receive service lifecycle callbacks from ServiceDiscovery.",
+      "summary": "服務監視器抽象基底類別，定義 service_added、service_updated、service_removed 三個 callback 介面。",
       "tags": [
-        "type-definition",
-        "event-handler"
+        "抽象介面",
+        "callback",
+        "服務探索"
       ],
       "complexity": "simple"
     },
@@ -676,10 +589,11 @@
       "type": "file",
       "name": "service_response.py",
       "filePath": "lib/mdns_client/service_discovery/service_response.py",
-      "summary": "Data model for a discovered mDNS service instance, holding SRV fields (name, priority, weight, target, port, IPs) with TTL-based expiry, refresh scheduling, and equality semantics.",
+      "summary": "定義 ServiceResponse 資料類別，代表一個已探索的 mDNS 服務實例，包含 SRV record 資訊、IP 集合與 TTL 計算邏輯。",
       "tags": [
-        "data-model",
-        "service"
+        "資料模型",
+        "服務探索",
+        "dns"
       ],
       "complexity": "moderate"
     },
@@ -692,10 +606,11 @@
         7,
         79
       ],
-      "summary": "Represents a discovered network service with TTL tracking, refresh scheduling, and IP address aggregation; implements hash and equality for use in sets.",
+      "summary": "封裝已探索 mDNS 服務的完整資訊（名稱、port、target、IP 集合），並計算 TTL 到期時間與排程刷新時機。",
       "tags": [
-        "data-model",
-        "service"
+        "資料模型",
+        "服務探索",
+        "ttl"
       ],
       "complexity": "moderate"
     },
@@ -704,28 +619,11 @@
       "type": "file",
       "name": "txt_discovery.py",
       "filePath": "lib/mdns_client/service_discovery/txt_discovery.py",
-      "summary": "TXT record extension of ServiceDiscovery that intercepts TXT DNS records, parses key=value TXT data, and attaches it to corresponding service responses.",
+      "summary": "擴展服務探索功能以支援 TXT record 解析，提供 TXTServiceDiscovery 子類別，可將 TXT 欄位附加至已探索的服務上。",
       "tags": [
-        "service",
-        "middleware",
-        "serialization"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "class:lib/mdns_client/service_discovery/txt_discovery.py:TXTServiceDiscovery",
-      "type": "class",
-      "name": "TXTServiceDiscovery",
-      "filePath": "lib/mdns_client/service_discovery/txt_discovery.py",
-      "lineRange": [
-        15,
-        38
-      ],
-      "summary": "Extends ServiceDiscovery to also parse TXT records and attach their key=value metadata to matched service responses.",
-      "tags": [
-        "service",
-        "middleware",
-        "serialization"
+        "服務探索",
+        "dns",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -734,14 +632,15 @@
       "type": "file",
       "name": "structs.py",
       "filePath": "lib/mdns_client/structs.py",
-      "summary": "Core DNS data structures \u2014 DNSQuestion, DNSRecord, DNSResponse, ServiceProtocol, and SRVRecord \u2014 with binary serialization (to_bytes) and deserialization methods for wire-format encoding.",
+      "summary": "定義 mDNS/DNS 協定的核心資料結構，包含 DNSQuestion、DNSRecord、DNSResponse、ServiceProtocol、SRVRecord 等，均提供序列化方法。",
       "tags": [
-        "data-model",
-        "serialization",
-        "type-definition"
+        "資料模型",
+        "dns",
+        "type-definition",
+        "序列化"
       ],
       "complexity": "complex",
-      "languageNotes": "Uses struct.pack/unpack_from for compact binary encoding suitable for memory-constrained MicroPython environments."
+      "languageNotes": "使用 struct.pack/unpack 進行二進位序列化，適應 MicroPython 中無 dataclass 的環境，以具名屬性手動實作 __hash__ 與 __eq__。"
     },
     {
       "id": "class:lib/mdns_client/structs.py:DNSQuestion",
@@ -752,10 +651,11 @@
         17,
         28
       ],
-      "summary": "Represents a single DNS question with query name and type, providing binary serialization to wire format.",
+      "summary": "代表單一 DNS 問題記錄，包含查詢名稱與類型，並提供位元組序列化方法。",
       "tags": [
-        "data-model",
-        "serialization"
+        "資料模型",
+        "dns",
+        "序列化"
       ],
       "complexity": "simple"
     },
@@ -768,10 +668,11 @@
         47,
         75
       ],
-      "summary": "Represents a DNS resource record with name, type, class, TTL, and rdata payload, supporting binary serialization and TTL-based invalidation timestamps.",
+      "summary": "代表 DNS resource record，儲存名稱、類型、TTL 與 rdata，並計算到期時間戳記。",
       "tags": [
-        "data-model",
-        "serialization"
+        "資料模型",
+        "dns",
+        "序列化"
       ],
       "complexity": "moderate"
     },
@@ -784,28 +685,13 @@
         78,
         129
       ],
-      "summary": "Top-level DNS packet structure holding questions, answers, authorities, and additional records with full binary serialization for sending mDNS responses.",
+      "summary": "代表完整的 DNS 封包回應，包含 transaction ID、問題、答案、授權及附加區段，並支援整包序列化。",
       "tags": [
-        "data-model",
-        "serialization"
+        "資料模型",
+        "dns",
+        "序列化"
       ],
       "complexity": "moderate"
-    },
-    {
-      "id": "class:lib/mdns_client/structs.py:ServiceProtocol",
-      "type": "class",
-      "name": "ServiceProtocol",
-      "filePath": "lib/mdns_client/structs.py",
-      "lineRange": [
-        132,
-        138
-      ],
-      "summary": "Value object encoding a service protocol triple (protocol, service, domain) and generating the corresponding mDNS service name string.",
-      "tags": [
-        "data-model",
-        "type-definition"
-      ],
-      "complexity": "simple"
     },
     {
       "id": "class:lib/mdns_client/structs.py:SRVRecord",
@@ -816,10 +702,11 @@
         153,
         166
       ],
-      "summary": "SRV record data structure with priority, weight, port, and target, supporting construction from a raw DNSRecord and binary serialization.",
+      "summary": "代表 DNS SRV record，提供從 DNSRecord 反序列化的 factory method 及二進位序列化方法。",
       "tags": [
-        "data-model",
-        "serialization"
+        "資料模型",
+        "dns",
+        "序列化"
       ],
       "complexity": "simple"
     },
@@ -828,12 +715,14 @@
       "type": "file",
       "name": "util.py",
       "filePath": "lib/mdns_client/util.py",
-      "summary": "Collection of DNS wire-format utility functions for IP/name byte conversion, buffer packing, name parsing, A/TXT record data encoding, and async timeout helpers.",
+      "summary": "提供 mDNS 協定相關的低層次工具函式，涵蓋 IP 地址轉換、DNS 名稱編解碼、位元組緩衝區操作及非同步計時器。",
       "tags": [
         "utility",
-        "serialization"
+        "dns",
+        "序列化",
+        "工具函式"
       ],
-      "complexity": "moderate"
+      "complexity": "complex"
     },
     {
       "id": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
@@ -844,10 +733,11 @@
         8,
         16
       ],
-      "summary": "Converts a dotted-decimal IPv4 string into a 4-byte bytes object for use in DNS A record rdata.",
+      "summary": "將點分十進制 IP 字串（如 192.168.1.1）轉換為 4 byte 的位元組物件，供 DNS A record 使用。",
       "tags": [
         "utility",
-        "serialization"
+        "ip",
+        "轉換"
       ],
       "complexity": "simple"
     },
@@ -860,10 +750,11 @@
         116,
         130
       ],
-      "summary": "Decodes a DNS wire-format name from a byte buffer into a list of label strings.",
+      "summary": "將 DNS wire format 的名稱位元組解析為字串列表，處理長度前置字節格式的標籤序列。",
       "tags": [
         "utility",
-        "serialization"
+        "dns",
+        "解析器"
       ],
       "complexity": "moderate"
     },
@@ -876,10 +767,28 @@
         88,
         104
       ],
-      "summary": "Walks a DNS wire buffer to find the byte index immediately after a compressed or uncompressed name, used for SOA record parsing.",
+      "summary": "在 DNS 封包緩衝區中計算名稱欄位的結束索引，正確處理壓縮指標（0xC0 前置位元組）。",
       "tags": [
         "utility",
-        "serialization"
+        "dns",
+        "解析器"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/mdns_client/util.py:pack_name",
+      "type": "function",
+      "name": "pack_name",
+      "filePath": "lib/mdns_client/util.py",
+      "lineRange": [
+        51,
+        64
+      ],
+      "summary": "將 DNS 名稱字串以 wire format 寫入指定的位元組緩衝區，每個標籤前加上長度位元組。",
+      "tags": [
+        "utility",
+        "dns",
+        "序列化"
       ],
       "complexity": "moderate"
     },
@@ -892,10 +801,11 @@
         143,
         152
       ],
-      "summary": "Encodes a dict of TXT key-value pairs into DNS TXT record wire format byte sequences.",
+      "summary": "將 key-value 字典序列化為 DNS TXT record 格式的位元組，每個條目以 key=value 形式編碼。",
       "tags": [
         "utility",
-        "serialization"
+        "dns",
+        "序列化"
       ],
       "complexity": "simple"
     },
@@ -904,14 +814,15 @@
       "type": "file",
       "name": "mdns.py",
       "filePath": "mdns.py",
-      "summary": "Project-level mDNS wrapper providing MDNSResponder \u2014 a lifecycle-managed facade around the vendored mdns_client library that handles socket conflicts with the Pico W LWIP built-in mDNS, retry logic, and service advertisement for the ePaper device hostname.",
+      "summary": "為 Pico W 專案提供高層次 mDNS 管理器（MDNSResponder），整合底層客戶端與 responder，處理 LWIP 內建 mDNS 衝突偵測與重試啟動邏輯。",
       "tags": [
         "service",
-        "middleware",
-        "entry-point"
+        "mdns",
+        "entry-point",
+        "網路"
       ],
       "complexity": "complex",
-      "languageNotes": "Detects whether the Pico W LWIP firmware's built-in mDNS is already holding the multicast port and gracefully skips the vendored client in that case; patches socket bind to use INADDR_ANY to avoid dual-binding conflicts."
+      "languageNotes": "包含繁體中文列印訊息，針對 Pico W LWIP firmware 的 mDNS port 佔用問題實作了特殊的 socket bind 探測與修補邏輯。"
     },
     {
       "id": "class:mdns.py:MDNSResponder",
@@ -922,11 +833,11 @@
         65,
         211
       ],
-      "summary": "High-level mDNS service manager that wraps Client and Responder with start/stop/restart lifecycle, retry-with-backoff on bind failures, and LWIP conflict detection for the Pico W.",
+      "summary": "mDNS 高層次管理類別，負責偵測 LWIP 韌體 mDNS 衝突、帶重試的啟動序列，以及 client/responder 生命週期管理。",
       "tags": [
         "service",
-        "middleware",
-        "event-handler"
+        "mdns",
+        "生命週期管理"
       ],
       "complexity": "complex"
     },
@@ -939,10 +850,11 @@
         42,
         62
       ],
-      "summary": "Probes whether the Pico W LWIP firmware's built-in mDNS responder has already bound port 5353 by attempting a test socket bind and checking for EADDRINUSE.",
+      "summary": "探測 Pico W LWIP 韌體是否已佔用 mDNS UDP port 5353，透過嘗試 socket bind 來判斷衝突。",
       "tags": [
         "utility",
-        "middleware"
+        "mdns",
+        "診斷"
       ],
       "complexity": "moderate"
     },
@@ -955,10 +867,11 @@
         29,
         39
       ],
-      "summary": "Monkey-patches the mDNS Client's socket initialization to bind on INADDR_ANY (0.0.0.0) instead of the multicast group address, resolving dual-bind conflicts on MicroPython.",
+      "summary": "對 mDNS Client 物件進行 monkey-patch，將 socket bind 位址改為 0.0.0.0 以繞過 LWIP 的 port 佔用問題。",
       "tags": [
         "utility",
-        "middleware"
+        "mdns",
+        "修補"
       ],
       "complexity": "simple"
     },
@@ -967,14 +880,16 @@
       "type": "file",
       "name": "ssd1306_setup.py",
       "filePath": "writer/ssd1306_setup.py",
-      "summary": "Hardware setup helper that initializes an SSD1306 OLED display over either SPI or I2C, returning the display object for use by the Writer library.",
+      "summary": "為 SSD1306 OLED 顯示器提供硬體初始化工具，支援 SPI 與 I2C 兩種介面，並提供軟體/硬體模式切換，供 writer 模組的範例與測試使用。",
       "tags": [
         "utility",
-        "hardware-init",
+        "硬體初始化",
         "spi",
-        "i2c"
+        "i2c",
+        "MicroPython"
       ],
-      "complexity": "moderate"
+      "complexity": "moderate",
+      "languageNotes": "使用 MicroPython 的 machine 模組操作 GPIO 腳位，條件式地建立 SPI 或 I2C 匯流排物件，屬於典型嵌入式硬體抽象模式。"
     },
     {
       "id": "function:writer/ssd1306_setup.py:setup",
@@ -985,11 +900,11 @@
         38,
         69
       ],
-      "summary": "Initializes the SSD1306 display via SPI or I2C based on the use_spi flag, configuring GPIO pins and returning the display instance.",
+      "summary": "根據 use_spi 與 soft 參數初始化 SSD1306 顯示器，回傳對應的 SSD1306_SPI 或 SSD1306_I2C 物件供上層呼叫使用。",
       "tags": [
-        "hardware-init",
         "utility",
-        "factory"
+        "硬體初始化",
+        "工廠函式"
       ],
       "complexity": "moderate"
     },
@@ -998,15 +913,15 @@
       "type": "file",
       "name": "writer.py",
       "filePath": "writer/writer.py",
-      "summary": "Core font rendering library providing the Writer and CWriter classes for drawing proportional and monospaced fonts onto MicroPython framebuffer-compatible displays, including ePaper.",
+      "summary": "實作 Writer 與 CWriter 兩個核心類別，提供字型渲染、文字位置控制、自動換行與捲動功能，是整個 writer 子系統的基礎模組。",
       "tags": [
-        "font-rendering",
-        "display",
         "utility",
-        "service"
+        "文字渲染",
+        "顯示器驅動",
+        "MicroPython"
       ],
       "complexity": "complex",
-      "languageNotes": "Uses MicroPython-specific APIs such as framebuf.FrameBuffer, bytearray_at, and addressof for zero-copy pixel blitting in CWriter."
+      "languageNotes": "CWriter 繼承自 Writer，並針對彩色顯示器覆寫 _printchar 與 setcolor，利用 MicroPython uctypes 的 bytearray_at 與 addressof 直接操作記憶體以提升渲染效能。"
     },
     {
       "id": "class:writer/writer.py:Writer",
@@ -1017,11 +932,11 @@
         44,
         278
       ],
-      "summary": "Base text rendering class that manages cursor position, line wrapping, scrolling, and character blitting for any framebuffer-compatible display device.",
+      "summary": "單色顯示器的文字渲染器，支援字型切換、裁剪區域設定、字串長度量測、Tab 與換行處理，以及逐字元 blit 至 framebuffer。",
       "tags": [
-        "font-rendering",
-        "display",
-        "service"
+        "文字渲染",
+        "顯示器驅動",
+        "utility"
       ],
       "complexity": "complex"
     },
@@ -1034,24 +949,40 @@
         282,
         331
       ],
-      "summary": "Color-capable subclass of Writer that supports foreground/background color via a palette, using zero-copy memory views for efficient pixel blitting on color displays.",
+      "summary": "Writer 的彩色擴充子類別，新增 create_color 靜態方法與覆寫後的 _printchar，透過調色盤機制支援前景／背景色的彩色文字渲染。",
       "tags": [
-        "font-rendering",
-        "color",
-        "display"
+        "文字渲染",
+        "彩色顯示",
+        "顯示器驅動"
       ],
       "complexity": "moderate"
+    },
+    {
+      "id": "class:writer/writer.py:DisplayState",
+      "type": "class",
+      "name": "DisplayState",
+      "filePath": "writer/writer.py",
+      "lineRange": [
+        31,
+        34
+      ],
+      "summary": "輕量的顯示器狀態容器，儲存每個顯示裝置的文字游標列與欄位置，供 Writer 的多裝置狀態管理使用。",
+      "tags": [
+        "資料模型",
+        "狀態管理"
+      ],
+      "complexity": "simple"
     },
     {
       "id": "file:writer/writer_demo.py",
       "type": "file",
       "name": "writer_demo.py",
       "filePath": "writer/writer_demo.py",
-      "summary": "Demonstration script that initializes the SSD1306 display and uses the Writer class to render sample text lines, illustrating basic Writer usage.",
+      "summary": "展示 Writer 類別基本文字輸出功能的範例腳本，初始化 SSD1306 顯示器後繪製分隔線並列印多行文字。",
       "tags": [
-        "example",
-        "display",
-        "font-rendering"
+        "範例",
+        "utility",
+        "顯示器驅動"
       ],
       "complexity": "simple"
     },
@@ -1064,10 +995,9 @@
         40,
         52
       ],
-      "summary": "Runs the Writer demo by setting up the display, drawing a dividing line, and printing three text strings via a Writer instance.",
+      "summary": "初始化顯示器並使用 Writer 列印三行字串，驗證基本的文字渲染流程。",
       "tags": [
-        "example",
-        "display",
+        "範例",
         "utility"
       ],
       "complexity": "simple"
@@ -1077,46 +1007,15 @@
       "type": "file",
       "name": "writer_gui.py",
       "filePath": "writer/writer_gui.py",
-      "summary": "GUI widget library built on top of Writer, providing Label, Meter, and LED display widgets plus circle drawing primitives for building simple on-screen interfaces.",
+      "summary": "基於 Writer 建立圖形 UI 元件庫，包含 Label、Meter、LED 等顯示元件及圓形繪製工具函式，適用於 MicroPython 嵌入式 GUI 場景。",
       "tags": [
         "gui",
-        "widget",
-        "display",
-        "font-rendering"
-      ],
-      "complexity": "complex"
-    },
-    {
-      "id": "function:writer/writer_gui.py:_circle",
-      "type": "function",
-      "name": "_circle",
-      "filePath": "writer/writer_gui.py",
-      "lineRange": [
-        33,
-        50
-      ],
-      "summary": "Internal Bresenham circle algorithm that plots pixels at eight octant-symmetric points for a given center and radius.",
-      "tags": [
-        "graphics",
+        "元件庫",
+        "顯示器驅動",
         "utility"
       ],
-      "complexity": "moderate"
-    },
-    {
-      "id": "function:writer/writer_gui.py:fillcircle",
-      "type": "function",
-      "name": "fillcircle",
-      "filePath": "writer/writer_gui.py",
-      "lineRange": [
-        57,
-        73
-      ],
-      "summary": "Draws a filled circle by iterating a Bresenham scan and drawing horizontal lines between symmetric points.",
-      "tags": [
-        "graphics",
-        "utility"
-      ],
-      "complexity": "moderate"
+      "complexity": "complex",
+      "languageNotes": "採用物件導向的繼承架構（DObject 為基底類別），各元件透過 show() 方法觸發重繪，遵循嵌入式 GUI 的最小化重繪模式。"
     },
     {
       "id": "class:writer/writer_gui.py:DObject",
@@ -1127,11 +1026,11 @@
         76,
         135
       ],
-      "summary": "Abstract base display object that validates widget placement bounds, manages foreground/background color, and provides the common show/value interface for GUI widgets.",
+      "summary": "所有 GUI 顯示元件的抽象基底類別，負責邊界檢查、警告輸出及通用的 show 繪製框架，其他元件皆繼承自此。",
       "tags": [
         "gui",
-        "base-class",
-        "display"
+        "基底類別",
+        "抽象類別"
       ],
       "complexity": "moderate"
     },
@@ -1144,11 +1043,11 @@
         138,
         175
       ],
-      "summary": "Text label widget that renders a string at a fixed screen position using a Writer instance, supporting optional clipping and color.",
+      "summary": "繼承自 DObject 的文字標籤元件，依據字型寬度自動計算顯示區域，並支援彩色前景/背景渲染。",
       "tags": [
         "gui",
-        "widget",
-        "display"
+        "標籤元件",
+        "文字渲染"
       ],
       "complexity": "moderate"
     },
@@ -1161,11 +1060,11 @@
         177,
         221
       ],
-      "summary": "Vertical bar-graph meter widget that renders a normalized float value as a filled bar with optional numeric label.",
+      "summary": "繼承自 DObject 的儀表板元件，以水平線段呈現數值範圍，並附帶 Label 顯示當前數值。",
       "tags": [
         "gui",
-        "widget",
-        "display"
+        "儀表板",
+        "視覺化"
       ],
       "complexity": "moderate"
     },
@@ -1178,11 +1077,11 @@
         224,
         242
       ],
-      "summary": "Circular LED indicator widget that draws a filled circle in a configurable color to represent on/off or status states.",
+      "summary": "繼承自 DObject 的 LED 指示燈元件，以填滿圓形模擬 LED 燈號，並可附加文字標籤顯示狀態說明。",
       "tags": [
         "gui",
-        "widget",
-        "display"
+        "指示燈元件",
+        "視覺化"
       ],
       "complexity": "simple"
     },
@@ -1191,157 +1090,13 @@
       "type": "file",
       "name": "writer_tests.py",
       "filePath": "writer/writer_tests.py",
-      "summary": "Comprehensive test suite for the Writer/CWriter library, covering inverse display, scrolling, upside-down mode, right-justification, multi-font rendering, tab stops, text wrapping, and dual-display operation.",
+      "summary": "針對 Writer 與 CWriter 的功能測試腳本，涵蓋反白、捲動、上下顛倒、右對齊、多字型、Tab、換行及雙顯示器等情境。",
       "tags": [
         "test",
-        "font-rendering",
-        "display"
+        "文字渲染",
+        "顯示器驅動"
       ],
       "complexity": "complex"
-    },
-    {
-      "id": "function:writer/writer_tests.py:inverse",
-      "type": "function",
-      "name": "inverse",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        44,
-        57
-      ],
-      "summary": "Tests inverse (white-on-black) text rendering by printing three strings with clip mode enabled.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:writer/writer_tests.py:scroll",
-      "type": "function",
-      "name": "scroll",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        59,
-        79
-      ],
-      "summary": "Tests automatic screen scrolling by printing lines in a loop until the display scrolls, with timed pauses between frames.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "moderate"
-    },
-    {
-      "id": "function:writer/writer_tests.py:usd_scroll",
-      "type": "function",
-      "name": "usd_scroll",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        81,
-        100
-      ],
-      "summary": "Tests upside-down scrolling mode via CWriter with an inverted display, verifying scroll behavior in rotated orientation.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "moderate"
-    },
-    {
-      "id": "function:writer/writer_tests.py:usd",
-      "type": "function",
-      "name": "usd",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        102,
-        113
-      ],
-      "summary": "Tests upside-down (inverted) static text rendering using CWriter.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:writer/writer_tests.py:rjust",
-      "type": "function",
-      "name": "rjust",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        115,
-        135
-      ],
-      "summary": "Tests right-justification of text by measuring string pixel widths with stringlen and positioning the cursor accordingly.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "moderate"
-    },
-    {
-      "id": "function:writer/writer_tests.py:fonts",
-      "type": "function",
-      "name": "fonts",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        137,
-        147
-      ],
-      "summary": "Tests multi-font rendering by creating two Writer instances with different fonts and printing text with each.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:writer/writer_tests.py:tabs",
-      "type": "function",
-      "name": "tabs",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        149,
-        157
-      ],
-      "summary": "Tests tab-stop handling by printing tab-delimited strings and verifying column alignment.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:writer/writer_tests.py:usd_tabs",
-      "type": "function",
-      "name": "usd_tabs",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        159,
-        169
-      ],
-      "summary": "Tests tab stops in upside-down (inverted) display mode using CWriter.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:writer/writer_tests.py:wrap",
-      "type": "function",
-      "name": "wrap",
-      "filePath": "writer/writer_tests.py",
-      "lineRange": [
-        171,
-        177
-      ],
-      "summary": "Tests word-wrap behavior by printing a long string that exceeds display width.",
-      "tags": [
-        "test",
-        "display"
-      ],
-      "complexity": "simple"
     },
     {
       "id": "function:writer/writer_tests.py:dual",
@@ -1352,11 +1107,43 @@
         179,
         209
       ],
-      "summary": "Tests simultaneous rendering to two independent displays using separate Writer instances, updating Label widgets with random values in a loop.",
+      "summary": "測試雙顯示器場景，同時操作兩個 Writer 實例與多個 Label 元件，以亂數持續更新顯示內容。",
       "tags": [
         "test",
-        "display",
-        "multi-device"
+        "雙顯示器",
+        "壓力測試"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:writer/writer_tests.py:scroll",
+      "type": "function",
+      "name": "scroll",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [
+        59,
+        79
+      ],
+      "summary": "測試 Writer 的捲動功能，透過迴圈持續列印計數字串並呼叫 show()，驗證顯示器捲動行為。",
+      "tags": [
+        "test",
+        "捲動"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:writer/writer_tests.py:rjust",
+      "type": "function",
+      "name": "rjust",
+      "filePath": "writer/writer_tests.py",
+      "lineRange": [
+        115,
+        135
+      ],
+      "summary": "測試文字右對齊排版，利用 stringlen 測量字串寬度後手動設定文字位置，驗證對齊計算的正確性。",
+      "tags": [
+        "test",
+        "文字對齊"
       ],
       "complexity": "moderate"
     },
@@ -1365,14 +1152,15 @@
       "type": "file",
       "name": "config.py",
       "filePath": "config.py",
-      "summary": "Configuration persistence layer for the ePaper firmware, providing a JSON-backed key/value store with section-based access, batch write coalescing, and convenience helpers for checking WiFi and weather readiness.",
+      "summary": "提供持久化設定管理功能，透過 ConfigManager 類別以 JSON 檔案儲存並讀取 WiFi、天氣、時間等應用程式設定，並支援批次寫入以減少 Flash 寫入次數。",
       "tags": [
-        "service",
-        "configuration",
+        "設定管理",
         "singleton",
-        "serialization"
+        "utility",
+        "資料模型"
       ],
-      "complexity": "moderate"
+      "complexity": "moderate",
+      "languageNotes": "使用 context manager（_Batch）實作批次寫入模式，針對 MicroPython 嵌入式環境優化 Flash 寫入操作。"
     },
     {
       "id": "class:config.py:ConfigManager",
@@ -1383,76 +1171,28 @@
         27,
         102
       ],
-      "summary": "Manages reading and writing the device configuration JSON file, supporting lazy loading, batch writes via a context manager, sectioned get/set access, and weather-city storage.",
+      "summary": "核心設定管理器，提供 get/set 介面以分節（section）方式存取 JSON 設定檔，並包含 WiFi 與天氣是否已設定的便利查詢方法。",
       "tags": [
-        "configuration",
+        "設定管理",
         "singleton",
-        "serialization"
+        "資料模型"
       ],
       "complexity": "moderate"
-    },
-    {
-      "id": "class:config.py:_Batch",
-      "type": "class",
-      "name": "_Batch",
-      "filePath": "config.py",
-      "lineRange": [
-        105,
-        115
-      ],
-      "summary": "Context manager returned by ConfigManager.batch() that defers file writes until the block exits, coalescing multiple set() calls into a single save.",
-      "tags": [
-        "utility",
-        "configuration"
-      ],
-      "complexity": "simple",
-      "languageNotes": "Implements the Python context manager protocol (__enter__/__exit__) to batch-defer JSON flushes on MicroPython where flash writes are expensive."
     },
     {
       "id": "file:web_server.py",
       "type": "file",
       "name": "web_server.py",
       "filePath": "web_server.py",
-      "summary": "Browser-based HTTP configuration UI for the Pico W ePaper device, serving WiFi, time-zone, and weather-settings pages over an asyncio socket server with URL decoding, form parsing, and live WiFi scanning.",
+      "summary": "實作基於 asyncio 的 HTTP 網頁設定伺服器，提供 WiFi、時間、天氣等設定頁面，讓使用者透過瀏覽器對 Pico W 進行初始化設定。",
       "tags": [
         "api-handler",
         "service",
-        "middleware",
-        "component"
-      ],
-      "complexity": "complex"
-    },
-    {
-      "id": "function:web_server.py:_url_decode",
-      "type": "function",
-      "name": "_url_decode",
-      "filePath": "web_server.py",
-      "lineRange": [
-        17,
-        35
-      ],
-      "summary": "Decodes a percent-encoded URL string (converting %XX hex escapes and '+' to space) for safe extraction of form field values submitted by the browser.",
-      "tags": [
-        "utility",
+        "網頁介面",
         "middleware"
       ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:web_server.py:_page",
-      "type": "function",
-      "name": "_page",
-      "filePath": "web_server.py",
-      "lineRange": [
-        92,
-        107
-      ],
-      "summary": "Renders the outer HTML page shell \u2014 doctype, head, nav bar with active-tab highlighting, and embedded CSS \u2014 wrapping any inner body content passed by the caller.",
-      "tags": [
-        "utility",
-        "component"
-      ],
-      "complexity": "simple"
+      "complexity": "complex",
+      "languageNotes": "使用 MicroPython 的 asyncio 實作非同步 HTTP 伺服器，HTML 頁面以字串拼接方式直接內嵌於 Python 程式碼中，適合記憶體受限的嵌入式環境。"
     },
     {
       "id": "function:web_server.py:_wifi_page",
@@ -1463,9 +1203,10 @@
         110,
         153
       ],
-      "summary": "Generates the WiFi settings page HTML, listing scanned networks in a dropdown with the currently saved SSID pre-selected and including a JavaScript rescan button that fetches /scan without a page reload.",
+      "summary": "產生 WiFi 設定 HTML 頁面，列出掃描到的網路清單（含 RSSI 訊號強度），並以已儲存的 SSID 優先排列，支援前端 AJAX 重新掃描功能。",
       "tags": [
-        "component",
+        "網頁介面",
+        "utility",
         "api-handler"
       ],
       "complexity": "moderate"
@@ -1479,9 +1220,10 @@
         171,
         211
       ],
-      "summary": "Generates the time/calendar settings page HTML with 12/24-hour radio buttons, week-start day selector, and a timezone offset dropdown populated from a static list of UTC offsets.",
+      "summary": "產生時間與日曆設定 HTML 頁面，支援 12/24 小時制切換、一週起始日及時區（UTC 偏移）的選擇。",
       "tags": [
-        "component",
+        "網頁介面",
+        "utility",
         "api-handler"
       ],
       "complexity": "moderate"
@@ -1495,9 +1237,10 @@
         214,
         258
       ],
-      "summary": "Generates the weather settings page HTML allowing the user to enter an OpenWeather API key, pick a Taiwan city from the preloaded list, and choose Celsius or Fahrenheit display, with optional weather log output.",
+      "summary": "產生天氣設定 HTML 頁面，提供 OpenWeather API Key 輸入、城市下拉選單（來自台灣城市資料）及溫度單位（攝氏／華氏）選項。",
       "tags": [
-        "component",
+        "網頁介面",
+        "utility",
         "api-handler"
       ],
       "complexity": "moderate"
@@ -1511,7 +1254,7 @@
         272,
         457
       ],
-      "summary": "Async HTTP server that handles all configuration routes (/wifi, /time, /weather, /done, /scan, /log), dispatching GET and POST requests to the appropriate page-rendering functions and persisting form submissions via ConfigManager.",
+      "summary": "非同步 HTTP 設定伺服器主體，處理所有路由（/wifi、/time、/weather、/scan、/done 等），整合 ConfigManager 與 WiFiManager 完成設定存取與網路連線流程。",
       "tags": [
         "api-handler",
         "service",
@@ -1524,13 +1267,15 @@
       "type": "file",
       "name": "wifi_manager.py",
       "filePath": "wifi_manager.py",
-      "summary": "WiFi connection manager for the Pico W, handling AP mode (captive-portal hosting), STA mode (connection, reconnection with timeout), RSSI-to-signal-level conversion, and network scanning.",
+      "summary": "封裝 Pico W 的 WiFi 功能，提供 AP 模式（設定熱點）與 STA 模式（連線至路由器）的管理介面，包含掃描網路、連線狀態查詢及訊號強度轉換等功能。",
       "tags": [
         "service",
         "utility",
+        "網路管理",
         "middleware"
       ],
-      "complexity": "moderate"
+      "complexity": "moderate",
+      "languageNotes": "直接操作 MicroPython 的 network 模組，同時管理 AP 與 STA 兩個 WLAN 介面，實作嵌入式裝置常見的雙模 WiFi 架構。"
     },
     {
       "id": "function:wifi_manager.py:rssi_to_level",
@@ -1541,9 +1286,10 @@
         15,
         27
       ],
-      "summary": "Converts a raw RSSI dBm value to a discrete signal-strength level (0\u20134) for display on the ePaper status bar.",
+      "summary": "將 WiFi RSSI 數值（dBm）轉換為 0–4 的訊號強度等級，供 UI 顯示訊號格數使用。",
       "tags": [
-        "utility"
+        "utility",
+        "訊號強度"
       ],
       "complexity": "simple"
     },
@@ -1556,24 +1302,25 @@
         30,
         157
       ],
-      "summary": "Manages both AP and STA WLAN interfaces on the Pico W, exposing methods to start/stop the access point, connect/disconnect as a station, query connection status and IP, and scan for nearby networks.",
+      "summary": "WiFi 管理器，封裝 AP 模式啟停、STA 模式連線斷線、目前連線狀態與 IP 查詢，以及附近網路掃描（去重並依訊號強度排序）等完整功能。",
       "tags": [
         "service",
-        "utility"
+        "網路管理",
+        "middleware"
       ],
-      "complexity": "complex",
-      "languageNotes": "Uses the MicroPython `network` module directly; AP and STA interfaces are independent WLAN objects that can run concurrently on the Pico W CYW43 chip."
+      "complexity": "moderate"
     },
     {
       "id": "config:.gitignore",
       "type": "config",
       "name": ".gitignore",
       "filePath": ".gitignore",
-      "summary": "Git ignore rules that exclude development-environment artifacts (.DS_Store, .vscode), host-only tools (mDns, fonts, tools, API directories), build scripts, documentation files, and Pico-generated runtime outputs (config.json, weather.log) from both git tracking and MicroPico uploads.",
+      "summary": "Git 忽略規則設定，同時標註 MicroPico 上傳至 Pico 時應排除的開發環境工具、說明文件、build 腳本及 Pico 端執行時產生的動態檔案（config.json、weather.log）。",
       "tags": [
         "configuration",
-        "version-control",
-        "development"
+        "版本控制",
+        "開發環境",
+        "build-system"
       ],
       "complexity": "simple"
     },
@@ -1582,38 +1329,42 @@
       "type": "config",
       "name": ".micropico",
       "filePath": ".micropico",
-      "summary": "MicroPico VS Code extension marker file that identifies this directory as a MicroPico project folder, enabling the extension to recognize and manage the Raspberry Pi Pico W connection from within VS Code.",
+      "summary": "MicroPico VSCode 擴充功能的專案識別標記檔，讓工具辨識此資料夾為 MicroPython Pico 專案根目錄。",
       "tags": [
         "configuration",
-        "development",
-        "micropico"
+        "micropico",
+        "開發環境",
+        "標記檔"
       ],
-      "complexity": "simple"
+      "complexity": "simple",
+      "languageNotes": "此檔案僅作為專案識別用途，內容固定為 info 字串，無實際邏輯設定。"
     },
     {
       "id": "config:E-Paper.code-workspace",
       "type": "config",
       "name": "E-Paper.code-workspace",
       "filePath": "E-Paper.code-workspace",
-      "summary": "VS Code multi-root workspace configuration that adds both the local project folder and the remote Pico device filesystem (pico: URI) as workspace roots, with Pylance set as the Python language server for MicroPython development.",
+      "summary": "VS Code 多資料夾工作區設定，同時掛載本地專案目錄與 Pico 遠端工作區（pico: URI），並指定使用 Pylance 作為 Python 語言伺服器。",
       "tags": [
         "configuration",
-        "development",
-        "build-system"
+        "vscode",
+        "開發環境",
+        "workspace"
       ],
       "complexity": "simple",
-      "languageNotes": "Uses the pico: URI scheme provided by the MicroPico extension to surface the Pico device filesystem as a second workspace root alongside the local project."
+      "languageNotes": "透過 pico: URI scheme 掛載 MicroPico 遠端工作區，讓開發者能在同一個 VS Code 視窗中瀏覽本地與 Pico 上的檔案系統。"
     },
     {
       "id": "config:taiwan_cities.json",
       "type": "config",
       "name": "taiwan_cities.json",
       "filePath": "taiwan_cities.json",
-      "summary": "Static data file listing all 22 Taiwan administrative regions (municipalities, cities, and counties) with their display names in Traditional Chinese and WGS-84 latitude/longitude coordinates, consumed by the web configuration server to populate the city selection dropdown for weather location.",
+      "summary": "台灣 22 個縣市的地理座標靜態資料集，每筆記錄包含縣市名稱、緯度與經度，供天氣查詢功能透過 Open-Meteo API 取得對應地點的氣象資料。",
       "tags": [
-        "configuration",
         "data",
-        "weather"
+        "地理座標",
+        "天氣功能",
+        "靜態資料"
       ],
       "complexity": "moderate"
     },
@@ -1622,27 +1373,11 @@
       "type": "file",
       "name": "__init__.py",
       "filePath": "display/screens/__init__.py",
-      "summary": "Package initializer for the display screens module, providing the `log_display` debug logging helper and the `make_writer` factory function that wraps the Writer class with pixel-doubling and coordinate patching for the ePaper canvas.",
+      "summary": "display/screens 套件的初始化模組，提供 log_display 日誌輔助函式與 make_writer 工廠函式，用於建立帶有字型的 Writer 實例並支援像素精確位置設定。",
       "tags": [
         "entry-point",
         "factory",
         "utility"
-      ],
-      "complexity": "simple"
-    },
-    {
-      "id": "function:display/screens/__init__.py:log_display",
-      "type": "function",
-      "name": "log_display",
-      "filePath": "display/screens/__init__.py",
-      "lineRange": [
-        1,
-        7
-      ],
-      "summary": "Formats and prints a labeled debug message for the EPD display layer, joining variadic string parts with ' | ' separators.",
-      "tags": [
-        "utility",
-        "logging"
       ],
       "complexity": "simple"
     },
@@ -1655,11 +1390,11 @@
         10,
         33
       ],
-      "summary": "Factory function that creates a Writer instance for a given canvas and font, applying monkey-patches to scale pixel coordinates by 2 and to intercept printstring calls for ePaper-compatible rendering.",
+      "summary": "工廠函式，接受畫布（canvas）與字型（font）參數，建立 Writer 實例並設定初始文字位置，供各畫面元件使用。",
       "tags": [
         "factory",
         "utility",
-        "component"
+        "display"
       ],
       "complexity": "moderate"
     },
@@ -1668,7 +1403,7 @@
       "type": "file",
       "name": "__init__.py",
       "filePath": "lib/mdns_client/service_discovery/__init__.py",
-      "summary": "Empty package initializer for the mDNS service discovery subpackage, making the directory importable as a Python package with no additional top-level exports.",
+      "summary": "mDNS 服務探索子套件的空白初始化檔案，標記 service_discovery 為 Python 套件，本身不包含實作邏輯。",
       "tags": [
         "entry-point",
         "barrel"
@@ -1680,14 +1415,14 @@
       "type": "file",
       "name": "Pico_ePaper_3_7.py",
       "filePath": "Pico_ePaper_3_7.py",
-      "summary": "Low-level hardware driver for the Waveshare 3.7\" ePaper display on Raspberry Pi Pico W, implementing the EPD_3in7 class with SPI communication, GPIO control, 1-bit and 4-gray display modes, partial refresh, LUT loading, and power management.",
+      "summary": "3.7 吋電子紙顯示器的核心驅動程式，封裝 EPD_3in7 類別，透過 SPI 介面提供 4 灰階與 1 灰階的初始化、清除、全畫面顯示及局部刷新功能。",
       "tags": [
         "service",
         "hardware-driver",
-        "singleton"
+        "display"
       ],
       "complexity": "complex",
-      "languageNotes": "MicroPython driver using machine.SPI and machine.Pin; manages two framebuffers (black and red channels) for 4-gray rendering by interleaving bit planes."
+      "languageNotes": "直接操作 MicroPython 的 machine.SPI、machine.Pin 與 framebuf，是典型的嵌入式硬體抽象層寫法。"
     },
     {
       "id": "class:Pico_ePaper_3_7.py:EPD_3in7",
@@ -1698,10 +1433,10 @@
         99,
         572
       ],
-      "summary": "Main ePaper display driver class encapsulating SPI initialization, hardware reset, command/data sending, LUT loading, 4-gray and 1-gray display modes, partial refresh, clear operations, and sleep/wake control for the 3.7-inch e-ink panel.",
+      "summary": "電子紙顯示模組的完整驅動類別，包含 SPI 通訊、LUT 載入、4 灰階與 1 灰階的初始化與顯示方法，以及低功耗 Sleep 模式。",
       "tags": [
         "hardware-driver",
-        "singleton",
+        "display",
         "service"
       ],
       "complexity": "complex"
@@ -1711,14 +1446,14 @@
       "type": "file",
       "name": "clock_big.py",
       "filePath": "writer/clock_big.py",
-      "summary": "Bitmapped font data module for a large monospaced clock-style font, encoding glyph pixel data as packed binary bytes and exposing font metadata accessors (`height`, `max_width`, `hmap`, `reverse`, `monospaced`, `get_ch`) compatible with the MicroPython Writer interface.",
+      "summary": "大型時鐘字型的點陣資料模組，以 MicroPython Writer 相容介面提供 height、max_width、get_ch 等字型 metadata 函式，用於在電子紙上顯示大尺寸數字與符號。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
       "complexity": "complex",
-      "languageNotes": "Font glyph data is stored as a flat Python bytes literal; get_ch() uses index tables and binary search helpers to locate per-character slice offsets."
+      "languageNotes": "字型資料以大型 bytes literal 儲存，get_ch 以二進位搜尋或索引方式查找字元位圖，是 MicroPython Writer 字型模組的標準格式。"
     },
     {
       "id": "function:writer/clock_big.py:get_ch",
@@ -1729,10 +1464,10 @@
         513,
         520
       ],
-      "summary": "Looks up and returns the bitmap data, height, and width for a given character from the clock_big font's packed glyph table.",
+      "summary": "根據輸入字元的 Unicode 碼點，從字型資料中查找並回傳對應字元的點陣資料、高度與寬度。",
       "tags": [
-        "utility",
-        "serialization"
+        "font-data",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -1741,13 +1476,13 @@
       "type": "file",
       "name": "courier20.py",
       "filePath": "writer/courier20.py",
-      "summary": "Bitmapped font data module for the 20px Courier monospaced font, storing packed glyph bitmaps and providing font metadata and the `get_ch` character lookup function for use with the Writer rendering layer.",
+      "summary": "Courier 20pt 等寬字型的點陣資料模組，提供 Writer 相容的字型 metadata 函式與 get_ch 字元查找功能，適用於電子紙文字顯示。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
-      "complexity": "complex"
+      "complexity": "moderate"
     },
     {
       "id": "function:writer/courier20.py:get_ch",
@@ -1758,10 +1493,10 @@
         301,
         307
       ],
-      "summary": "Returns the bitmap slice, height, and width for a given character by looking up its offset in the Courier20 glyph index table.",
+      "summary": "根據字元碼點查詢 Courier 20pt 字型資料，回傳字元的點陣 buffer、高度與寬度。",
       "tags": [
-        "utility",
-        "serialization"
+        "font-data",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -1770,11 +1505,11 @@
       "type": "file",
       "name": "font10.py",
       "filePath": "writer/font10.py",
-      "summary": "Bitmapped font data module for a 10px proportional font, encoding glyph bitmaps as packed bytes and exposing the standard Writer-compatible font interface including `get_ch` for character lookup.",
+      "summary": "10pt 通用字型的點陣資料模組，提供 Writer 相容介面的字型 metadata 函式與字元查找功能，用於小號文字顯示。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
       "complexity": "moderate"
     },
@@ -1787,10 +1522,10 @@
         222,
         228
       ],
-      "summary": "Returns the bitmap data, height, and width for a given character from the font10 glyph table using offset-based indexing.",
+      "summary": "根據字元碼點從 10pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
       "tags": [
-        "utility",
-        "serialization"
+        "font-data",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -1799,11 +1534,11 @@
       "type": "file",
       "name": "font6.py",
       "filePath": "writer/font6.py",
-      "summary": "Bitmapped font data module for a compact 6px font, providing packed glyph binary data and the standard Writer-compatible metadata and `get_ch` character accessor.",
+      "summary": "6pt 最小字型的點陣資料模組，提供 Writer 相容介面的字型 metadata 與字元查找，適用於電子紙上的小字顯示需求。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
       "complexity": "moderate"
     },
@@ -1816,10 +1551,10 @@
         169,
         175
       ],
-      "summary": "Returns the bitmap data, height, and width for a character from the font6 glyph table.",
+      "summary": "根據字元碼點從 6pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
       "tags": [
-        "utility",
-        "serialization"
+        "font-data",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -1828,13 +1563,13 @@
       "type": "file",
       "name": "freesans20.py",
       "filePath": "writer/freesans20.py",
-      "summary": "Bitmapped font data module for the 20px FreeSans proportional sans-serif font, encoding glyph pixel data and providing the Writer-compatible font interface including `get_ch` for character-level bitmap retrieval.",
+      "summary": "FreeSans 20pt 無襯線字型的點陣資料模組，提供 Writer 相容介面，常用於天氣、日曆等中等尺寸文字顯示。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
-      "complexity": "complex"
+      "complexity": "moderate"
     },
     {
       "id": "function:writer/freesans20.py:get_ch",
@@ -1845,10 +1580,10 @@
         280,
         287
       ],
-      "summary": "Returns the bitmap slice, height, and width for a given character from the freesans20 font's packed glyph data using inline offset arithmetic.",
+      "summary": "根據字元碼點從 FreeSans 20pt 字型資料中查找對應點陣，回傳 buffer、高度與寬度。",
       "tags": [
-        "utility",
-        "serialization"
+        "font-data",
+        "utility"
       ],
       "complexity": "simple"
     },
@@ -1857,14 +1592,14 @@
       "type": "file",
       "name": "noto12.py",
       "filePath": "writer/noto12.py",
-      "summary": "Bitmapped font data module for the 12px Noto proportional font, storing an extended glyph set with binary search support (`bs` helper) and the standard `get_ch` lookup, suitable for rendering multi-language characters on the ePaper display.",
+      "summary": "Noto 12pt 字型的點陣資料模組，支援較廣泛的 Unicode 字元範圍，使用二進位搜尋（bs）加速字元查找，適合國際化文字顯示。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
       "complexity": "complex",
-      "languageNotes": "Uses a binary-search helper function `bs` to locate characters in a sorted index table, enabling sparse Unicode coverage beyond contiguous ASCII."
+      "languageNotes": "內含自訂二進位搜尋函式 bs，用於在稀疏字元索引表中高效定位字元，比線性查找更節省 MicroPython 有限的運算資源。"
     },
     {
       "id": "function:writer/noto12.py:get_ch",
@@ -1875,10 +1610,26 @@
         451,
         456
       ],
-      "summary": "Looks up a character in the noto12 font index via binary search and returns the corresponding bitmap data and glyph dimensions.",
+      "summary": "使用二進位搜尋在 Noto 12pt 字型索引中定位字元，回傳對應點陣 buffer、高度與寬度。",
+      "tags": [
+        "font-data",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/noto12.py:bs",
+      "type": "function",
+      "name": "bs",
+      "filePath": "writer/noto12.py",
+      "lineRange": [
+        441,
+        449
+      ],
+      "summary": "針對字型索引陣列的二進位搜尋實作，在 MicroPython 中以低記憶體消耗快速定位目標值的位置。",
       "tags": [
         "utility",
-        "serialization"
+        "algorithm"
       ],
       "complexity": "simple"
     },
@@ -1887,14 +1638,14 @@
       "type": "file",
       "name": "noto20.py",
       "filePath": "writer/noto20.py",
-      "summary": "Bitmapped font data module for the 20px Noto proportional font with a large character set, using a binary-search index for sparse Unicode glyph lookup and providing the full Writer-compatible font interface.",
+      "summary": "Noto 20pt 字型的點陣資料模組，為專案中最大的字型檔，支援廣泛 Unicode 字元，含二進位搜尋查找機制，用於主要內容的中大尺寸顯示。",
       "tags": [
-        "data-model",
+        "font-data",
         "utility",
-        "type-definition"
+        "display"
       ],
       "complexity": "complex",
-      "languageNotes": "Largest font file in the project (843 lines); binary search over a packed index allows O(log n) character lookup without a dense table, saving RAM on MicroPython."
+      "languageNotes": "843 行的大型字型資料檔，核心邏輯與 noto12.py 結構相同，體積反映支援的字元集更廣。"
     },
     {
       "id": "function:writer/noto20.py:get_ch",
@@ -1905,10 +1656,26 @@
         837,
         842
       ],
-      "summary": "Returns the glyph bitmap, height, and width for a character from the noto20 font using binary search over the glyph index.",
+      "summary": "使用二進位搜尋在 Noto 20pt 字型索引中定位字元，回傳對應點陣 buffer、高度與寬度。",
+      "tags": [
+        "font-data",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:writer/noto20.py:bs",
+      "type": "function",
+      "name": "bs",
+      "filePath": "writer/noto20.py",
+      "lineRange": [
+        827,
+        835
+      ],
+      "summary": "針對字型索引陣列的二進位搜尋實作，功能與 noto12.py 的 bs 相同，用於在大型字元集中高效查找。",
       "tags": [
         "utility",
-        "serialization"
+        "algorithm"
       ],
       "complexity": "simple"
     },
@@ -1917,14 +1684,14 @@
       "type": "file",
       "name": "writer_fw_compatible.py",
       "filePath": "writer/old_versions/writer_fw_compatible.py",
-      "summary": "Legacy MicroPython Writer and CWriter class implementation retained for firmware compatibility reference, providing text rendering to a framebuffer device with word-wrapping, clipping, color support, and a fast native-code path via uctypes in CWriter.",
+      "summary": "Writer 文字渲染器的舊版韌體相容實作，包含 Writer（framebuf blit 渲染）、CWriter（彩色/快速模式）與 DisplayState 三個類別，以及韌體版本檢查函式。",
       "tags": [
         "utility",
-        "component",
-        "service"
+        "display",
+        "legacy"
       ],
       "complexity": "complex",
-      "languageNotes": "CWriter extends Writer with a fast rendering path using uctypes.bytearray_at and addressof for direct memory-mapped framebuffer access, requiring a specific MicroPython build with native emitters enabled."
+      "languageNotes": "相較於主版本，此版本加入了 buildcheck 函式用於驗證 MicroPython 韌體版本，並提供 CWriter 的快慢兩種渲染路徑以兼容不同硬體。"
     },
     {
       "id": "class:writer/old_versions/writer_fw_compatible.py:Writer",
@@ -1935,10 +1702,10 @@
         60,
         268
       ],
-      "summary": "Text rendering engine for MicroPython framebuffer devices that draws proportional or monospaced fonts with word-wrap, line clipping, tab support, and configurable foreground/background colors.",
+      "summary": "核心文字渲染類別，管理字型、畫布裝置與文字游標狀態，支援字串列印、自動換行、文字裁切與長度計算。",
       "tags": [
-        "component",
         "utility",
+        "display",
         "service"
       ],
       "complexity": "complex"
@@ -1952,10 +1719,11 @@
         271,
         342
       ],
-      "summary": "Optimized color Writer subclass that uses uctypes memory views for fast glyph blitting, falling back to a slow pixel-by-pixel path when native memory access is unavailable.",
+      "summary": "Writer 的彩色延伸版本，提供快速（bytearray_at 直接記憶體存取）與慢速（pixel 逐點）兩種字元渲染路徑，適配不同韌體能力。",
       "tags": [
-        "component",
-        "utility"
+        "utility",
+        "display",
+        "legacy"
       ],
       "complexity": "moderate"
     },
@@ -1964,10 +1732,11 @@
       "type": "file",
       "name": "writer_minimal.py",
       "filePath": "writer/old_versions/writer_minimal.py",
-      "summary": "Minimal legacy Writer class for MicroPython, providing bare-minimum font rendering to a framebuffer device with line wrapping and `blit`-based character drawing, kept for historical reference.",
+      "summary": "Writer 文字渲染器的最小化實作，僅保留核心的字元逐點繪製與換行邏輯，去除多餘功能以節省記憶體，適合資源極度受限的環境。",
       "tags": [
         "utility",
-        "component"
+        "display",
+        "legacy"
       ],
       "complexity": "moderate"
     },
@@ -1980,10 +1749,10 @@
         33,
         98
       ],
-      "summary": "Lightweight text renderer that writes bitmapped font characters to a MicroPython framebuffer, handling newlines, clipping, and glyph blitting with minimal overhead.",
+      "summary": "精簡版 Writer 類別，提供基本的文字游標管理、字元渲染與自動換行，為 MicroPython 低記憶體環境優化。",
       "tags": [
-        "component",
-        "utility"
+        "utility",
+        "display"
       ],
       "complexity": "moderate"
     }
@@ -1998,20 +1767,6 @@
     },
     {
       "source": "file:main.py",
-      "target": "function:main.py:main",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:main.py",
-      "target": "function:main.py:main",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:main.py:main",
       "target": "class:app.py:App",
       "type": "calls",
       "direction": "forward",
@@ -2099,7 +1854,7 @@
       "target": "class:app.py:App",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:app.py",
@@ -2109,64 +1864,50 @@
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
-      "target": "class:display/canvas.py:LandscapeCanvas",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
       "target": "class:scheduler.py:Scheduler",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
+      "target": "class:display/canvas.py:LandscapeCanvas",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app.py",
       "target": "function:weather.py:fetch",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
       "target": "function:ntp.py:sync",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
       "target": "function:display/screens/main_screen.py:render_full",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
       "target": "function:display/screens/main_screen.py:render_time",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "class:app.py:App",
+      "source": "file:app.py",
       "target": "function:display/screens/main_screen.py:render_calendar",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "class:app.py:App",
-      "target": "function:display/screens/guide.py:show",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "class:app.py:App",
-      "target": "function:display/screens/message.py:show",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
@@ -2183,7 +1924,7 @@
       "target": "class:display/canvas.py:LandscapeCanvas",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:display/canvas.py",
@@ -2197,14 +1938,7 @@
       "target": "function:display/icons.py:load_pbm",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/icons.py",
-      "target": "function:display/icons.py:exists",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:display/icons.py",
@@ -2214,13 +1948,6 @@
       "weight": 0.8
     },
     {
-      "source": "file:display/icons.py",
-      "target": "function:display/icons.py:exists",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
       "source": "file:display/screens/calendar.py",
       "target": "file:display/canvas.py",
       "type": "imports",
@@ -2232,7 +1959,7 @@
       "target": "function:display/screens/calendar.py:render",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:display/screens/calendar.py",
@@ -2247,20 +1974,6 @@
       "type": "imports",
       "direction": "forward",
       "weight": 0.7
-    },
-    {
-      "source": "file:display/screens/guide.py",
-      "target": "function:display/screens/guide.py:show",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/guide.py",
-      "target": "function:display/screens/guide.py:show",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
     },
     {
       "source": "file:display/screens/main_screen.py",
@@ -2288,35 +2001,7 @@
       "target": "function:display/screens/main_screen.py:render_full",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/main_screen.py",
-      "target": "function:display/screens/main_screen.py:render_time",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/main_screen.py",
-      "target": "function:display/screens/main_screen.py:render_calendar",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/main_screen.py",
-      "target": "function:display/screens/main_screen.py:_draw_weather",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/main_screen.py",
-      "target": "function:display/screens/main_screen.py:_draw_time",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:display/screens/main_screen.py",
@@ -2328,9 +2013,23 @@
     {
       "source": "file:display/screens/main_screen.py",
       "target": "function:display/screens/main_screen.py:render_time",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_time",
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:render_calendar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
     },
     {
       "source": "file:display/screens/main_screen.py",
@@ -2340,29 +2039,29 @@
       "weight": 0.8
     },
     {
-      "source": "function:display/screens/main_screen.py:render_full",
-      "target": "class:display/canvas.py:LandscapeCanvas",
-      "type": "calls",
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/main_screen.py:_draw_weather",
+      "type": "exports",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "function:display/screens/main_screen.py:render_full",
-      "target": "function:display/screens/calendar.py:render",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:display/screens/main_screen.py:_draw_weather",
+      "source": "file:display/screens/main_screen.py",
       "target": "function:display/icons.py:load_pbm",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
-      "source": "function:display/screens/main_screen.py:_draw_weather",
-      "target": "function:display/icons.py:exists",
+      "source": "file:display/screens/main_screen.py",
+      "target": "function:display/screens/calendar.py:render",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
@@ -2375,25 +2074,11 @@
       "weight": 0.7
     },
     {
-      "source": "file:display/screens/message.py",
-      "target": "function:display/screens/message.py:show",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/message.py",
-      "target": "function:display/screens/message.py:show",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
       "source": "file:ntp.py",
       "target": "function:ntp.py:sync",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:ntp.py",
@@ -2407,7 +2092,7 @@
       "target": "class:scheduler.py:Scheduler",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:scheduler.py",
@@ -2428,14 +2113,7 @@
       "target": "function:weather.py:fetch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:weather.py",
-      "target": "function:weather.py:rotate_if_needed",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:weather.py",
@@ -2447,6 +2125,41 @@
     {
       "source": "file:weather.py",
       "target": "function:weather.py:rotate_if_needed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:weather.py",
+      "target": "function:weather.py:rotate_if_needed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Callback",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Client",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Callback",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/client.py",
+      "target": "class:lib/mdns_client/client.py:Client",
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
@@ -2481,6 +2194,20 @@
     },
     {
       "source": "file:lib/mdns_client/parser.py",
+      "target": "class:lib/mdns_client/parser.py:PacketParser",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
+      "target": "class:lib/mdns_client/parser.py:PacketParser",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/parser.py",
       "target": "file:lib/mdns_client/structs.py",
       "type": "imports",
       "direction": "forward",
@@ -2495,6 +2222,20 @@
     },
     {
       "source": "file:lib/mdns_client/responder.py",
+      "target": "class:lib/mdns_client/responder.py:Responder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
+      "target": "class:lib/mdns_client/responder.py:Responder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/responder.py",
       "target": "file:lib/mdns_client/structs.py",
       "type": "imports",
       "direction": "forward",
@@ -2506,6 +2247,34 @@
       "type": "imports",
       "direction": "forward",
       "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/discovery.py",
+      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
     },
     {
       "source": "file:lib/mdns_client/service_discovery/discovery.py",
@@ -2537,10 +2306,38 @@
     },
     {
       "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
+      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
       "target": "file:lib/mdns_client/service_discovery/discovery.py",
       "type": "imports",
       "direction": "forward",
       "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_response.py",
+      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/service_discovery/service_response.py",
+      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
     },
     {
       "source": "file:lib/mdns_client/service_discovery/service_response.py",
@@ -2551,10 +2348,164 @@
     },
     {
       "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:SRVRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:DNSResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
+      "target": "class:lib/mdns_client/structs.py:SRVRecord",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/structs.py",
       "target": "file:lib/mdns_client/constants.py",
       "type": "imports",
       "direction": "forward",
       "weight": 0.7
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:end_index_of_name",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:pack_name",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:end_index_of_name",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:pack_name",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/mdns_client/util.py",
+      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "class:mdns.py:MDNSResponder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "function:mdns.py:_builtin_mdns_holds_port",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "function:mdns.py:_patch_bind_to_any",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:mdns.py",
+      "target": "class:mdns.py:MDNSResponder",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
     },
     {
       "source": "file:mdns.py",
@@ -2585,300 +2536,6 @@
       "weight": 0.7
     },
     {
-      "source": "file:lib/mdns_client/client.py",
-      "target": "class:lib/mdns_client/client.py:Callback",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/client.py",
-      "target": "class:lib/mdns_client/client.py:Client",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/client.py",
-      "target": "class:lib/mdns_client/client.py:Callback",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/client.py",
-      "target": "class:lib/mdns_client/client.py:Client",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/parser.py",
-      "target": "function:lib/mdns_client/parser.py:parse_packet",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/parser.py",
-      "target": "class:lib/mdns_client/parser.py:PacketParser",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/parser.py",
-      "target": "function:lib/mdns_client/parser.py:parse_packet",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/parser.py",
-      "target": "class:lib/mdns_client/parser.py:PacketParser",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/responder.py",
-      "target": "class:lib/mdns_client/responder.py:Responder",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/responder.py",
-      "target": "class:lib/mdns_client/responder.py:Responder",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceChange",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
-      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/service_monitor.py",
-      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/service_response.py",
-      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/service_response.py",
-      "target": "class:lib/mdns_client/service_discovery/service_response.py:ServiceResponse",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/txt_discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/txt_discovery.py:TXTServiceDiscovery",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/service_discovery/txt_discovery.py",
-      "target": "class:lib/mdns_client/service_discovery/txt_discovery.py:TXTServiceDiscovery",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSRecord",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSResponse",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:ServiceProtocol",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:SRVRecord",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSQuestion",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSRecord",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:DNSResponse",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:ServiceProtocol",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/structs.py",
-      "target": "class:lib/mdns_client/structs.py:SRVRecord",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:end_index_of_name",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:dotted_ip_to_bytes",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:bytes_to_name_list",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:end_index_of_name",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:lib/mdns_client/util.py",
-      "target": "function:lib/mdns_client/util.py:txt_data_to_bytes",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:mdns.py",
-      "target": "class:mdns.py:MDNSResponder",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:mdns.py",
-      "target": "function:mdns.py:_builtin_mdns_holds_port",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:mdns.py",
-      "target": "function:mdns.py:_patch_bind_to_any",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:mdns.py",
-      "target": "class:mdns.py:MDNSResponder",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
       "source": "class:mdns.py:MDNSResponder",
       "target": "class:lib/mdns_client/client.py:Client",
       "type": "depends_on",
@@ -2893,46 +2550,18 @@
       "weight": 0.6
     },
     {
-      "source": "class:lib/mdns_client/service_discovery/txt_discovery.py:TXTServiceDiscovery",
-      "target": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
-      "type": "inherits",
-      "direction": "forward",
-      "weight": 0.9
-    },
-    {
-      "source": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
-      "target": "class:lib/mdns_client/service_discovery/service_monitor.py:ServiceMonitor",
-      "type": "depends_on",
-      "direction": "forward",
-      "weight": 0.6
-    },
-    {
       "source": "class:lib/mdns_client/service_discovery/discovery.py:ServiceDiscovery",
       "target": "class:lib/mdns_client/client.py:Client",
       "type": "depends_on",
       "direction": "forward",
       "weight": 0.6
-    },
-    {
-      "source": "class:lib/mdns_client/responder.py:Responder",
-      "target": "class:lib/mdns_client/client.py:Client",
-      "type": "depends_on",
-      "direction": "forward",
-      "weight": 0.6
-    },
-    {
-      "source": "file:lib/mdns_client/client.py",
-      "target": "function:lib/mdns_client/parser.py:parse_packet",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
     },
     {
       "source": "file:writer/ssd1306_setup.py",
       "target": "function:writer/ssd1306_setup.py:setup",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/ssd1306_setup.py",
@@ -2940,20 +2569,34 @@
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:DisplayState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
     },
     {
       "source": "file:writer/writer.py",
       "target": "class:writer/writer.py:Writer",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer.py",
       "target": "class:writer/writer.py:CWriter",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
+    },
+    {
+      "source": "file:writer/writer.py",
+      "target": "class:writer/writer.py:DisplayState",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
     },
     {
       "source": "file:writer/writer.py",
@@ -2995,7 +2638,7 @@
       "target": "function:writer/writer_demo.py:test",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_demo.py",
@@ -3006,14 +2649,14 @@
     },
     {
       "source": "function:writer/writer_demo.py:test",
-      "target": "class:writer/writer.py:Writer",
+      "target": "function:writer/ssd1306_setup.py:setup",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
       "source": "function:writer/writer_demo.py:test",
-      "target": "function:writer/ssd1306_setup.py:setup",
+      "target": "class:writer/writer.py:Writer",
       "type": "calls",
       "direction": "forward",
       "weight": 0.8
@@ -3027,59 +2670,31 @@
     },
     {
       "source": "file:writer/writer_gui.py",
-      "target": "function:writer/writer_gui.py:_circle",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_gui.py",
-      "target": "function:writer/writer_gui.py:fillcircle",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_gui.py",
       "target": "class:writer/writer_gui.py:DObject",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_gui.py",
       "target": "class:writer/writer_gui.py:Label",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_gui.py",
       "target": "class:writer/writer_gui.py:Meter",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_gui.py",
       "target": "class:writer/writer_gui.py:LED",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_gui.py",
-      "target": "function:writer/writer_gui.py:_circle",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_gui.py",
-      "target": "function:writer/writer_gui.py:fillcircle",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
+      "weight": 1
     },
     {
       "source": "file:writer/writer_gui.py",
@@ -3131,7 +2746,7 @@
       "weight": 0.9
     },
     {
-      "source": "class:writer/writer_gui.py:DObject",
+      "source": "class:writer/writer_gui.py:Label",
       "target": "class:writer/writer.py:Writer",
       "type": "depends_on",
       "direction": "forward",
@@ -3146,77 +2761,28 @@
     },
     {
       "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:inverse",
+      "target": "function:writer/writer_tests.py:dual",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_tests.py",
       "target": "function:writer/writer_tests.py:scroll",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd_scroll",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_tests.py",
       "target": "function:writer/writer_tests.py:rjust",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:fonts",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:tabs",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd_tabs",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:wrap",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/writer_tests.py",
       "target": "function:writer/writer_tests.py:dual",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:inverse",
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
@@ -3230,120 +2796,8 @@
     },
     {
       "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd_scroll",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
       "target": "function:writer/writer_tests.py:rjust",
       "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:fonts",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:tabs",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:usd_tabs",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:wrap",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "file:writer/writer_tests.py",
-      "target": "function:writer/writer_tests.py:dual",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:inverse",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:scroll",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:usd_scroll",
-      "target": "class:writer/writer.py:CWriter",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:usd",
-      "target": "class:writer/writer.py:CWriter",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:rjust",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:fonts",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:tabs",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:usd_tabs",
-      "target": "class:writer/writer.py:CWriter",
-      "type": "calls",
-      "direction": "forward",
-      "weight": 0.8
-    },
-    {
-      "source": "function:writer/writer_tests.py:wrap",
-      "target": "class:writer/writer.py:Writer",
-      "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
@@ -3355,29 +2809,22 @@
       "weight": 0.8
     },
     {
-      "source": "file:config.py",
-      "target": "class:config.py:ConfigManager",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:config.py",
-      "target": "class:config.py:_Batch",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:config.py",
-      "target": "class:config.py:ConfigManager",
-      "type": "exports",
+      "source": "function:writer/writer_tests.py:dual",
+      "target": "class:writer/writer_gui.py:Label",
+      "type": "calls",
       "direction": "forward",
       "weight": 0.8
     },
     {
       "source": "file:config.py",
-      "target": "class:config.py:_Batch",
+      "target": "class:config.py:ConfigManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:config.py",
+      "target": "class:config.py:ConfigManager",
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
@@ -3398,52 +2845,31 @@
     },
     {
       "source": "file:web_server.py",
-      "target": "config:taiwan_cities.json",
-      "type": "imports",
-      "direction": "forward",
-      "weight": 0.7
-    },
-    {
-      "source": "file:web_server.py",
-      "target": "function:web_server.py:_url_decode",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:web_server.py",
-      "target": "function:web_server.py:_page",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:web_server.py",
       "target": "function:web_server.py:_wifi_page",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:web_server.py",
       "target": "function:web_server.py:_time_page",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:web_server.py",
       "target": "function:web_server.py:_weather_page",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:web_server.py",
       "target": "class:web_server.py:WebConfigServer",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:web_server.py",
@@ -3478,14 +2904,7 @@
       "target": "function:wifi_manager.py:rssi_to_level",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:wifi_manager.py",
-      "target": "class:wifi_manager.py:WiFiManager",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:wifi_manager.py",
@@ -3493,6 +2912,13 @@
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
+    },
+    {
+      "source": "file:wifi_manager.py",
+      "target": "class:wifi_manager.py:WiFiManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
     },
     {
       "source": "file:wifi_manager.py",
@@ -3509,6 +2935,13 @@
       "weight": 0.8
     },
     {
+      "source": "file:web_server.py",
+      "target": "file:app.py",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
       "source": "config:taiwan_cities.json",
       "target": "file:web_server.py",
       "type": "configures",
@@ -3517,24 +2950,10 @@
     },
     {
       "source": "file:display/screens/__init__.py",
-      "target": "function:display/screens/__init__.py:log_display",
-      "type": "contains",
-      "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/__init__.py",
       "target": "function:display/screens/__init__.py:make_writer",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
-    },
-    {
-      "source": "file:display/screens/__init__.py",
-      "target": "function:display/screens/__init__.py:log_display",
-      "type": "exports",
-      "direction": "forward",
-      "weight": 0.8
+      "weight": 1
     },
     {
       "source": "file:display/screens/__init__.py",
@@ -3548,7 +2967,7 @@
       "target": "class:Pico_ePaper_3_7.py:EPD_3in7",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:Pico_ePaper_3_7.py",
@@ -3562,7 +2981,7 @@
       "target": "function:writer/clock_big.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/clock_big.py",
@@ -3576,7 +2995,7 @@
       "target": "function:writer/courier20.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/courier20.py",
@@ -3590,7 +3009,7 @@
       "target": "function:writer/font10.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/font10.py",
@@ -3604,7 +3023,7 @@
       "target": "function:writer/font6.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/font6.py",
@@ -3618,7 +3037,7 @@
       "target": "function:writer/freesans20.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/freesans20.py",
@@ -3632,7 +3051,14 @@
       "target": "function:writer/noto12.py:get_ch",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
+    },
+    {
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:bs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
     },
     {
       "source": "file:writer/noto12.py",
@@ -3642,15 +3068,36 @@
       "weight": 0.8
     },
     {
-      "source": "file:writer/noto20.py",
-      "target": "function:writer/noto20.py:get_ch",
-      "type": "contains",
+      "source": "file:writer/noto12.py",
+      "target": "function:writer/noto12.py:bs",
+      "type": "exports",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 0.8
     },
     {
       "source": "file:writer/noto20.py",
       "target": "function:writer/noto20.py:get_ch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:bs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:get_ch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:writer/noto20.py",
+      "target": "function:writer/noto20.py:bs",
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
@@ -3660,14 +3107,14 @@
       "target": "class:writer/old_versions/writer_fw_compatible.py:Writer",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/old_versions/writer_fw_compatible.py",
       "target": "class:writer/old_versions/writer_fw_compatible.py:CWriter",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/old_versions/writer_fw_compatible.py",
@@ -3695,7 +3142,7 @@
       "target": "class:writer/old_versions/writer_minimal.py:Writer",
       "type": "contains",
       "direction": "forward",
-      "weight": 1.0
+      "weight": 1
     },
     {
       "source": "file:writer/old_versions/writer_minimal.py",
@@ -3703,13 +3150,20 @@
       "type": "exports",
       "direction": "forward",
       "weight": 0.8
+    },
+    {
+      "source": "file:web_server.py",
+      "target": "config:taiwan_cities.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
     }
   ],
   "layers": [
     {
-      "id": "layer:boot",
-      "name": "Boot & Application Entry",
-      "description": "MicroPython firmware boot entry point and the top-level App controller that wires all subsystems together and drives the async event loop on the Pico W.",
+      "id": "layer:entry",
+      "name": "入口層",
+      "description": "MicroPython 韌體啟動入口與應用程式主控制器，負責初始化 asyncio 事件循環、協調 Wi-Fi 狀態機、排程觸發與各子系統的生命週期管理。",
       "nodeIds": [
         "file:main.py",
         "file:app.py"
@@ -3717,30 +3171,21 @@
     },
     {
       "id": "layer:service",
-      "name": "Application Services",
-      "description": "Core runtime services managing WiFi connectivity, NTP time synchronisation, OpenWeatherMap data fetching, async event scheduling, HTTP configuration UI, mDNS advertisement, and persistent JSON config storage.",
+      "name": "應用服務層",
+      "description": "提供天氣擷取、WiFi 管理、HTTP 設定伺服器、NTP 時間同步、mDNS 廣播與非同步排程等核心業務服務，構成 Pico W 對外通訊與資料取得的主幹。",
       "nodeIds": [
-        "file:config.py",
         "file:weather.py",
-        "file:ntp.py",
-        "file:scheduler.py",
         "file:wifi_manager.py",
         "file:web_server.py",
-        "file:mdns.py"
-      ]
-    },
-    {
-      "id": "layer:hardware-driver",
-      "name": "Hardware Driver",
-      "description": "Low-level Waveshare 3.7\" ePaper SPI/GPIO driver providing 1-bit and 4-gray display modes, partial refresh, LUT loading, and power management directly against the RP2040 hardware.",
-      "nodeIds": [
-        "file:Pico_ePaper_3_7.py"
+        "file:ntp.py",
+        "file:mdns.py",
+        "file:scheduler.py"
       ]
     },
     {
       "id": "layer:display",
-      "name": "Display Layer",
-      "description": "ePaper framebuffer abstraction and all screen renderers \u2014 including the main composite screen, calendar grid, AP-mode setup guide, and status message screen \u2014 built on top of the LandscapeCanvas.",
+      "name": "顯示層",
+      "description": "封裝 ePaper 畫布抽象、字體與圖示資源載入，以及主畫面、日曆、引導畫面與訊息等各畫面的渲染邏輯，提供完整的 ePaper UI 渲染管線。",
       "nodeIds": [
         "file:display/__init__.py",
         "file:display/canvas.py",
@@ -3754,21 +3199,19 @@
       ]
     },
     {
-      "id": "layer:font-renderer",
-      "name": "Font Renderer",
-      "description": "Writer and CWriter core font-rendering library with GUI widget primitives and hardware setup helpers for drawing proportional and monospaced bitmap fonts onto MicroPython framebuffer-compatible displays.",
+      "id": "layer:hardware-driver",
+      "name": "硬體驅動層",
+      "description": "透過 SPI 直接操控 3.7 吋電子紙面板的底層驅動，實作 EPD_3in7 類別處理面板初始化、全刷、局部更新等硬體指令序列。",
       "nodeIds": [
-        "file:writer/writer.py",
-        "file:writer/writer_gui.py",
-        "file:writer/ssd1306_setup.py",
-        "file:writer/writer_demo.py"
+        "file:Pico_ePaper_3_7.py"
       ]
     },
     {
-      "id": "layer:font-data",
-      "name": "Font Data & Writer Dev Assets",
-      "description": "Static bitmapped font data modules (clock, Courier, FreeSans, Noto, and compact fonts), the Writer test suite, and legacy writer implementations kept for historical reference.",
+      "id": "layer:font-engine",
+      "name": "字型渲染引擎層",
+      "description": "包含 MicroPython Writer 核心渲染引擎、多種點陣字型資料（含 Unicode Noto 字型）、GUI 元件庫、示範腳本、測試套件及舊版相容實作，為 ePaper 顯示提供完整的文字渲染基礎設施。",
       "nodeIds": [
+        "file:writer/writer.py",
         "file:writer/clock_big.py",
         "file:writer/courier20.py",
         "file:writer/font10.py",
@@ -3776,6 +3219,9 @@
         "file:writer/freesans20.py",
         "file:writer/noto12.py",
         "file:writer/noto20.py",
+        "file:writer/ssd1306_setup.py",
+        "file:writer/writer_demo.py",
+        "file:writer/writer_gui.py",
         "file:writer/writer_tests.py",
         "file:writer/old_versions/writer_fw_compatible.py",
         "file:writer/old_versions/writer_minimal.py"
@@ -3783,8 +3229,8 @@
     },
     {
       "id": "layer:mdns-library",
-      "name": "mDNS Library",
-      "description": "Vendored third-party mDNS client library providing async UDP packet dispatch, DNS wire-format parsing and serialisation, service advertisement, and TTL-based service discovery for Pico W network presence.",
+      "name": "mDNS 函式庫層",
+      "description": "第三方 mDNS 協定函式庫，提供 UDP socket 查詢、DNS 封包解析、服務探索（PTR/TXT 查詢）、mDNS 響應器與服務監控等完整的 mDNS 協定棧實作。",
       "nodeIds": [
         "file:lib/mdns_client/__init__.py",
         "file:lib/mdns_client/client.py",
@@ -3802,144 +3248,157 @@
     },
     {
       "id": "layer:config",
-      "name": "Project Configuration",
-      "description": "Development environment configuration files including VS Code workspace settings, MicroPico extension marker, git ignore rules, and the static Taiwan city coordinate dataset used by the weather location selector.",
+      "name": "設定層",
+      "description": "專案設定管理核心，含 Flash 後端的 ConfigManager、台灣城市地理座標資料集，以及 VS Code 工作區、MicroPico 擴充功能標記與 Git 忽略規則等開發工具設定。",
       "nodeIds": [
+        "file:config.py",
+        "config:taiwan_cities.json",
         "config:.gitignore",
         "config:.micropico",
-        "config:E-Paper.code-workspace",
-        "config:taiwan_cities.json"
+        "config:E-Paper.code-workspace"
       ]
     }
   ],
   "tour": [
     {
       "order": 1,
-      "title": "Boot Entry Point",
-      "description": "When the Pico W powers on, MicroPython automatically executes main.py \u2014 there is no OS, no shell, and no user interaction. This file is deliberately minimal: it instantiates the App class and calls its async run loop. Understanding this file answers the first question: how does a microcontroller know what to do when the power switch flips?",
+      "title": "韌體啟動入口",
+      "description": "main.py 是整個韌體的起點，負責建立 App 實例並呼叫 asyncio.run() 啟動非同步事件循環。這個檔案極為精簡，體現了 MicroPython 嵌入式開發的慣例：入口點只做最少的初始化，把所有複雜邏輯委派給 App 類別。理解這裡是進入整個系統的第一步。",
       "nodeIds": [
         "file:main.py"
       ],
-      "languageLesson": "MicroPython's asyncio (uasyncio) is a cooperative multitasking runtime \u2014 not preemptive threads. All concurrent work must yield with 'await' so that other coroutines get CPU time. On a bare-metal microcontroller there is no OS scheduler to fall back on, so a blocked coroutine freezes everything."
+      "languageLesson": "MicroPython 的 asyncio.run() 與標準 CPython 相同，接受一個 coroutine 作為主任務入口。在 Pico W 的嵌入式環境中，asyncio 讓多個任務（如網路請求、螢幕刷新、排程器）能以協作式多工的方式並行執行，而不需要作業系統或執行緒。"
     },
     {
       "order": 2,
-      "title": "Application Controller",
-      "description": "app.py is the brain of the firmware. It defines the device's lifecycle as a state machine with four distinct phases: AP mode (first-run WiFi setup), STA connection (joining a known network), init (syncing time and weather), and the main run loop. With the highest fan-out in the entire codebase (10 direct imports), this file wires together every subsystem \u2014 WiFi, NTP, weather, scheduler, and all display screens. Reading it top-to-bottom reveals the full boot narrative.",
+      "title": "應用程式核心協調器",
+      "description": "app.py 是整個韌體的神經中樞，定義的 App 類別以狀態機模式管理 Wi-Fi 連線流程，並在連線成功後協調 NTP 同步、天氣資料更新、排程觸發與各畫面渲染。它的 fan-out 達到 7，直接依賴 config、canvas、main_screen、weather、wifi_manager、ntp、scheduler 等所有核心模組，是理解系統全貌的最關鍵檔案。",
       "nodeIds": [
         "file:app.py"
-      ]
+      ],
+      "languageLesson": "狀態機（State Machine）是嵌入式系統的常見設計模式。Wi-Fi 連線有多種狀態（未設定、連線中、已連線、連線失敗），用狀態機可清楚地描述每個狀態下應執行什麼動作、以及如何轉移到下一個狀態，避免複雜的巢狀 if/else 判斷。"
     },
     {
       "order": 3,
-      "title": "Configuration Persistence",
-      "description": "config.py is the most depended-upon module in the project (fan-in of 4: app, weather, wifi_manager, and web_server all import it). It provides a JSON-backed key-value store with section-based access so that WiFi credentials, timezone offset, and weather settings survive power cycles. It also exposes convenience helpers like 'is WiFi configured?' and 'is weather configured?' that drive the state machine in app.py.",
+      "title": "配置管理基礎",
+      "description": "config.py 是 fan-in 最高（4）的模組，被 app、weather、wifi_manager、web_server 共同依賴，是整個系統的設定中樞。它實作 ConfigManager 類別以 JSON 檔案為後端儲存設定，並設計了 _Batch context manager 允許批次寫入，以減少對 Flash 記憶體的寫入次數——這是嵌入式開發中保護 Flash 壽命的重要考量。",
       "nodeIds": [
         "file:config.py"
       ],
-      "languageLesson": "On a microcontroller, flash storage is the only persistent medium \u2014 there is no disk. MicroPython's json module writes to the filesystem on the Pico's internal flash. Batch write coalescing (collecting multiple changes before a single flush) is important because flash has limited write cycles and each write operation has measurable latency."
+      "languageLesson": "Flash 記憶體有寫入次數限制（通常 10 萬次左右），因此嵌入式系統中應盡量減少不必要的寫入。_Batch context manager（即 Python 的 with 語句）讓多筆設定變更可以累積後一次性寫入，而不是每改一個值就觸發一次 Flash 寫入。"
     },
     {
       "order": 4,
-      "title": "WiFi & First-Run Setup",
-      "description": "wifi_manager.py handles the two network modes the Pico W supports: AP (access point) mode, where the device itself becomes a hotspot for first-run configuration, and STA (station) mode, where it connects to an existing network. It also converts raw RSSI values into discrete signal-strength levels used by the display. This file, together with app.py's state machine, is what makes the device self-configuring out of the box.",
-      "nodeIds": [
-        "file:wifi_manager.py",
-        "file:web_server.py"
-      ],
-      "languageLesson": "Embedded devices often use a 'captive portal' pattern for first-run setup: the device starts in AP mode, the user connects to it with a phone or laptop, and a lightweight HTTP server (web_server.py here) serves a configuration form. Once credentials are saved, the device reboots into STA mode. This avoids the need to hardcode secrets into firmware."
-    },
-    {
-      "order": 5,
-      "title": "Weather Location Data",
-      "description": "taiwan_cities.json is a static dataset of Taiwan city coordinates used by web_server.py to populate the weather location selector. It is the only data file in the project and illustrates a common embedded pattern: bundle reference data as a static asset rather than fetching it at runtime to conserve bandwidth and memory. The city chosen here feeds directly into weather.py's API calls.",
+      "title": "靜態地理資料",
+      "description": "taiwan_cities.json 儲存台灣 22 縣市的地理座標，是天氣 API 查詢的靜態資料來源。使用者在網頁介面選擇城市後，系統從這份資料取得對應的經緯度，再傳送給 Open-Meteo API。這個設計讓地理資料完全離線可用，不需要額外的地理編碼 API 呼叫，也降低了嵌入式裝置的網路負擔。",
       "nodeIds": [
         "config:taiwan_cities.json"
       ]
     },
     {
-      "order": 6,
-      "title": "Time Sync with NTP",
-      "description": "ntp.py provides the sync() function that contacts an NTP server over UDP, applies a configurable timezone offset (read from config.py), and sets the hardware RTC. This is essential because the Pico W has no battery-backed clock \u2014 every boot starts at epoch zero. Accurate time is a prerequisite for the scheduler, the calendar display, and timestamped weather logs.",
+      "order": 5,
+      "title": "WiFi 雙模管理",
+      "description": "wifi_manager.py 處理 Pico W 的 AP 模式（熱點）與 STA 模式（連接到既有 Wi-Fi）雙模切換。首次設定時裝置以 AP 模式啟動，使用者連入後透過網頁介面輸入 Wi-Fi 憑證；完成設定後切換為 STA 模式連上家用網路。模組還負責網路掃描與 RSSI 訊號強度的數值轉換，讓主畫面能顯示 Wi-Fi 訊號圖示。",
       "nodeIds": [
-        "file:ntp.py"
+        "file:wifi_manager.py"
       ],
-      "languageLesson": "NTP (Network Time Protocol) works by sending a UDP packet to a time server and measuring the round-trip delay. MicroPython's ntptime module handles this, but the hardware RTC must be set manually afterward using machine.RTC().datetime(). Timezone handling is done purely by adding an offset in seconds \u2014 there is no timezone database on a microcontroller."
+      "languageLesson": "RSSI（Received Signal Strength Indicator）是無線訊號強度指標，通常是一個負數（如 -50 dBm 表示訊號強，-90 dBm 表示訊號弱）。將 RSSI 轉換為 0-4 的格數圖示需要定義幾個閾值區間，這讓顯示邏輯與硬體測量值解耦。"
+    },
+    {
+      "order": 6,
+      "title": "網頁設定伺服器",
+      "description": "web_server.py 在 Pico W 的 AP 模式下啟動一個 asyncio HTTP 伺服器，讓使用者透過手機瀏覽器設定 Wi-Fi 憑證、時區與天氣城市。伺服器在 MicroPython 環境中直接生成 HTML 字串回傳，不依賴任何模板引擎，展示了嵌入式環境下極度精簡的 Web 服務實作方式。它依賴 config.py 讀寫設定、wifi_manager.py 觸發網路掃描。",
+      "nodeIds": [
+        "file:web_server.py"
+      ],
+      "languageLesson": "asyncio 的協作式多工讓 HTTP 伺服器與其他任務（如螢幕刷新）可以共用同一個事件循環，而不需要執行緒。當伺服器等待 socket 資料時（await），事件循環可以切換去執行其他 coroutine，使裝置在提供設定介面的同時仍能繼續更新顯示。"
     },
     {
       "order": 7,
-      "title": "Event Scheduler",
-      "description": "scheduler.py is the heartbeat of the running firmware. It reads the hardware RTC every second and fires named async events \u2014 'minute', 'hour', 'day', 'weather-tick', 'ntp-tick' \u2014 at the appropriate intervals. app.py subscribes to these events to trigger display refreshes, weather fetches, and NTP re-syncs. This event-driven design keeps all subsystems decoupled: the scheduler knows nothing about weather or display logic.",
+      "title": "NTP 時間同步",
+      "description": "ntp.py 負責在 Wi-Fi 連線後透過 ntptime 函式庫校正 Pico W 的 RTC（即時時鐘）。由於 Pico W 沒有獨立的計時電池，每次開機後時鐘都會重設，因此 NTP 同步是顯示正確時間與觸發排程的必要前置步驟。模組實作了重試機制，以應對網路不穩定的情況。",
       "nodeIds": [
-        "file:scheduler.py"
-      ],
-      "languageLesson": "This is an observer pattern implemented with async callbacks in MicroPython. Rather than each subsystem having its own polling loop, a single scheduler loop fires events that registered handlers await. This cooperative approach avoids the need for threading and keeps RAM usage predictable \u2014 critical on a device with only 264KB of RAM."
+        "file:ntp.py"
+      ]
     },
     {
       "order": 8,
-      "title": "Weather Fetching",
-      "description": "weather.py fetches current conditions and forecasts from the OpenWeatherMap API using coordinates provided by the user during setup. It persists responses to a rotating log file so that a stale reading is still available after a network failure. The 'weather-tick' event from scheduler.py triggers periodic fetches, and app.py reads the latest log entry to update the display.",
+      "title": "非同步排程器",
+      "description": "scheduler.py 提供 Scheduler 類別，讓 app.py 能以宣告式的方式定義週期性任務，例如「每小時更新天氣」、「每分鐘刷新時鐘顯示」。排程器基於 asyncio 實作，任務到期時透過 coroutine 機制觸發，避免了傳統的阻塞式 time.sleep()。這個設計讓多個定時任務能在單一事件循環中優雅共存。",
+      "nodeIds": [
+        "file:scheduler.py"
+      ],
+      "languageLesson": "嵌入式系統中的排程有兩種常見方式：硬體計時器中斷（精準但複雜）和軟體排程（以 asyncio 的 asyncio.sleep() 實作）。MicroPython 的 asyncio 排程精度通常在毫秒等級，對於天氣更新和時鐘顯示等任務已經足夠。"
+    },
+    {
+      "order": 9,
+      "title": "天氣資料擷取",
+      "description": "weather.py 向 Open-Meteo 免費天氣 API 發出 HTTP 請求，取得指定座標的天氣預報資料（氣溫、天氣代碼等），解析 JSON 回應後寫入日誌供主畫面渲染使用。它依賴 config.py 讀取使用者選擇的城市座標，形成「設定 → 天氣擷取 → 畫面渲染」的完整資料流。",
       "nodeIds": [
         "file:weather.py"
       ]
     },
     {
-      "order": 9,
-      "title": "ePaper Hardware Driver",
-      "description": "Pico_ePaper_3_7.py is the lowest-level file in the project. It implements the EPD_3in7 class, communicating with the Waveshare display over SPI and GPIO pins. It supports two rendering modes \u2014 1-bit (black/white, fast) and 4-gray (full quality, slow) \u2014 and handles the display's unusual power-up and refresh sequences. Everything in the display layer above depends on this driver, but it knows nothing about the application above it.",
+      "order": 10,
+      "title": "ePaper 底層硬體驅動",
+      "description": "Pico_ePaper_3_7.py 實作 EPD_3in7 類別，透過 SPI 協定直接操控 3.7 吋電子紙面板的暫存器，處理初始化序列、全螢幕刷新（需要數秒的電子墨水切換過程）與局部更新（僅刷新指定區域以加速顯示）。這是整個顯示系統的最底層，上層的 canvas 和 screens 模組都最終透過這個類別寫入像素資料。",
       "nodeIds": [
         "file:Pico_ePaper_3_7.py"
       ],
-      "languageLesson": "ePaper displays use an electrophoretic ink technology: charged particles physically migrate through a fluid when voltage is applied. A full refresh takes 2-4 seconds and produces a characteristic 'flash'. Partial refresh is faster (~0.5s) but only safe for small changed regions \u2014 overusing it causes ghosting artifacts. This driver exposes both modes so higher layers can choose the right tradeoff."
-    },
-    {
-      "order": 10,
-      "title": "Canvas Abstraction",
-      "description": "display/canvas.py sits directly above the hardware driver and is the most imported module in the display layer (fan-in of 6). LandscapeCanvas wraps the EPD framebuffer and handles the coordinate transposition needed because the physical display is wired in portrait orientation but the UI is designed in landscape. It also provides the partial/full refresh API and PBM image blitting, giving all screen renderers a stable drawing surface.",
-      "nodeIds": [
-        "file:display/canvas.py",
-        "file:display/fonts.py",
-        "file:display/icons.py"
-      ]
+      "languageLesson": "電子紙（ePaper / e-Ink）的顯示原理與 LCD 不同：它透過電場驅動帶電微膠囊中的黑白粒子移動來改變畫面，因此全螢幕刷新需要數秒、且刷新時會出現黑白閃爍。局部更新（partial update）跳過完整的粒子復位步驟，可在數百毫秒內更新小區域，但長期只做局部更新會導致殘影累積。"
     },
     {
       "order": 11,
-      "title": "Font Rendering Engine",
-      "description": "writer/writer.py is the vendored Writer/CWriter library \u2014 the second most-imported module (fan-in of 4). It renders proportional bitmap fonts onto MicroPython framebuffers by iterating over glyph bitmaps stored in companion font data modules. display/screens/__init__.py's make_writer factory ties Writer to the LandscapeCanvas so that all screens can render text consistently.",
+      "title": "畫布抽象層",
+      "description": "display/canvas.py 的 LandscapeCanvas 類別在底層 EPD_3in7 驅動之上提供橫向（landscape）繪圖座標系，處理像素轉置——因為電子紙驅動原生是直向的，而本裝置以橫向使用。它封裝了 PBM 格式圖示繪製、局部與全螢幕刷新的呼叫，讓上層畫面模組能以邏輯座標（x, y 從左上角計算）而不是原生驅動座標來繪製內容。",
       "nodeIds": [
-        "file:writer/writer.py",
-        "file:display/screens/__init__.py"
-      ],
-      "languageLesson": "MicroPython's framebuf module provides pixel-level drawing but has no text rendering beyond a tiny built-in 8x8 font. The Writer library fills this gap by storing font glyphs as Python byte arrays \u2014 no binary file loading needed, which matters because the Pico's filesystem is slow. Fonts are lazy-loaded (display/fonts.py) to avoid importing all glyph data at boot."
-    },
-    {
-      "order": 12,
-      "title": "Main Screen Compositor",
-      "description": "display/screens/main_screen.py is the primary visual output of the entire project. It composites four information panels onto the canvas: the current time (using the large clock font), today's weather conditions with icons, WiFi signal strength, and a monthly calendar. It uses partial refresh to update only the region of the display that changed \u2014 for example, refreshing only the clock area every minute rather than the full screen.",
-      "nodeIds": [
-        "file:display/screens/main_screen.py",
-        "file:display/screens/calendar.py"
+        "file:display/canvas.py"
       ]
     },
     {
-      "order": 13,
-      "title": "Status & Setup Screens",
-      "description": "The remaining screen renderers handle the device's non-running states. guide.py renders the WiFi AP setup instructions shown during first boot, giving the user the SSID and URL needed to configure the device. message.py renders a centered status text used for transient states like 'Connecting...' or error messages. Together with main_screen.py, these three files cover all visual states the user will encounter.",
+      "order": 12,
+      "title": "字型引擎與字型資料",
+      "description": "writer/writer.py 實作 Writer 與 CWriter 類別，負責將點陣字型資料渲染為 ePaper 像素，支援 Unicode 字元集的二進位搜尋查表。搭配三份字型資料模組：clock_big.py（大字時鐘）、noto20.py（20pt 中文與符號）、noto12.py（12pt 標籤文字），讓主畫面能以不同字體大小呈現時間、天氣資訊和日曆。display/fonts.py 則透過安全動態匯入，將這些字型常數暴露給繪圖層使用。",
       "nodeIds": [
+        "file:writer/writer.py",
+        "file:writer/clock_big.py",
+        "file:writer/noto20.py",
+        "file:writer/noto12.py",
+        "file:display/fonts.py"
+      ],
+      "languageLesson": "點陣字型（bitmap font）將每個字符儲存為像素矩陣的二進位資料，MicroPython Writer 使用 bytes literal 儲存這些資料。支援大型 Unicode 字元集（如中文）需要對字符索引做二進位搜尋（binary search）而非直接陣列索引，以節省記憶體——這是在 256KB RAM 的微控制器上支援中文顯示的關鍵優化。"
+    },
+    {
+      "order": 13,
+      "title": "圖示資源管理",
+      "description": "display/icons.py 負責從 Flash 讀取 PBM 格式的點陣圖示檔（如天氣圖示），並實作 LRU（Least Recently Used）快取機制，避免每次繪圖都重新讀取 Flash。PBM（Portable Bitmap）是純文字格式的點陣圖，易於在嵌入式工具鏈中生成與解析。LRU 快取在 RAM 有限的 Pico W 上平衡了讀取速度與記憶體佔用。",
+      "nodeIds": [
+        "file:display/icons.py"
+      ],
+      "languageLesson": "LRU 快取保留最近使用的 N 個項目，淘汰最久未使用的。在嵌入式系統中，Flash 讀取速度遠低於 RAM 存取，因此快取常用資源（如天氣圖示）能顯著減少畫面渲染時間。Python 標準庫的 functools.lru_cache 在 MicroPython 中不可用，需要手動實作。"
+    },
+    {
+      "order": 14,
+      "title": "主畫面與輔助畫面",
+      "description": "display/screens/main_screen.py 是使用者最常看到的畫面，整合時間、天氣圖示與數值、Wi-Fi 訊號強度、月曆四個區塊，提供 render_full（全螢幕刷新）、render_time（局部更新時鐘）等函式。搭配 calendar.py（月份日曆格）、guide.py（AP 模式引導畫面，顯示 SSID 與設定 URL）和 message.py（過渡提示文字），形成完整的畫面系統，對應裝置在不同狀態下的顯示需求。",
+      "nodeIds": [
+        "file:display/screens/main_screen.py",
+        "file:display/screens/calendar.py",
         "file:display/screens/guide.py",
         "file:display/screens/message.py"
       ]
     },
     {
-      "order": 14,
-      "title": "mDNS Network Presence",
-      "description": "mdns.py wraps the vendored lib/mdns_client library behind a lifecycle-managed MDNSResponder facade. Once connected to WiFi, it advertises the device on the local network under a human-readable name (e.g., pico-epaper.local) so users can access the web configuration UI without knowing the device's IP address. The facade pattern exists because the Pico W's WiFi driver and the mDNS UDP socket have a known conflict that requires careful teardown sequencing.",
+      "order": 15,
+      "title": "mDNS 網路服務發現",
+      "description": "mdns.py 整合 lib/mdns_client 函式庫，讓 Pico W 在連上區域網路後以 mDNS 協定廣播自身服務，使用者可直接用 pico.local 等主機名稱存取設定頁面，而不需要知道裝置的動態 IP 位址。lib/mdns_client 是完整的 mDNS 協定棧實作，包含 client.py（UDP socket 與封包解析）、responder.py（回應多播查詢）和 structs.py（DNS 資料結構）三個子模組。",
       "nodeIds": [
         "file:mdns.py",
         "file:lib/mdns_client/client.py",
-        "file:lib/mdns_client/responder.py"
+        "file:lib/mdns_client/responder.py",
+        "file:lib/mdns_client/structs.py"
       ],
-      "languageLesson": "mDNS (Multicast DNS) allows devices to resolve hostnames like 'device.local' without a DNS server. The device multicasts its own A record answer to the 224.0.0.251 group address. On the Pico W, the CYW43 WiFi chip processes multicast at the hardware level, which can conflict with user-space UDP sockets \u2014 hence the need for careful socket lifecycle management in mdns.py."
+      "languageLesson": "mDNS（multicast DNS，RFC 6762）讓裝置在無需 DNS 伺服器的情況下，透過 224.0.0.251 多播地址廣播並解析 .local 網域名稱。它使用標準的 DNS 封包格式（UDP port 5353），因此只需實作 UDP socket 收發與 DNS 封包解析，即可讓裝置在區域網路自動被發現，大幅改善零設定（zero-configuration）的使用者體驗。"
     }
   ]
 }

@@ -1,0 +1,51 @@
+{
+  "nodes": [
+    {
+      "id": "config:.gitignore",
+      "type": "config",
+      "name": ".gitignore",
+      "filePath": ".gitignore",
+      "summary": "Git 忽略規則設定，同時標註 MicroPico 上傳至 Pico 時應排除的開發環境工具、說明文件、build 腳本及 Pico 端執行時產生的動態檔案（config.json、weather.log）。",
+      "tags": ["configuration", "版本控制", "開發環境", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.micropico",
+      "type": "config",
+      "name": ".micropico",
+      "filePath": ".micropico",
+      "summary": "MicroPico VSCode 擴充功能的專案識別標記檔，讓工具辨識此資料夾為 MicroPython Pico 專案根目錄。",
+      "tags": ["configuration", "micropico", "開發環境", "標記檔"],
+      "complexity": "simple",
+      "languageNotes": "此檔案僅作為專案識別用途，內容固定為 info 字串，無實際邏輯設定。"
+    },
+    {
+      "id": "config:E-Paper.code-workspace",
+      "type": "config",
+      "name": "E-Paper.code-workspace",
+      "filePath": "E-Paper.code-workspace",
+      "summary": "VS Code 多資料夾工作區設定，同時掛載本地專案目錄與 Pico 遠端工作區（pico: URI），並指定使用 Pylance 作為 Python 語言伺服器。",
+      "tags": ["configuration", "vscode", "開發環境", "workspace"],
+      "complexity": "simple",
+      "languageNotes": "透過 pico: URI scheme 掛載 MicroPico 遠端工作區，讓開發者能在同一個 VS Code 視窗中瀏覽本地與 Pico 上的檔案系統。"
+    },
+    {
+      "id": "config:taiwan_cities.json",
+      "type": "config",
+      "name": "taiwan_cities.json",
+      "filePath": "taiwan_cities.json",
+      "summary": "台灣 22 個縣市的地理座標靜態資料集，每筆記錄包含縣市名稱、緯度與經度，供天氣查詢功能透過 Open-Meteo API 取得對應地點的氣象資料。",
+      "tags": ["data", "地理座標", "天氣功能", "靜態資料"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:taiwan_cities.json",
+      "target": "file:web_server.py",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -1,0 +1,517 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:main.py",
+      "score": 6,
+      "name": "main.py",
+      "summary": "MicroPython 韌體入口點，初始化 App 實例並透過 asyncio.run 啟動非同步事件循環。"
+    },
+    {
+      "id": "file:app.py",
+      "score": 5,
+      "name": "app.py",
+      "summary": "應用程式核心，定義 App 類別管理 Wi-Fi 連線狀態機、排程觸發、NTP 同步、天氣資料更新，以及各畫面的渲染協調邏輯。"
+    },
+    {
+      "id": "file:web_server.py",
+      "score": 3,
+      "name": "web_server.py",
+      "summary": "asyncio HTTP 配置伺服器，提供 Wi-Fi、時間與天氣設定的網頁介面，含完整 HTML 頁面生成邏輯。"
+    },
+    {
+      "id": "file:mdns.py",
+      "score": 3,
+      "name": "mdns.py",
+      "summary": "mDNS 廣播管理模組，整合 mDNS 客戶端庫，廣播 Pico W 的服務資訊使其可在本機網路被發現。"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "score": 2,
+      "name": "wifi_manager.py",
+      "summary": "WiFi 管理模組，處理 AP 與 STA 雙模切換，提供網路掃描、連線狀態管理與 RSSI 訊號強度轉換。"
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:config.py",
+      "fanIn": 4,
+      "name": "config.py"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "fanIn": 2,
+      "name": "wifi_manager.py"
+    },
+    {
+      "id": "file:weather.py",
+      "fanIn": 2,
+      "name": "weather.py"
+    },
+    {
+      "id": "file:display/canvas.py",
+      "fanIn": 2,
+      "name": "canvas.py"
+    },
+    {
+      "id": "file:app.py",
+      "fanIn": 1,
+      "name": "app.py"
+    },
+    {
+      "id": "file:ntp.py",
+      "fanIn": 1,
+      "name": "ntp.py"
+    },
+    {
+      "id": "file:scheduler.py",
+      "fanIn": 1,
+      "name": "scheduler.py"
+    },
+    {
+      "id": "file:display/fonts.py",
+      "fanIn": 1,
+      "name": "fonts.py"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "fanIn": 1,
+      "name": "main_screen.py"
+    },
+    {
+      "id": "file:lib/mdns_client/client.py",
+      "fanIn": 1,
+      "name": "client.py"
+    },
+    {
+      "id": "file:main.py",
+      "fanIn": 0,
+      "name": "main.py"
+    },
+    {
+      "id": "file:web_server.py",
+      "fanIn": 0,
+      "name": "web_server.py"
+    },
+    {
+      "id": "file:mdns.py",
+      "fanIn": 0,
+      "name": "mdns.py"
+    },
+    {
+      "id": "file:Pico_ePaper_3_7.py",
+      "fanIn": 0,
+      "name": "Pico_ePaper_3_7.py"
+    },
+    {
+      "id": "file:display/__init__.py",
+      "fanIn": 0,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:display/icons.py",
+      "fanIn": 0,
+      "name": "icons.py"
+    },
+    {
+      "id": "file:display/screens/__init__.py",
+      "fanIn": 0,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "fanIn": 0,
+      "name": "calendar.py"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "fanIn": 0,
+      "name": "guide.py"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "fanIn": 0,
+      "name": "message.py"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:app.py",
+      "fanOut": 7,
+      "name": "app.py"
+    },
+    {
+      "id": "file:web_server.py",
+      "fanOut": 2,
+      "name": "web_server.py"
+    },
+    {
+      "id": "file:display/screens/main_screen.py",
+      "fanOut": 2,
+      "name": "main_screen.py"
+    },
+    {
+      "id": "file:main.py",
+      "fanOut": 1,
+      "name": "main.py"
+    },
+    {
+      "id": "file:wifi_manager.py",
+      "fanOut": 1,
+      "name": "wifi_manager.py"
+    },
+    {
+      "id": "file:weather.py",
+      "fanOut": 1,
+      "name": "weather.py"
+    },
+    {
+      "id": "file:mdns.py",
+      "fanOut": 1,
+      "name": "mdns.py"
+    },
+    {
+      "id": "file:display/canvas.py",
+      "fanOut": 1,
+      "name": "canvas.py"
+    },
+    {
+      "id": "file:config.py",
+      "fanOut": 0,
+      "name": "config.py"
+    },
+    {
+      "id": "file:ntp.py",
+      "fanOut": 0,
+      "name": "ntp.py"
+    },
+    {
+      "id": "file:scheduler.py",
+      "fanOut": 0,
+      "name": "scheduler.py"
+    },
+    {
+      "id": "file:Pico_ePaper_3_7.py",
+      "fanOut": 0,
+      "name": "Pico_ePaper_3_7.py"
+    },
+    {
+      "id": "file:display/__init__.py",
+      "fanOut": 0,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:display/fonts.py",
+      "fanOut": 0,
+      "name": "fonts.py"
+    },
+    {
+      "id": "file:display/icons.py",
+      "fanOut": 0,
+      "name": "icons.py"
+    },
+    {
+      "id": "file:display/screens/__init__.py",
+      "fanOut": 0,
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:display/screens/calendar.py",
+      "fanOut": 0,
+      "name": "calendar.py"
+    },
+    {
+      "id": "file:display/screens/guide.py",
+      "fanOut": 0,
+      "name": "guide.py"
+    },
+    {
+      "id": "file:display/screens/message.py",
+      "fanOut": 0,
+      "name": "message.py"
+    },
+    {
+      "id": "file:writer/writer.py",
+      "fanOut": 0,
+      "name": "writer.py"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:main.py",
+    "order": [
+      "file:main.py",
+      "file:app.py",
+      "file:config.py",
+      "file:display/canvas.py",
+      "file:display/screens/main_screen.py",
+      "file:weather.py",
+      "file:wifi_manager.py",
+      "file:ntp.py",
+      "file:scheduler.py",
+      "file:display/fonts.py"
+    ],
+    "depthMap": {
+      "file:main.py": 0,
+      "file:app.py": 1,
+      "file:config.py": 2,
+      "file:display/canvas.py": 2,
+      "file:display/screens/main_screen.py": 2,
+      "file:weather.py": 2,
+      "file:wifi_manager.py": 2,
+      "file:ntp.py": 2,
+      "file:scheduler.py": 2,
+      "file:display/fonts.py": 3
+    },
+    "byDepth": {
+      "0": [
+        "file:main.py"
+      ],
+      "1": [
+        "file:app.py"
+      ],
+      "2": [
+        "file:config.py",
+        "file:display/canvas.py",
+        "file:display/screens/main_screen.py",
+        "file:weather.py",
+        "file:wifi_manager.py",
+        "file:ntp.py",
+        "file:scheduler.py"
+      ],
+      "3": [
+        "file:display/fonts.py"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [],
+    "infrastructure": [],
+    "data": [],
+    "config": [
+      {
+        "id": "config:taiwan_cities.json",
+        "name": "taiwan_cities.json",
+        "type": "config",
+        "summary": "台灣 22 縣市地理座標靜態資料集，供天氣 API 查詢使用。"
+      },
+      {
+        "id": "config:.gitignore",
+        "name": ".gitignore",
+        "type": "config",
+        "summary": "Git 版本控制忽略規則。"
+      },
+      {
+        "id": "config:.micropico",
+        "name": ".micropico",
+        "type": "config",
+        "summary": "MicroPico VSCode 擴充功能的專案識別標記檔。"
+      },
+      {
+        "id": "config:E-Paper.code-workspace",
+        "name": "E-Paper.code-workspace",
+        "type": "config",
+        "summary": "VS Code 多資料夾工作區設定。"
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 7,
+    "list": [
+      {
+        "id": "layer:entry",
+        "name": "入口層",
+        "description": "韌體啟動與應用主控制器"
+      },
+      {
+        "id": "layer:service",
+        "name": "應用服務層",
+        "description": "網路服務、天氣擷取、排程、mDNS 等應用服務"
+      },
+      {
+        "id": "layer:display",
+        "name": "顯示層",
+        "description": "ePaper 畫面渲染、字體、圖示與各畫面模組"
+      },
+      {
+        "id": "layer:hardware-driver",
+        "name": "硬體驅動層",
+        "description": "底層 SPI 電子紙硬體驅動"
+      },
+      {
+        "id": "layer:font-engine",
+        "name": "字型渲染引擎層",
+        "description": "Writer 字型渲染引擎與字型資料"
+      },
+      {
+        "id": "layer:mdns-library",
+        "name": "mDNS 函式庫層",
+        "description": "完整 mDNS 協定棧實作"
+      },
+      {
+        "id": "layer:config",
+        "name": "設定層",
+        "description": "配置管理與靜態資料"
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:main.py": {
+      "name": "main.py",
+      "type": "file",
+      "summary": "MicroPython 韌體入口點，初始化 App 實例並透過 asyncio.run 啟動非同步事件循環。"
+    },
+    "file:app.py": {
+      "name": "app.py",
+      "type": "file",
+      "summary": "應用程式核心，定義 App 類別管理 Wi-Fi 連線狀態機、排程觸發、NTP 同步、天氣資料更新，以及各畫面的渲染協調邏輯。"
+    },
+    "file:config.py": {
+      "name": "config.py",
+      "type": "file",
+      "summary": "配置管理模組，實作 JSON 檔案後端的 ConfigManager，透過 _Batch context manager 批次寫入以降低 Flash 寫入次數。"
+    },
+    "file:wifi_manager.py": {
+      "name": "wifi_manager.py",
+      "type": "file",
+      "summary": "WiFi 管理模組，處理 AP 與 STA 雙模切換，提供網路掃描、連線狀態管理與 RSSI 訊號強度轉換。"
+    },
+    "file:web_server.py": {
+      "name": "web_server.py",
+      "type": "file",
+      "summary": "asyncio HTTP 配置伺服器，提供 Wi-Fi、時間與天氣設定的網頁介面，含完整 HTML 頁面生成邏輯。"
+    },
+    "file:weather.py": {
+      "name": "weather.py",
+      "type": "file",
+      "summary": "天氣資料擷取模組，透過 HTTP 請求 Open-Meteo API 取得天氣預報，解析結果並寫入日誌。"
+    },
+    "file:ntp.py": {
+      "name": "ntp.py",
+      "type": "file",
+      "summary": "NTP 時間同步模組，透過 ntptime 庫校正 Pico W 的 RTC，並提供重試機制。"
+    },
+    "file:scheduler.py": {
+      "name": "scheduler.py",
+      "type": "file",
+      "summary": "非同步排程器模組，提供 Scheduler 類別管理週期性任務排程，基於 asyncio 實作。"
+    },
+    "file:mdns.py": {
+      "name": "mdns.py",
+      "type": "file",
+      "summary": "mDNS 廣播管理模組，整合 mDNS 客戶端庫，廣播 Pico W 的服務資訊使其可在本機網路被發現。"
+    },
+    "file:Pico_ePaper_3_7.py": {
+      "name": "Pico_ePaper_3_7.py",
+      "type": "file",
+      "summary": "3.7 吋電子紙硬體驅動，實作 EPD_3in7 類別透過 SPI 控制電子紙面板的初始化、刷新、局部更新等底層操作。"
+    },
+    "file:display/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "display 套件初始化檔。"
+    },
+    "file:display/canvas.py": {
+      "name": "canvas.py",
+      "type": "file",
+      "summary": "提供 LandscapeCanvas 類別，封裝橫向 ePaper 畫布的繪圖操作，包含像素轉置、PBM 圖示繪製、局部與全螢幕刷新等低階驅動介面。"
+    },
+    "file:display/fonts.py": {
+      "name": "fonts.py",
+      "type": "file",
+      "summary": "字體載入模組，透過安全動態匯入暴露 FONT_TIME、FONT_BODY、FONT_LABEL 等字體常數。"
+    },
+    "file:display/icons.py": {
+      "name": "icons.py",
+      "type": "file",
+      "summary": "PBM 點陣圖示載入模組，實作 LRU 快取機制從 Flash 讀取 PBM 格式圖示檔。"
+    },
+    "file:display/screens/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "顯示畫面套件初始化，提供 make_writer 工廠函式用於建立 Writer 字體渲染器實例。"
+    },
+    "file:display/screens/main_screen.py": {
+      "name": "main_screen.py",
+      "type": "file",
+      "summary": "主畫面渲染模組，整合時間、天氣、Wi-Fi 強度與日曆四個區塊，提供 render_full、render_time、render_calendar 等函式。"
+    },
+    "file:display/screens/calendar.py": {
+      "name": "calendar.py",
+      "type": "file",
+      "summary": "日曆渲染模組，提供 render() 函式在指定畫布區域繪製月份日曆格。"
+    },
+    "file:display/screens/guide.py": {
+      "name": "guide.py",
+      "type": "file",
+      "summary": "Wi-Fi AP 模式引導畫面，顯示熱點 SSID、密碼與設定頁 URL。"
+    },
+    "file:display/screens/message.py": {
+      "name": "message.py",
+      "type": "file",
+      "summary": "訊息畫面模組，在 ePaper 中央顯示單行提示文字，用於過渡畫面。"
+    },
+    "file:writer/writer.py": {
+      "name": "writer.py",
+      "type": "file",
+      "summary": "MicroPython Writer 核心模組，實作 Writer 與 CWriter 類別在 ePaper 上渲染點陣字型字符。"
+    },
+    "file:writer/noto20.py": {
+      "name": "noto20.py",
+      "type": "file",
+      "summary": "Noto 20pt 字型資料模組，支援廣泛 Unicode 字元集，含二進位搜尋函式。"
+    },
+    "file:writer/noto12.py": {
+      "name": "noto12.py",
+      "type": "file",
+      "summary": "Noto 12pt 字型資料模組，支援廣泛 Unicode 字元集，含二進位搜尋函式。"
+    },
+    "file:writer/clock_big.py": {
+      "name": "clock_big.py",
+      "type": "file",
+      "summary": "大字時鐘字型資料模組，遵循 MicroPython Writer 介面以 bytes literal 儲存點陣字型資料。"
+    },
+    "file:lib/mdns_client/__init__.py": {
+      "name": "__init__.py",
+      "type": "file",
+      "summary": "mDNS 客戶端套件初始化，匯出核心類別供外部使用。"
+    },
+    "file:lib/mdns_client/client.py": {
+      "name": "client.py",
+      "type": "file",
+      "summary": "mDNS 客戶端核心，負責建立 UDP socket、發送查詢封包與接收解析 mDNS 回應。"
+    },
+    "file:lib/mdns_client/responder.py": {
+      "name": "responder.py",
+      "type": "file",
+      "summary": "mDNS 響應器，監聽 mDNS 多播查詢並回應本機服務記錄。"
+    },
+    "file:lib/mdns_client/structs.py": {
+      "name": "structs.py",
+      "type": "file",
+      "summary": "mDNS 資料結構定義，定義 DNSRecord、ServiceRecord 等資料類別。"
+    },
+    "config:taiwan_cities.json": {
+      "name": "taiwan_cities.json",
+      "type": "config",
+      "summary": "台灣 22 縣市地理座標靜態資料集，供天氣 API 查詢使用。"
+    },
+    "config:.gitignore": {
+      "name": ".gitignore",
+      "type": "config",
+      "summary": "Git 版本控制忽略規則。"
+    },
+    "config:.micropico": {
+      "name": ".micropico",
+      "type": "config",
+      "summary": "MicroPico VSCode 擴充功能的專案識別標記檔。"
+    },
+    "config:E-Paper.code-workspace": {
+      "name": "E-Paper.code-workspace",
+      "type": "config",
+      "summary": "VS Code 多資料夾工作區設定。"
+    }
+  },
+  "totalNodes": 31,
+  "totalEdges": 16
+}

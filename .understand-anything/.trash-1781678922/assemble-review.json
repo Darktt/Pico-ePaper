@@ -1,0 +1,16 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 1,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section contained only 1 correction (1 tested_by orphan dropped). This is a minimal, clean merge.",
+    "Dropped edge 'file:web_server.py -> file:taiwan_cities.json (imports)' was caused by an ID mismatch: the node exists as 'config:taiwan_cities.json' (correct type — it is a JSON data file, not a Python module). The relationship was already represented by a 'config:taiwan_cities.json -> file:web_server.py (configures)' edge from the reverse direction. An 'imports' edge from file:web_server.py to config:taiwan_cities.json was added (backed by the import map entry) to make the direction explicit for graph traversal.",
+    "A self-referencing 'contains' edge was found and removed: 'file:lib/mdns_client/__init__.py' -> 'file:lib/mdns_client/__init__.py' (type: contains). This was a batch analysis artifact — the __init__.py is an empty marker file and should have no contains edges.",
+    "All import map entries are now covered. The only 'skipped' import map target noted in the merge report was taiwan_cities.json, which is addressed by the restored edge above.",
+    "No unknown node types were present. All complexity values were valid (simple/moderate/complex). No nodes were missing IDs.",
+    "Cross-batch import coverage verified against all 21 import map entries — all file:* -> file:* edges exist. The taiwan_cities.json entry uses config: prefix and is the only non-file target."
+  ]
+}
