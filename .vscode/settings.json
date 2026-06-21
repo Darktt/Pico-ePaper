@@ -1,0 +1,46 @@
+{
+    "python.languageServer": "None",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none"
+    },
+    "python.terminal.activateEnvironment": false,
+    "micropico.openOnStart": true,
+    "micropico.syncFolder": "",
+    "micropico.pyIgnore": [
+        ".git",
+        ".gitignore",
+        ".vscode",
+        ".DS_Store",
+        ".micropico",
+        "**/*.md",
+        "**/.venv",
+        "**/__pycache__",
+        "**/*.pyc",
+        "API",
+        "fonts",
+        "tools",
+        "mDns",
+        "weather_icon/build_icons.sh",
+        "wifi_icon/build_icons.sh",
+        "**/build_*.sh",
+        "config.json",
+        "weather.log"
+    ],
+    "python.analysis.typeshedPaths": [
+        "~/.micropico-stubs/included"
+    ],
+    "python.analysis.extraPaths": [
+        "~/.micropico-stubs/included"
+    ],
+    "cursorpyright.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none"
+    },
+    "cursorpyright.analysis.extraPaths": [
+        "~/.micropico-stubs/included"
+    ],
+    "cursorpyright.analysis.typeCheckingMode": "basic",
+    "cursorpyright.analysis.typeshedPaths": [
+        "~/.micropico-stubs/included"
+    ]
+}

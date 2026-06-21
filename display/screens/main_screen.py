@@ -7,7 +7,9 @@ from display.screens import log_display, make_writer
 
 
 # Landscape 排版常數
-TIME_RECT = (0, 30, 360, 250)
+# TIME_RECT 取整個左半邊（x=0..360）整高，因為 WiFi icon 在 x>=440、
+# Weather 在 x>=360，垂直方向都不會壓到時間區 → 時鐘可在整片高度置中。
+TIME_RECT = (0, 0, 360, 280)
 WIFI_RECT = (440, 0, 40, 28)
 WEATHER_RECT = (360, 30, 120, 140)
 CAL_RECT = (360, 170, 120, 110)

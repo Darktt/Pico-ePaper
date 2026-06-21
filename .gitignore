@@ -1,29 +1,20 @@
-# MicroPico 上傳時 / git 都應跳過的內容
+# 只列「不該進 git」的內容。
+# MicroPico 上傳忽略另外設定在 .vscode/settings.json → micropico.pyIgnore，
+# 不再依賴 .gitignore（.md / build 腳本 / fonts/tools/API 等都應該進 git）。
 
 # 開發環境
 .DS_Store
-.vscode/
-.git/
-
-# Host 端工具，僅在開發機需要
-mDns/
-fonts/
-tools/
-API/
-
-# 文件 (留在 git 內，但不必上 Pico)
-*.md
-plant.md
-Pico-ePaper-3.7.md
-ProjectDetail.md
-CLAUDE.md
-lib/README.md
-
-# build 腳本不要上 Pico
-weather_icon/build_icons.sh
-wifi_icon/*.sh
-**/build_*.sh
 
 # Pico 端產出 (不該進 git)
 config.json
 weather.log
+
+# 字型 build 用 venv
+fonts/.venv/
+
+# Python 暫存
+__pycache__/
+*.pyc
+
+# Bruno API 集合 — 含本地 env / 金鑰，不上 git
+API/*
