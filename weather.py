@@ -1,7 +1,13 @@
 import os
 import utime
 import urequests
+import uasyncio as asyncio
 from machine import RTC
+
+try:
+    import _thread
+except ImportError:
+    _thread = None
 
 
 LOG_FILE = "weather.log"
@@ -9,6 +15,9 @@ WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
 MAX_RETRIES = 3  # 1 次原始 + 2 次重試
 RETRY_GAP_S = 5
 REQUEST_TIMEOUT_S = 60
+
+# fetch_async 用：避免兩次排程重疊在同個第二核心
+_thread_busy = False
 
 
 def _datetime_now(have_ntp=True):
@@ -93,6 +102,45 @@ def _log_result(have_ntp, result_text):
     if not valid:
         ts = ts + "[no-ntp]"
     _append_log("{}-{}".format(ts, result_text))
+
+
+def _fetch_thread_target(config, have_ntp, box):
+    """跑在第二核心。box = [result, done_flag]，主核心會 poll done_flag。"""
+    global _thread_busy
+    try:
+        box[0] = fetch(config, have_ntp=have_ntp)
+    except Exception as e:
+        box[0] = {"ok": False, "error": "thread: {}".format(e),
+                  "is_celsius": bool(config.get("weather", "is_celsius"))}
+    finally:
+        box[1] = True
+        _thread_busy = False
+
+
+async def fetch_async(config, have_ntp=True):
+    """非阻塞版 fetch：把 sync `fetch()` 丟到 RP2350 第二核心跑，主核心每
+    200 ms poll 旗標，期間 event loop 仍能跑 scheduler / web server / 部分刷新。
+
+    最壞情境（連續三次 60 s timeout + 兩次 5 s gap = 190 s）下，主核心 UI 完全
+    不受影響。第二核心被佔住或 _thread 不可用時 fallback 走同步 fetch。
+    """
+    global _thread_busy
+    if _thread is None or _thread_busy:
+        # 沒 _thread 或上一輪還沒回來 → 直接同步跑（呼叫端接受 worst case 阻塞）
+        return fetch(config, have_ntp=have_ntp)
+    box = [None, False]
+    _thread_busy = True
+    try:
+        _thread.start_new_thread(_fetch_thread_target,
+                                 (config, have_ntp, box))
+    except Exception as e:
+        _thread_busy = False
+        print("[weather] _thread 啟動失敗 ({})，fallback 同步".format(e))
+        return fetch(config, have_ntp=have_ntp)
+    while not box[1]:
+        await asyncio.sleep_ms(200)
+    return box[0] or {"ok": False, "error": "thread returned None",
+                      "is_celsius": bool(config.get("weather", "is_celsius"))}
 
 
 def rotate_if_needed(have_ntp=True):

@@ -39,13 +39,15 @@
 
 ### 待辦 ⏳
 
-1. **mDNS 解析失敗（暫不處理）** — 韌體 lwIP 內建 mDNS responder 已 active（vREPL 印「LWIP 內建 mDNS responder 已 active，跳過 vendored client」），但 mac `ping epaper.local` 仍解不到。`network.hostname("epaper")` 已設、STA 已連 192.168.2.158。可能原因：(a) 內建 responder 雖佔 5353 port 但實際沒廣播；(b) router 端隔離 mDNS 封包；(c) STA 介面剛起來 responder 還沒 register。下一輪可試：抓 mDNS 封包 (`sudo tcpdump -i en0 -nn udp port 5353`) 看 Pico 有沒有發、或在 mac 上 `dns-sd -B _services._dns-sd._udp` 看裝置目錄。
+（無）
 
 ### 近期實測通過 ✅
 
 - **部分刷新殘影** — `commit_full` / `commit_part` 之間移除 `init()` + `Sleep()` 後，DU LUT 正確算 transition，時鐘區跨分鐘乾淨換字、無 ghosting
 - **跨日 / 跨月月曆刷新** — `scheduler.EV_DAY` 在 `_last_day != now[2]` 時 emit；`app._on_day` → `render_calendar` → `commit_part(CAL_RECT)`；以 `/.skip_ntp` 旗標 + REPL 撥 RTC 驗證 2026-06-14 → 06-15、06-30 → 07-01 切換正常
 - **月份標頭字型** — `chars_used.txt` 補「月年」後重 build，noto12 / noto20 出字正常
+- **mDNS `epaper.local` 解析** — 韌體內建 lwIP mDNS responder + `network.hostname("epaper")` 即可廣播；`mdns.py` 偵測到 5353 已被佔即跳過 vendored client。mac 端 `ping epaper.local` / `dns-sd -G v4v6 epaper.local` 可解到 STA IP
+- **`weather.fetch` 不阻塞 event loop** — `weather.fetch_async` 用 `_thread.start_new_thread` 把 sync `fetch` 丟到 RP2350 第二核心跑，主核心每 200 ms `await asyncio.sleep_ms` poll 完成旗標。最壞 190 s (3 × 60 s timeout + 2 × 5 s gap) 期間 web / scheduler / 部分刷新照常運作；`_thread_busy` flag 防重入；不可用時 fallback 回同步 `fetch`
 
 ### 測試輔助
 
@@ -55,9 +57,10 @@
 
 | 風險 | 影響 | 緩解 |
 |---|---|---|
-| `connect_sta` / `weather.fetch` / `ntp.sync` 阻塞 event loop | Wi-Fi 連線/抓天氣期間 web 不回應 | 單使用者場景可接受；若需要可拆 thread |
+| `connect_sta` (~15 s) / `ntp.sync` (30 s) 阻塞 event loop | web / 時鐘 tick 短暫凍住 | `connect_sta` 使用者主動觸發、可接受；`ntp.sync` 23:59 觸發、無互動 |
 | `/scan` 會短暫斷 STA | 重新掃描時連線可能中斷 | 實測後決定是否 cache |
 | 同時開 AP + STA 的 mDNS | 只能綁一個介面 | `_enter_sta_try(initial=True)` 會關 AP，避免衝突 |
+| AP 子網 DHCP 硬碼 `192.168.4.0/24`（micropython#17401, #17977） | 規格 `ProjectDetail.md` 寫的 `192.168.0.1` 在現行 rp2 CYW43 韌體不可達 | `wifi_manager.AP_DEFAULT_IP = "192.168.4.1"`；`start_ap()` 讀回 `ifconfig()[0]` 真實 IP 供 guide / mDNS 使用 |
 
 ---
 

@@ -73,6 +73,8 @@ def _draw_time(canvas, hour, minute, is_24h):
             return len(s) * f.max_width()
 
     tw = _strwidth(font, time_str)
+    # font-to-py multi-pass 解算讓 cell = max(ascent)+max(descent) 剛好等於 ink；
+    # clock_big.py 實測 padding=0，所以 font.height() 就是視覺高度，直接置中即可。
     th = font.height()
 
     # 12h 時把 AM/PM 一起納入「整塊」的置中計算，避免 tx 算成負值

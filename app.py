@@ -230,7 +230,8 @@ class App:
             return
 
         message.show(self.canvas, "取得天氣資訊中")
-        self.weather_data = weather_mod.fetch(self.config, have_ntp=self.have_ntp)
+        self.weather_data = await weather_mod.fetch_async(
+            self.config, have_ntp=self.have_ntp)
         if not self.weather_data.get("ok"):
             message.show(self.canvas, "取得天氣資訊失敗")
             self.state = STATE_HALT
@@ -276,7 +277,8 @@ class App:
         if self.state != STATE_RUN:
             return
         message.show(self.canvas, "更新天氣中⋯⋯")
-        self.weather_data = weather_mod.fetch(self.config, have_ntp=self.have_ntp)
+        self.weather_data = await weather_mod.fetch_async(
+            self.config, have_ntp=self.have_ntp)
         main_screen.render_full(self.canvas, self.config, self.weather_data,
                                 self.wifi.current_level())
 
