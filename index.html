@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Paper 天氣月曆鐘 — Raspberry Pi Pico 2 W</title>
+<meta name="description" content="Raspberry Pi Pico 2 W + Waveshare 3.7&quot; 電子紙的桌面型時間 / 天氣 / 月曆顯示器，MicroPython 撰寫。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23111'/%3E%3Ctext x='50' y='66' font-family='monospace' font-size='52' font-weight='700' text-anchor='middle' fill='%23fff'%3EeP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="#top">
+      <span class="logo-mark">eP</span>
+      <span class="logo-text">E-Paper Clock</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">功能</a></li>
+      <li><a href="#hardware">硬體</a></li>
+      <li><a href="#architecture">架構</a></li>
+      <li><a href="#timeline">開發歷程</a></li>
+      <li><a href="#setup">部署</a></li>
+      <li><a href="https://github.com/" class="nav-cta" target="_blank" rel="noopener">GitHub →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="top" class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">MicroPython · Raspberry Pi Pico 2 W</p>
+      <h1>桌上型<br>電子紙天氣月曆鐘</h1>
+      <p class="lead">
+        Waveshare 3.7" 電子紙顯示時間 / 天氣 / 月曆 / Wi-Fi 強度；
+        初次設定走自架 Wi-Fi 熱點 + Web UI，<br>不綁雲端 app。
+        單顆 18650 供電，無紙感清晰、不發光、不刺眼。
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#setup">查看部署</a>
+        <a class="btn btn-ghost" href="#timeline">開發歷程</a>
+      </div>
+      <ul class="hero-stats">
+        <li><strong>480 × 280</strong><span>1-bit / 4 階灰</span></li>
+        <li><strong>13</strong><span>程式模組</span></li>
+        <li><strong>218</strong><span>內嵌中文字</span></li>
+        <li><strong>~40 ms</strong><span>viper 加速 transpose</span></li>
+      </ul>
+    </div>
+
+    <!-- 模擬 e-paper 顯示畫面 -->
+    <div class="hero-mock">
+      <div class="device">
+        <div class="device-screen">
+          <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- 背景 -->
+            <rect width="480" height="280" fill="#ECECE6"/>
+
+            <!-- WiFi icon 右上角 WIFI_RECT (440, 0, 40, 28) -->
+            <g transform="translate(444, 6)" fill="#111">
+              <rect x="0"  y="14" width="4" height="6"/>
+              <rect x="7"  y="10" width="4" height="10"/>
+              <rect x="14" y="6"  width="4" height="14"/>
+              <rect x="21" y="2"  width="4" height="18"/>
+              <rect x="28" y="0"  width="4" height="20" opacity="0.25"/>
+            </g>
+
+            <!-- 時間區 TIME_RECT (0, 0, 360, 280)；font-size 控制在能塞入 360 寬 -->
+            <text x="180" y="172" text-anchor="middle"
+                  font-family="ui-monospace, SF Mono, Menlo, monospace"
+                  font-size="96" font-weight="700" fill="#111"
+                  letter-spacing="-3">14:23</text>
+
+            <!-- 天氣區 WEATHER_RECT (360, 30, 120, 140) -->
+            <g transform="translate(360, 30)">
+              <!-- 雲+太陽 icon，整體控制在 120×80 內 -->
+              <g fill="#111">
+                <circle cx="34" cy="28" r="13"/>
+                <circle cx="56" cy="44" r="16"/>
+                <circle cx="36" cy="50" r="16"/>
+                <circle cx="74" cy="50" r="13"/>
+              </g>
+              <text x="60" y="98" text-anchor="middle"
+                    font-family="system-ui, -apple-system, sans-serif"
+                    font-size="22" font-weight="700" fill="#111">23°C</text>
+              <text x="60" y="120" text-anchor="middle"
+                    font-family="system-ui, -apple-system, sans-serif"
+                    font-size="13" fill="#111">多雲時晴</text>
+            </g>
+
+            <!-- 月曆 CAL_RECT (360, 170, 120, 110) -->
+            <g transform="translate(364, 176)">
+              <text x="56" y="10" text-anchor="middle"
+                    font-family="system-ui, -apple-system, sans-serif"
+                    font-size="11" font-weight="700" fill="#111">2026年6月</text>
+              <g font-family="system-ui, -apple-system, sans-serif" font-size="8.5" fill="#111" text-anchor="middle">
+                <text x="9"  y="24">一</text><text x="24" y="24">二</text>
+                <text x="39" y="24">三</text><text x="54" y="24">四</text>
+                <text x="69" y="24">五</text><text x="84" y="24">六</text>
+                <text x="99" y="24">日</text>
+              </g>
+              <g font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="8.5" fill="#111" text-anchor="middle">
+                <text x="9"  y="38">1</text><text x="24" y="38">2</text>
+                <text x="39" y="38">3</text><text x="54" y="38">4</text>
+                <text x="69" y="38">5</text><text x="84" y="38">6</text>
+                <text x="99" y="38">7</text>
+
+                <text x="9"  y="51">8</text><text x="24" y="51">9</text>
+                <text x="39" y="51">10</text><text x="54" y="51">11</text>
+                <text x="69" y="51">12</text><text x="84" y="51">13</text>
+                <text x="99" y="51">14</text>
+
+                <text x="9"  y="64">15</text><text x="24" y="64">16</text>
+                <text x="39" y="64">17</text><text x="54" y="64">18</text>
+                <text x="69" y="64">19</text><text x="84" y="64">20</text>
+                <text x="99" y="64">21</text>
+
+                <text x="9"  y="77">22</text><text x="24" y="77">23</text>
+                <text x="39" y="77">24</text><text x="54" y="77">25</text>
+                <text x="69" y="77">26</text><text x="84" y="77">27</text>
+                <text x="99" y="77">28</text>
+
+                <text x="9"  y="90">29</text>
+                <!-- 今天 30 反白 -->
+                <rect x="17" y="82" width="14" height="11" fill="#111"/>
+                <text x="24" y="90" fill="#ECECE6">30</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="device-bezel"></div>
+        <div class="device-feet"></div>
+      </div>
+      <p class="mock-caption">圖示為主畫面排版示意；實機為 e-ink 反射式面板</p>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="section">
+  <div class="container">
+    <h2 class="section-title">功能</h2>
+    <p class="section-lead">符合 ProjectDetail.md 規格全部實裝、可長期運行的穩定版本。</p>
+
+    <div class="features-grid">
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3>大字時鐘</h3>
+        <p>72 px RobotoMono 數字字型、12 / 24 小時切換、AM/PM 標記。每分鐘部分刷新時間區，DU LUT 乾淨擦舊像素、無 ghosting。</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14a4 4 0 0 0-3-7 6 6 0 0 0-11 2 4 4 0 0 0 1 8h12a3 3 0 0 0 1-3z"/></svg>
+        </div>
+        <h3>OpenWeather 天氣</h3>
+        <p>當日溫度 + 中文描述 + 96×96 icon（Floyd-Steinberg dither）。每天 11:00 / 23:00 全幀更新；丟到 RP2350 第二核心跑、不阻塞主迴圈。</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        </div>
+        <h3>月曆</h3>
+        <p>今日反白；可選週一或週日為一週起始。跨日 / 跨月 / 跨年自動偵測並部分刷新月曆區。</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a14 14 0 0 1 20 0"/><path d="M5.5 12.5a9 9 0 0 1 13 0"/><path d="M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg>
+        </div>
+        <h3>Wi-Fi 強度</h3>
+        <p>右上角 5 級信號 icon，依 RSSI 動態切換；level 變化時只刷右上角。</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/><path d="M3 12h2M19 12h2M12 3v2M12 19v2"/></svg>
+        </div>
+        <h3>NTP 校時</h3>
+        <p>每天 23:59 透過 <code>time.apple.com</code> 同步，30 秒 timeout；支援時區 offset（UTC−12 ~ +14，含半小時時區）。</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 8h18M8 21h8"/></svg>
+        </div>
+        <h3>Web 設定 UI</h3>
+        <p>AP 模式 + 多頁逐步引導：Wi-Fi → 時區 → OpenWeather。RWD 適配手機；mDNS 廣播 <code>epaper.local</code>；RUN 階段也不關閉。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="hardware" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">硬體</h2>
+    <p class="section-lead">完整 BOM 三個元件：MCU、電子紙、電池。</p>
+
+    <div class="hardware-grid">
+      <div class="hw-card">
+        <h3>MCU</h3>
+        <p class="hw-model">Raspberry Pi Pico 2 W</p>
+        <ul>
+          <li>RP2350 (Dual-core ARM Cortex-M33)</li>
+          <li>CYW43439 Wi-Fi + Bluetooth</li>
+          <li>520 KB SRAM / 4 MB Flash</li>
+          <li>SMP 雙核 → <code>_thread</code> 把天氣 API 丟到第二核心</li>
+        </ul>
+      </div>
+
+      <div class="hw-card">
+        <h3>顯示</h3>
+        <p class="hw-model">Waveshare 3.7" e-Paper HAT</p>
+        <ul>
+          <li>480 × 280，4 階灰 / 1-bit</li>
+          <li>反射式、180° 視角</li>
+          <li>Partial refresh DU LUT</li>
+          <li>SPI baudrate 4 MHz</li>
+        </ul>
+      </div>
+
+      <div class="hw-card">
+        <h3>電源</h3>
+        <p class="hw-model">18650 鋰電池 × 1</p>
+        <ul>
+          <li>3.7 V nominal / ~3000 mAh</li>
+          <li>e-paper 顯示時不耗電</li>
+          <li>refresh + Wi-Fi 才吃電</li>
+          <li>後續可加 lightsleep 省更多</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pinout">
+      <h3>SPI 接腳</h3>
+      <table>
+        <thead>
+          <tr><th>Signal</th><th>GPIO</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>RST</code></td><td>12</td><td>Reset</td></tr>
+          <tr><td><code>DC</code></td><td>8</td><td>Data / Command</td></tr>
+          <tr><td><code>CS</code></td><td>9</td><td>Chip Select</td></tr>
+          <tr><td><code>BUSY</code></td><td>13</td><td>面板忙碌訊號</td></tr>
+          <tr><td><code>SCK</code></td><td>SPI1 default</td><td>—</td></tr>
+          <tr><td><code>MOSI</code></td><td>SPI1 default</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="architecture" class="section">
+  <div class="container">
+    <h2 class="section-title">架構</h2>
+    <p class="section-lead">13 個模組 cooperative uasyncio + FSM；Web Server 從不關閉。</p>
+
+    <div class="arch-diagram" role="img" aria-label="模組架構圖">
+<pre><code>main.py
+  └─ App().run()                  ← uasyncio entry
+
+app.py    FSM (BOOT → AP → STA_TRY → INIT → RUN)
+  │
+  ├── config.py            ConfigManager + batch()
+  ├── wifi_manager.py      AP / STA / scan / rssi_to_level
+  ├── mdns.py              LWIP responder + vendored fallback
+  ├── ntp.py               time.apple.com + tz offset
+  ├── weather.py           OpenWeather + _thread (core 1)
+  ├── scheduler.py         1 Hz poll RTC → 5 events
+  ├── web_server.py        async HTTP 多頁 /wifi /time /weather
+  │
+  └── display/
+      ├── canvas.py        480×280 landscape + viper transpose
+      ├── icons.py         PBM P4 + LRU cache
+      ├── fonts.py         FONT_BODY / SMALL / MONO / CLOCK / LABEL
+      └── screens/         guide / message / calendar / main_screen
+</code></pre>
+    </div>
+
+    <h3 class="subsection-title">狀態機</h3>
+    <div class="fsm-diagram" role="img" aria-label="狀態機示意">
+<pre><code>BOOT
+  └─ config.is_wifi_configured() → no  → AP_CONFIG
+                                 → yes → STA_TRY
+
+AP_CONFIG ── POST /wifi ──▶ STA_TRY
+STA_TRY ── 成功 ─▶ INIT          失敗 ─▶ AP_CONFIG
+INIT ── NTP ✓ + Weather ✓ ─▶ RUN  任一失敗 ─▶ HALT (web 仍開)
+RUN ── POST /weather ──▶ INIT (re-init，不重啟)</code></pre>
+    </div>
+
+    <h3 class="subsection-title">Scheduler 事件</h3>
+    <table class="events-table">
+      <thead>
+        <tr><th>事件</th><th>觸發</th><th>動作</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>EV_MINUTE</code></td><td>分鐘變化</td><td>render_time + commit_part(TIME_RECT)</td></tr>
+        <tr><td><code>EV_DAY</code></td><td>跨日 / 跨月 / 跨年</td><td>render_calendar + commit_part(CAL_RECT)</td></tr>
+        <tr><td><code>EV_WEATHER</code></td><td>11:00 / 23:00</td><td>fetch_async + render_full</td></tr>
+        <tr><td><code>EV_NTP</code></td><td>23:59</td><td>ntp.sync + render_calendar</td></tr>
+        <tr><td><code>EV_LOG_ROTATE</code></td><td>每月 1 日 00:00</td><td>清空 weather.log</td></tr>
+        <tr><td><code>EV_WIFI_LEVEL</code></td><td>RSSI level 變化</td><td>render_wifi + commit_part(WIFI_RECT)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="timeline" class="section section-alt">
+  <div class="container">
+    <h2 class="section-title">開發歷程</h2>
+    <p class="section-lead">從設計到實機 polishing；完整紀錄見 <code>Record.md</code>。</p>
+
+    <ol class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-marker">01</div>
+        <div class="timeline-body">
+          <h3>設計階段</h3>
+          <p>規格落地（<code>ProjectDetail.md</code>）、關鍵技術決策表、FSM 草圖。確定字型走 NotoSansTC 子集、mDNS 走 LWIP + vendored fallback、座標系用 480×280 landscape。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">02</div>
+        <div class="timeline-body">
+          <h3>資產生成（host 端）</h3>
+          <p>用 <code>font-to-py</code> 產 218 字 noto20 / noto12 + clock_big；OpenWeather PNG 經 autocontrast + UnsharpMask + Floyd-Steinberg dither 轉 96×96 PBM；vendored <code>cbrand/micropython-mdns</code>。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">03</div>
+        <div class="timeline-body">
+          <h3>display 抽象 + 模組拆分</h3>
+          <p>LandscapeCanvas (480×280 → 280×480 轉置)、icons.py + LRU cache、fonts alias。把 500+ 行 main.py 拆成 config / wifi / weather / ntp / scheduler 5 個模組。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">04</div>
+        <div class="timeline-body">
+          <h3>Web Server async 化</h3>
+          <p>改成 <code>asyncio.start_server</code>，多頁 <code>/wifi → /time → /weather → /done</code>，RWD inline CSS ~40 行，時區下拉含半小時時區。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">05</div>
+        <div class="timeline-body">
+          <h3>FSM 主控 + Scheduler</h3>
+          <p>BOOT / AP_CONFIG / STA_TRY / INIT / RUN / HALT 串接；1 Hz poll RTC emit 6 種事件。<code>/.skip_ntp</code> 測試旁路。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">06</div>
+        <div class="timeline-body">
+          <h3>實機踩坑 ①：部分刷新 ghosting</h3>
+          <p>每次 commit 後 <code>Sleep()</code> 會丟掉 controller 內 0x26 舊框 RAM，DU LUT 算錯 transition。改成 commit 之間不 init/Sleep，加 <code>_awake</code> 旗標。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">07</div>
+        <div class="timeline-body">
+          <h3>實機踩坑 ②：純 Python 轉置太慢</h3>
+          <p>360×250 landscape → native 從 ~900 ms 壓到 ~40 ms：寫 <code>@micropython.viper</code> + ptr8 版直接 bit-pack 操作 buffer，<code>@micropython.native</code> 版作 fallback。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">08</div>
+        <div class="timeline-body">
+          <h3>時鐘垂直置中</h3>
+          <p>WiFi icon 在 x ≥ 440 不跟時間區水平重疊，<code>TIME_RECT</code> 改 (0, 0, 360, 280) 整高置中。font-to-py multi-pass 解算讓 cell padding=0，<code>font.height()</code> 直接拿來算 ty。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">09</div>
+        <div class="timeline-body">
+          <h3>weather.fetch 移到第二核心</h3>
+          <p>OpenWeather 最壞 190 s 阻塞改用 <code>_thread.start_new_thread</code> 丟到 RP2350 core 1；主核心 200 ms poll done flag，<code>asyncio.sleep_ms</code> 期間 web / scheduler / partial refresh 照常運作。</p>
+        </div>
+      </li>
+
+      <li class="timeline-item">
+        <div class="timeline-marker">10</div>
+        <div class="timeline-body">
+          <h3>AP IP 平台限制</h3>
+          <p>MicroPython rp2 CYW43 韌體 DHCP server 子網被硬碼成 <code>192.168.4.0/24</code>（micropython#17401、#17977）。採真實 IP <code>192.168.4.1</code>；<code>start_ap()</code> 讀回 ifconfig 真實值供 guide / mDNS 使用。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="setup" class="section">
+  <div class="container">
+    <h2 class="section-title">部署</h2>
+    <p class="section-lead">用 MicroPico VSCode extension，無需 build step。</p>
+
+    <ol class="setup-steps">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>燒 MicroPython 韌體</h3>
+          <p>Pico 2 W 上燒 MicroPython 1.22+（<code>rp2 / RPI_PICO2_W</code> build）。按住 BOOTSEL 插 USB，把 <code>.uf2</code> 拖進去。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>VSCode + MicroPico</h3>
+          <p>安裝 <code>paulober.pico-w-go</code> extension，開本專案，狀態列出現「Pico Connected」綠燈即就緒。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>上傳整個專案</h3>
+          <p>Explorer 樹專案根目錄右鍵 → <strong>Upload project to Pico</strong>（30–60 秒）。<code>.vscode/settings.json</code> 的 <code>micropico.pyIgnore</code> 會自動跳過 <code>*.md / fonts/ / tools/ / API/ / web/</code> 等開發用內容。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Soft Reset</h3>
+          <p>Command Palette → <strong>MicroPico: Soft reset Pico</strong>（macOS vREPL 的 <code>Ctrl-D</code> 會被終端機吃掉）。</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>初次設定</h3>
+          <p>沒有 <code>config.json</code> 自動進 AP 模式。手機連 <code>ePaper</code> / <code>paper1234</code>，瀏覽器開 <code>http://192.168.4.1</code> 或 <code>http://epaper.local</code>，跟著 Wi-Fi → 時區 → OpenWeather 三頁設定走完即可。</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="config-sample">
+      <h3>config.json 範例</h3>
+<pre><code>{
+  "wifi":    { "ssid": "", "password": "" },
+  "time":    { "is_24h": true, "week_start": 1, "tz_offset_min": 480 },
+  "weather": {
+    "api_key": "",
+    "city":    { "name": "Taipei", "lat": 25.04, "lon": 121.5 },
+    "is_celsius": true
+  }
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container risks">
+    <h2 class="section-title">已知風險與限制</h2>
+    <table class="risks-table">
+      <thead>
+        <tr><th>項目</th><th>影響</th><th>緩解</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>connect_sta</code> (~15 s) / <code>ntp.sync</code> (30 s) 阻塞 event loop</td>
+          <td>web / 時鐘 tick 短暫凍住</td>
+          <td>使用者主動觸發 / 23:59 觸發、無互動，可接受</td>
+        </tr>
+        <tr>
+          <td><code>/scan</code> 會短暫斷 STA</td>
+          <td>重新掃描時連線可能中斷</td>
+          <td>實測後決定是否 cache</td>
+        </tr>
+        <tr>
+          <td>AP + STA 同時開的 mDNS</td>
+          <td>只能綁一個介面</td>
+          <td>STA_TRY 初次進入時關 AP</td>
+        </tr>
+        <tr>
+          <td>AP 子網 DHCP 硬碼 <code>192.168.4.0/24</code></td>
+          <td>規格的 <code>192.168.0.1</code> 不可達</td>
+          <td>採真實 IP，<code>ifconfig</code> 讀回後使用</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-credits">
+      <h3>致謝</h3>
+      <ul>
+        <li><a href="https://github.com/peterhinch/micropython-font-to-py" target="_blank" rel="noopener">peterhinch / micropython-font-to-py</a> — Writer / 字型轉檔</li>
+        <li><a href="https://github.com/cbrand/micropython-mdns" target="_blank" rel="noopener">cbrand / micropython-mdns</a> — vendored mDNS fallback</li>
+        <li><a href="https://github.com/waveshareteam/Pico_ePaper_Code" target="_blank" rel="noopener">Waveshare Pico_ePaper_Code</a> — 電子紙 driver</li>
+        <li><a href="https://openweathermap.org/" target="_blank" rel="noopener">OpenWeatherMap</a> — 天氣資料與圖示</li>
+      </ul>
+    </div>
+    <div class="footer-meta">
+      <p class="footer-logo"><span class="logo-mark">eP</span> E-Paper Clock</p>
+      <p>MicroPython · Raspberry Pi Pico 2 W</p>
+      <p>本頁由 GitHub Pages 託管</p>
+      <p class="claude-badge">
+        <span class="claude-dot" aria-hidden="true"></span>
+        以 <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude (Anthropic)</a> 協作生成
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
