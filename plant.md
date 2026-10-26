@@ -49,6 +49,10 @@
 - **mDNS `epaper.local` 解析** — 韌體內建 lwIP mDNS responder + `network.hostname("epaper")` 即可廣播；`mdns.py` 偵測到 5353 已被佔即跳過 vendored client。mac 端 `ping epaper.local` / `dns-sd -G v4v6 epaper.local` 可解到 STA IP
 - **`weather.fetch` 不阻塞 event loop** — `weather.fetch_async` 用 `_thread.start_new_thread` 把 sync `fetch` 丟到 RP2350 第二核心跑，主核心每 200 ms `await asyncio.sleep_ms` poll 完成旗標。最壞 190 s (3 × 60 s timeout + 2 × 5 s gap) 期間 web / scheduler / 部分刷新照常運作；`_thread_busy` flag 防重入；不可用時 fallback 回同步 `fetch`
 
+### 硬體變更
+
+- **供電改 3P 18650**（2026-10-26）— 3 × 3450 mAh 並聯 = 10350 mAh；以現況粗估 ~45 mA 約 8 天續航（含 ~85% 轉換效率），待實測
+
 ### 測試輔助
 
 - `/.skip_ntp` 旗標檔：`app._enter_init` 與 `_on_ntp_tick` 都會檢查，存在時跳過 NTP 不蓋 RTC。production build 不會夾帶此檔；測試完用 `os.remove('/.skip_ntp')` 還原。
@@ -367,7 +371,7 @@ class LandscapeCanvas:
 
 ## 待後續確認的次要決策
 
-- ⏳ Minute tick 之間 `machine.lightsleep(900)` 省電 — 等實測續航再決定
+- ⏳ Minute tick 之間 `machine.lightsleep(900)` 省電 — 等實測續航再決定（評估：Wi-Fi 才是主要耗電，lightsleep 會讓 Web 停擺；先依 `PM_POWERSAVE` / 降頻 / Wi-Fi 全關 / lightsleep 各情境量平均電流再選方案）
 - ⏳ `EPD_3in7.__init__` 的 4Gray init+clear 是否移除以加速冷啟 — 建議實測後移除
 - ✅ `/scan` 在 STA 模式對外開放 — 規格「不停止服務」，採開放
 - ⏳ Canvas 轉置效能優化（viper / byte 對齊）— 等實測再決定

@@ -8,7 +8,9 @@ Raspberry Pi Pico 2 W + Waveshare 3.7" 電子紙的桌面型時間 / 天氣 / �
 |---|---|
 | MCU | Raspberry Pi Pico 2 W (RP2350 + CYW43439) |
 | 顯示 | Waveshare 3.7" e-Paper HAT，480 × 280，4 階灰 / 1-bit |
-| 電源 | 18650 鋰電池 × 1 |
+| 電源 | 18650 鋰電池 3450 mAh × 3 並聯（3P，3.7 V / 10350 mAh）|
+
+> 並聯前先把三顆電池電壓調到一致（差 < 0.05 V），並搭配 1S 保護板。
 
 電子紙接腳（與 `Pico_ePaper_3_7.py` 一致）：
 

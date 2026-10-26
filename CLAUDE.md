@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 MicroPython weather display for Raspberry Pi Pico 2 W with a Waveshare 3.7" e-paper display (480×280 px, EPD_3IN7). The device shows time, weather, and a calendar. It runs a web-based configuration UI over WiFi.
 
-**Hardware target:** Raspberry Pi Pico 2 W + Waveshare 3.7" e-paper, powered by a single 18650 cell.
+**Hardware target:** Raspberry Pi Pico 2 W + Waveshare 3.7" e-paper, powered by three 3450 mAh 18650 cells in parallel (3P, 3.7 V nominal, 10350 mAh).
 
 ## Deploying to the Device
 
