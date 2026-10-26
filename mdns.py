@@ -6,8 +6,8 @@
 使用方式:
     from mdns import MDNSResponder
     r = MDNSResponder()
-    await r.start("epaper", ip="192.168.0.1")     # 後續即可 ping epaper.local
-    await r.restart(ip="192.168.4.10")             # 切換到 STA 後重新註冊
+    await r.start("epaper", ip="192.168.4.1")     # AP 模式；後續即可 ping epaper.local
+    await r.restart(ip="192.168.1.50")             # 切換到 STA 後以 LAN IP 重新註冊
 """
 
 import uasyncio as asyncio

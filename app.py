@@ -243,6 +243,13 @@ class App:
         self.state = STATE_RUN
         main_screen.render_full(self.canvas, self.config, self.weather_data,
                                 self.wifi.current_level())
+        # 初次設定時 AP 與 STA 會暫時並存，方便手機不必先切回家中 Wi-Fi。
+        # 所有初始化都成功、主畫面已完成顯示後，才關掉 AP；Web server 仍綁在
+        # STA 的 LAN IP / epaper.local，因此日後設定不受影響。若 NTP 或天氣
+        # 初始化失敗則不會到這裡，AP 會保留給使用者修正設定。
+        if self.wifi.ap_info() is not None:
+            print("[Wi-Fi] 初始化完成，關閉設定用 AP（Web server 保留於 STA）")
+            self.wifi.stop_ap()
 
     # ---------------- Web callback ---------------- #
 
@@ -258,8 +265,19 @@ class App:
         message.show(self.canvas, "已連線：{}".format(result["ip"]))
         return True
 
-    async def request_reinit(self):
-        """由 /weather POST 呼叫 — 觸發重新 INIT。"""
+    async def request_reinit(self, delay_ms=0):
+        """由 /weather POST 呼叫 — 觸發重新 INIT。
+
+        初次設定時，呼叫端仍透過 AP 收取 HTTP 回應。可選的短暫延遲確保
+        redirect 已送達，再開始可能會關閉 AP 的初始化流程。
+        """
+        if delay_ms > 0:
+            asyncio.create_task(self._request_reinit_after(delay_ms))
+        else:
+            self._reinit_event.set()
+
+    async def _request_reinit_after(self, delay_ms):
+        await asyncio.sleep_ms(delay_ms)
         self._reinit_event.set()
 
     # ---------------- Scheduler handlers ---------------- #
@@ -303,5 +321,4 @@ class App:
 
     async def _on_log_rotate(self, event, now):
         weather_mod.rotate_if_needed(have_ntp=self.have_ntp)
-
 

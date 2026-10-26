@@ -1,6 +1,6 @@
 # E-Paper 天氣顯示專案 — ProjectDetail.md 對齊計畫
 
-## 實作進度 (2026-06-12)
+## 實作進度 (2026-10-26)
 
 > 此區為現況快照；下方各章為原始設計細節，供細節參考。
 
@@ -11,13 +11,13 @@
 | 檔案 | 行數 / 大小 | 功能 |
 |---|---|---|
 | `main.py` | 11 行 | bootstrap → `App().run()` |
-| `app.py` | 6.5 KB | FSM 主控 (BOOT → AP → STA_TRY → INIT → RUN) |
+| `app.py` | 12 KB | FSM 主控 (BOOT → AP → STA_TRY → INIT → RUN)；`_enter_run` 主畫面畫完後若 AP 仍開就 `stop_ap()`；`request_reinit(delay_ms)` 可延遲觸發 INIT |
 | `config.py` | 3 KB | ConfigManager + `batch()`；`time.tz_offset_minutes` (預設 480 = UTC+8) |
 | `wifi_manager.py` | 3.9 KB | AP/STA + `scan()` + `rssi_to_level()`；`__init__` 設 `network.hostname("epaper")` 觸發 LWIP 內建 mDNS（若韌體支援）|
 | `weather.py` | 3.7 KB | OpenWeather fetch + log + 月初 rotate |
 | `ntp.py` | 0.8 KB | NTP sync time.apple.com (30s timeout)；套用 `tz_offset_minutes` 寫入本地時間 |
 | `scheduler.py` | 2 KB | 1Hz poll RTC，5 種事件（含 `EV_DAY`：跨日 / 跨月 / 跨年偵測）|
-| `web_server.py` | 17 KB | uasyncio + 多頁 `/wifi/scan/time/weather/done/weather.log` + RWD；`/time` 加時區下拉（UTC−12～+14，含半小時時區）|
+| `web_server.py` | 17 KB | uasyncio + 多頁 `/wifi/scan/time/weather/done/weather.log` + RWD；`/time` 加時區下拉（UTC−12～+14，含半小時時區）；POST `/weather` 以 `delay_ms=1500` 觸發 reinit，確保 `/done` redirect 先經 AP 送達 |
 | `mdns.py` | 4.6 KB | 偵測 LWIP 內建 mDNS（Pico W 1.22+）有沒有 active；有就讓韌體廣播，沒有才退回 vendored mdns_client + 把 `_init_socket` monkey-patch 成綁 `0.0.0.0` 而非 multicast addr；IP 切換重建、顯式追蹤 consume task、`wait_for` 退出、3 次退避重試 |
 | `display/canvas.py` | 5 KB | 480×280 landscape FB + 轉置到 280×480 native；`@micropython.viper` 加速 `_transpose_cw_viper` 直接 bit-pack 操作底層 buffer；`commit_full` / `commit_part` 之間不 `init/Sleep`，讓 controller 內部 0x26 舊框 RAM 自然追蹤面板狀態，DU LUT 才能算對 transition 把舊像素擦乾淨 |
 | `display/icons.py` | 2.4 KB | PBM P4 載入 + LRU cache |
@@ -39,7 +39,7 @@
 
 ### 待辦 ⏳
 
-（無）
+1. **實機驗證初次設定後自動關 AP** — 手機經 AP 完成 `/weather` 設定 → 應收到 `/done` → NTP + 天氣成功進 RUN 後 AP 消失；之後 `http://epaper.local` / LAN IP 仍可開設定頁。另測 NTP / 天氣失敗時 AP 保留
 
 ### 近期實測通過 ✅
 
@@ -59,7 +59,8 @@
 |---|---|---|
 | `connect_sta` (~15 s) / `ntp.sync` (30 s) 阻塞 event loop | web / 時鐘 tick 短暫凍住 | `connect_sta` 使用者主動觸發、可接受；`ntp.sync` 23:59 觸發、無互動 |
 | `/scan` 會短暫斷 STA | 重新掃描時連線可能中斷 | 實測後決定是否 cache |
-| 同時開 AP + STA 的 mDNS | 只能綁一個介面 | `_enter_sta_try(initial=True)` 會關 AP，避免衝突 |
+| 同時開 AP + STA 的 mDNS | 只能綁一個介面 | 開機 `_enter_sta_try(initial=True)` 會關 AP；初次設定期間 AP + STA 暫時並存（mDNS 綁 STA IP），進 RUN 後 `_enter_run` 關 AP |
+| 1500 ms 延遲是經驗值 | 手機慢時 `/done` 可能在 AP 關閉前沒收完 | 實際 AP 要到 NTP + 天氣都成功才關（通常數秒以上），風險低；實測再調 |
 | AP 子網 DHCP 硬碼 `192.168.4.0/24`（micropython#17401, #17977） | 規格 `ProjectDetail.md` 寫的 `192.168.0.1` 在現行 rp2 CYW43 韌體不可達 | `wifi_manager.AP_DEFAULT_IP = "192.168.4.1"`；`start_ap()` 讀回 `ifconfig()[0]` 真實 IP 供 guide / mDNS 使用 |
 
 ---
@@ -355,7 +356,7 @@ class LandscapeCanvas:
 裝置端（MicroPico 上傳後 REPL 觀察）：
 
 1. ⏳ **匯入 smoke test**：REPL `import config; import app; import display.canvas; import mdns_client` — 確認沒有 ImportError
-2. ⏳ **AP_CONFIG 視覺**：刪除 `config.json` → 重啟 → e-paper 應顯示置中橫向「連線 Wi-Fi：ePaper / 密碼：paper1234 / http://192.168.0.1 / http://epaper.local」。手機連 `ePaper` SSID，瀏覽器開 `http://192.168.0.1` 與 `http://epaper.local` 確認 RWD
+2. ⏳ **AP_CONFIG 視覺**：刪除 `config.json` → 重啟 → e-paper 應顯示置中橫向「連線 Wi-Fi：ePaper / 密碼：paper1234 / http://192.168.4.1 / http://epaper.local」。手機連 `ePaper` SSID，瀏覽器開 `http://192.168.4.1` 與 `http://epaper.local` 確認 RWD
 3. ⏳ **多頁流程**：`/wifi` 掃描下拉、重新掃描按鈕。POST 成功 → 跳 `/time`。直接造訪 `/time` 在未連線時應 302 回 `/wifi`
 4. ⏳ **NTP 失敗路徑**：拔掉 router 再儲存 → e-paper 顯示「初始化 NTP 失敗」、web server 仍可從 STA IP 連得到
 5. ⏳ **分鐘 tick**：觀察 `:59` → `:00` 切換，只有時間區閃刷，其他區不動

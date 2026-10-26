@@ -430,8 +430,9 @@ class WebConfigServer:
                         city.get("latitude", 0.0),
                         city.get("longitude", 0.0),
                     )
-            # 觸發 FSM 重新進入 INIT
-            await self.app.request_reinit()
+            # 初次設定仍透過 AP 回傳這個 redirect；稍候再開始初始化，避免
+            # 成功進入 RUN 後關閉 AP 時中斷目前這個 HTTP 回應。
+            await self.app.request_reinit(delay_ms=1500)
             return await self._redirect(writer, "/done")
 
         if p == "/done" and method == "GET":

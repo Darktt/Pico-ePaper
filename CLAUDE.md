@@ -25,7 +25,7 @@ The `.micropico` file marks the project root for the extension. MicroPython stub
 Three manager classes handle configuration, networking, and web UI:
 
 - **`ConfigManager`** — loads/saves `config.json` on the Pico filesystem. Sections: `wifi` (ssid, password), `time` (is_24h, week_start), `weather` (api_key, city coords, is_celsius).
-- **`WiFiManager`** — switches between AP mode (SSID `ePaper`, password `paper1234`, IP `192.168.0.1`) for initial setup and STA mode for normal operation (15 s timeout).
+- **`WiFiManager`** — switches between AP mode (SSID `ePaper`, password `paper1234`, IP `192.168.4.1`, hard-coded by the rp2 CYW43 firmware) for initial setup and STA mode for normal operation (15 s timeout).
 - **`WebConfigServer`** — HTTP server on port 80; handles GET/POST for settings, serves city list from `taiwan_cities.json`, exposes `weather.log` for download.
 
 Display functions are module-level:

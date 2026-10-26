@@ -54,7 +54,7 @@ SPI baudrate 4 MHz。
 
 > AP 子網被 MicroPython rp2 CYW43 韌體硬碼成 `192.168.4.0/24`，無視 `ifconfig()` 設值（micropython/micropython#17401、#17977）；目前不可繞過。
 
-進設定頁完成 Wi-Fi / 時區 / OpenWeather API Key + 城市選擇後存檔，裝置自動切到 STA、跑 NTP → 抓天氣 → 顯示主畫面。
+進設定頁完成 Wi-Fi / 時區 / OpenWeather API Key + 城市選擇後存檔，裝置自動切到 STA、跑 NTP → 抓天氣 → 顯示主畫面；確認成功進入主畫面後，設定用 AP 會自動關閉以節省電力。Web Server 仍透過家中 Wi-Fi 的 STA 介面提供服務，可用 `http://epaper.local` 或 Pico 的 LAN IP 隨時修改設定。
 
 ## 設定（config.json）
 
